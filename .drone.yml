@@ -1,0 +1,12 @@
+pipeline:
+  docker:
+    image: ${DOCKER_IMAGE}
+    mirror: ${REGISTRY_MIRROR}
+    registry: ${DOCKER_REGISTRY}
+    repo: ${DOCKER_REGISTRY}/${DRONE_REPO_NAME}
+    username: ${REGISTRY_USER}
+    password: ${REGISTRY_PASSWORD}
+    email: ${DRONE_COMMIT_AUTHOR_EMAIL}
+    tags: latest
+    volumes:
+          - /var/run/docker.sock:/var/run/docker.sock

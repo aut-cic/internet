@@ -1,0 +1,13 @@
+{
+  "name": "shenasa-ldap",
+  "private": true,
+  "scripts": {
+    "start": "node --harmony_async_await --preserve-symlinks app",
+    "dev": "node node_modules/nodemon/bin/nodemon --harmony_async_await --preserve-symlinks app"
+  },
+  "dependencies": {
+    "ldapjs": "^1.0.1",
+    "nodemon": "^1.11.0",
+    "bak": "fandogh/bak"
+  }
+}

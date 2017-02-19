@@ -1,0 +1,7 @@
+.idea
+*.log
+node_modules
+data
+config/local.*
+.nuxt
+build
