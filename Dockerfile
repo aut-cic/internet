@@ -6,9 +6,3 @@ RUN NODE_ENV=production yarn
 
 # Copy source
 COPY . /usr/src/app/
-
-# Build
-#RUN yarn build
-
-# Run tests
-#RUN yarn test
