@@ -7,22 +7,22 @@ async function search(req, res, next) {
     let scope = req.scope;
     let filter = req.filter.toString();
 
-    console.log("SEARCH",{dn,filter});
+    console.log("SEARCH", {dn, filter});
 
     let username = req.filter.json.value;
 
-    let user = await User.findOne({email: username});
+    let user = await User.findOne({_id: username});
 
     if (!user) {
         return res.end();
     }
 
     res.send({
-        dn: 'CN=' + user._id + ',' + req.dn.toString(),
-        attributes: {
+        //dn: 'CN=' + user._id + ',' + req.dn.toString(),
+        dn: user._id,
+        attributes: Object.assign({
             objectclass: ['organization', 'top'],
-            samaccountname: user.username,
-        }
+        }, user)
     });
 
     res.end();

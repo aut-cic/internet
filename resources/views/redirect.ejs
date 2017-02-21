@@ -5,13 +5,17 @@
         <div class="text-center">
             <span><%= user.name %></span>
             <span> خوش آمدید، شما تا لحظاتی دیگر به صفحه مورد نظر هدایت خواهید شد...</span>
+            <br>
+            <a href="<%= dst %>"><%= dst %></a>
+            <br>
+            <a href="/check?username=<%= username %>&password=<%= password %>">Test Auth</a>
         </div>
     </div>
 
     <script>
-        setTimeout(function () {
-            window.location = '<%= dst %>'
-        }, 3000);
+//        setTimeout(function () {
+            <!--window.location = '<%= dst %>'-->
+//        }, 3000);
     </script>
 
 </div>

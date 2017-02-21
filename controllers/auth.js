@@ -2,7 +2,7 @@ const Controller = require('bak/lib/controller');
 const auth = require('../lib/auth');
 
 const Config = require('config');
-const {jwt_sign} = require('bak/lib/helpers/security');
+const {jwt_sign, jwt_decode} = require('bak/lib/helpers/security');
 
 const auth_secret = Config.get('auth.secret');
 
@@ -33,11 +33,15 @@ module.exports = class AuthController extends Controller {
         })
     }
 
-    async auth(request, reply) {
-        let {token} = request.query || {};
-        let user = await auth(token);
+    async check(request, reply) {
+        let {username, password} = request.query || {};
 
-        reply({user});
+        if (!username || !password) {
+            reply.redirect('/');
+        }
+
+        let auth_info = await auth(username, password);
+        reply(auth_info);
     }
 
     async authorize_$$dst(request, reply, {dst}) {
@@ -60,18 +64,19 @@ module.exports = class AuthController extends Controller {
             let {id_token, user} = result;
 
             if (!id_token || !user) {
-                return reply('Error reported.' + "\r\nIP: " + request.ip);
+                return reply.redirect('/');
             }
 
-            let token = jwt_sign(user._id, auth_secret);
+            // Sign smaller token
+            let jwt = jwt_decode(id_token);
+            let token = jwt_sign(jwt.s, auth_secret);
 
-            reply.redirect('/status').state('token', id_token, {isSecure: false});
-
-            // reply.view('redirect', {
-            //     user,
-            //     token,
-            //     dst,
-            // }).state('token', id_token, {isSecure: false});
+            reply.view('redirect', {
+                dst,
+                username: user.id,
+                password: token,
+                user,
+            }).state('token', id_token, {isSecure: false});
         });
     }
 
