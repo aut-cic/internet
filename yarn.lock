@@ -146,7 +146,7 @@ backoff@^2.5.0:
 
 bak@fandogh/bak:
   version "0.5.0-alpha"
-  resolved "https://codeload.github.com/fandogh/bak/tar.gz/36a47d9d514752fb3006e9b62bb4b0c6e77f0382"
+  resolved "https://codeload.github.com/fandogh/bak/tar.gz/d25e222e3acd2f43e1b80c307e7b19cb61d83a21"
   dependencies:
     axios "^0.15.3"
     bcryptjs "^2.4.3"
