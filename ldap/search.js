@@ -1,24 +1,29 @@
+const User = require('../models/user');
+
 // http://ldapjs.org/server.html#search
 
-function search(req, res, next) {
+async function search(req, res, next) {
     let dn = req.dn.toString();
     let scope = req.scope;
     let filter = req.filter.toString();
 
-    console.log('search', {dn, scope, filter});
+    console.log("SEARCH",{dn,filter});
 
-    let obj = {
-        dn: 'CN=test50,' + req.dn.toString(),
+    let username = req.filter.json.value;
+
+    let user = await User.findOne({email: username});
+
+    if (!user) {
+        return res.end();
+    }
+
+    res.send({
+        dn: 'CN=' + user._id + ',' + req.dn.toString(),
         attributes: {
             objectclass: ['organization', 'top'],
-            samaccountname: 'test50',
+            samaccountname: user.username,
         }
-    };
-
-    if (req.filter.matches(obj.attributes)) {
-        console.log("Match!");
-        res.send(obj);
-    }
+    });
 
     res.end();
 }

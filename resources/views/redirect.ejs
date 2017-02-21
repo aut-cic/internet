@@ -1,0 +1,19 @@
+<% include includes/head.ejs %>
+
+<div class="row text-center">
+    <div class="container ">
+        <div class="text-center">
+            <span><%= user.name %></span>
+            <span> خوش آمدید، شما تا لحظاتی دیگر به صفحه مورد نظر هدایت خواهید شد...</span>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            window.location = '<%= dst %>'
+        }, 3000);
+    </script>
+
+</div>
+
+<% include includes/footer.ejs %>

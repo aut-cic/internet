@@ -1,0 +1,22 @@
+<% include includes/head.ejs %>
+
+<div class="container">
+
+    <h4>
+        <%= user.name %>
+        <span> خوش آمدید</span>
+    </h4>
+
+    <div class="text-center">
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-outline-danger mt-1" href="/logout">خروج از اینترنت</a>
+            <a class="btn btn-outline-danger mt-1" href="/logout/all">خروج تمامی دستگاه ها از اینترنت</a>
+        </div>
+        <br>
+        <br>
+        <a class="btn btn-info mt-1 btn-lg" href="/">ورود به سیستم کنترل ترافیک مصرفی</a>
+    </div>
+
+</div>
+
+<% include includes/footer.ejs %>

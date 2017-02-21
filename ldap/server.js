@@ -11,7 +11,7 @@ function createServer(opts = {}) {
     server.bind('', bind);
 
     // Register search handler
-    server.search('', authorize, bind);
+    server.search('', authorize, search);
 
     // Start listening
     server.listen(opts.port || 1389, function () {

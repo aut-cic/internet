@@ -1,12 +1,23 @@
 const Controller = require('bak/lib/controller');
 const auth = require('../lib/auth');
 
+const Config = require('config');
+const {jwt_sign} = require('bak/lib/helpers/security');
+
+const auth_secret = Config.get('auth.secret');
+
+
 module.exports = class AuthController extends Controller {
 
     constructor() {
         super({
             default: {
                 auth: false,
+            },
+            routes: {
+                logout_$$all: {
+                    auth: {mode: 'required'}
+                }
             }
         });
     }
@@ -52,12 +63,22 @@ module.exports = class AuthController extends Controller {
                 return reply('Error reported.' + "\r\nIP: " + request.ip);
             }
 
-            reply({
-                username: user.email,
-                password: id_token,
-                dst
-            });
+            let token = jwt_sign(user._id, auth_secret);
+
+            reply.redirect('/status').state('token', id_token, {isSecure: false});
+
+            // reply.view('redirect', {
+            //     user,
+            //     token,
+            //     dst,
+            // }).state('token', id_token, {isSecure: false});
         });
+    }
+
+    async logout_$$all(request, reply, {all}) {
+        await request.user.logout(all ? null : request.session);
+
+        reply.redirect('/').unstate('token', {isSecure: false});
     }
 
 };
