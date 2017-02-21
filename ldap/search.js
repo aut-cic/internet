@@ -11,7 +11,7 @@ async function search(req, res, next) {
 
     let username = req.filter.json.value;
 
-    let user = await User.findOne({_id: username});
+    let user = await User.findOne({id: username});
 
     if (!user) {
         return res.end();
