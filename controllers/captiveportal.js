@@ -12,11 +12,11 @@ const auth_secret = Config.get('auth.secret');
 function humanFileSize(bytes, si) {
     var thresh = si ? 1000 : 1024;
     if (Math.abs(bytes) < thresh) {
-        return bytes + ' B';
+        return bytes + ' بایت';
     }
     var units = si
         ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-        : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+        : ['کیلوبایت', 'مگابایت', 'گیگابایت', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
     var u = -1;
     do {
         bytes /= thresh;
@@ -47,6 +47,11 @@ module.exports = class CaptivePortalController extends Controller {
 
     async help(request, reply) {
         reply.view('help');
+    }
+
+    async sessions_logout_sid(request, reply, {sid}) {
+
+
     }
 
     async status(request, reply) {

@@ -1379,7 +1379,7 @@ th {
 }
 
 .alert-dismissable, .alert-dismissible {
-    padding-left: 21rem;
+    padding-left: 1rem;
     padding-right: 1rem;
 }
 

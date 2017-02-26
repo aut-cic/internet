@@ -22,24 +22,22 @@
             </div>
             <br>
 
+            <% if(usage.status === 'yearly') { %>
+            <div class="alert alert-danger alert-dismissable">
+                مصرف شما از حد مجاز بیشتر شده است. و از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.
+            </div>
+            <% } %>
 
             <div class="row">
                 <% for(let type of ['daily', 'weekly', 'monthly']) { %>
                 <div class="col-md-4">
-                    <div class="card ">
-                        <div class="card-header">
-                            <%= {
-                                daily:'روزانه', weekly
-                            :
-                                'هفتگی', monthly
-                            :
-                                'ماهیانه'
-                            }[type] %>
-                        </div>
-                        <div class="card-block" dir="ltr">
-                            Usage: <%= humanFileSize(usage.usage[type]) %> <br>
-                            Package: <%= usage.package[type] %> <br>
-                            Reset: <%= usage.resetConfig[type] %> <br>
+                    <div class="card card-outline-primaryd">
+                        <div class="card-block text-center">
+                            <div id="g_<%= type %>" style="height: 200px"></div>
+                            <%= humanFileSize(usage.usage[type]) %>
+                            <span>از</span>
+                            <%= usage.package[type] %>
+                            <span>گیگ</span>
                         </div>
                     </div>
                 </div>
@@ -58,6 +56,7 @@
                         <th>IP</th>
                         <th>دانلود</th>
                         <th>زمان اتصال</th>
+                        <th>قطع اتصال</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,6 +65,11 @@
                         <td><%= session.framedipaddress %></td>
                         <td><%= humanFileSize(session.usage) %></td>
                         <td><%= session.acctstarttime %></td>
+                        <td>
+                            <a class="btn btn-sm btn-danger" href="/sessions/logout/<%= session.acctsessionid %>">
+                                x
+                            </a>
+                        </td>
                     </tr>
                     <% } %>
                     </tbody>
@@ -77,5 +81,23 @@
 
     </div>
 </div>
+
+
+<script src="/static/js/raphael.js"></script>
+<script src="/static/js/justgage.js"></script>
+
+<script>
+    <% for(let type of ['daily', 'weekly', 'monthly']) { %>
+    new JustGage({
+        id: "g_<%= type %>",
+        value: <%= usage.usage[type] %>,
+        min: 0,
+        hideValue:true,
+        hideMinMax:true,
+        max: <%= usage.package[type] * 1000000000 %>,
+        title: "<%= {daily:'روزانه', weekly:'هفتگی', monthly:'ماهیانه'}[type] %>"
+    });
+    <% } %>
+</script>
 
 <% include includes/footer.ejs %>
