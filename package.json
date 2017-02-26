@@ -1,14 +1,13 @@
 {
-  "name": "shenasa-ldap",
+  "name": "aut-internet",
   "private": true,
   "scripts": {
-    "start": "node --harmony_async_await --preserve-symlinks app",
-    "dev": "node node_modules/nodemon/bin/nodemon --ignore resources/static --harmony_async_await --preserve-symlinks app"
+    "start": "node --preserve-symlinks app",
+    "dev": "node node_modules/nodemon/bin/nodemon -e js,ejs --ignore resources/static --preserve-symlinks app"
   },
   "dependencies": {
     "bak": "fandogh/bak",
     "ejs": "^2.5.6",
-    "handlebars": "^4.0.6",
     "ldapjs": "^1.0.1",
     "nodemon": "^1.11.0",
     "vision": "^4.1.1"

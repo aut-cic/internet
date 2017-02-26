@@ -1,0 +1,45 @@
+<% include includes/head.ejs %>
+
+<div class="login-page">
+    <div class="col-xs-12 col-sm-9 actions-box">
+        <div class="card mt-3">
+            <div class="card-header card-">سیستم ورود قدیمی</div>
+            <div class="card-block">
+                <form method="post" action="https://login.aut.ac.ir/login" class="login-form" name="login">
+                    <div class="form-group required">
+                        <label>آدرس رایانامه
+                            <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.add&amp;l=1">(شناسه
+                                    کاربری ندارم)</a></small>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-addon">aut.ac.ir@</span>
+                            <input name="username" type="text" class="form-control" placeholder="ایمیل"
+                                   data-placement="top" data-trigger="manual"
+                                   data-content="لطفا شناسه کاربری معتبر وارد کنید.">
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <label>گذرواژه
+                            <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw&amp;l=1">(گذرواژه
+                                    خود را فراموش کرده ام)</a></small>
+                        </label>
+                        <input type="password" name="password" class="form-control" placeholder="گذرواژه">
+                    </div>
+                    <input type="hidden" name="dst" value="undefined">
+                    <input type="hidden" name="popup" value="false">
+                    <input type="hidden" id="cookie" name="erase-cookie" value="false">
+                    <button type="submit" class="btn btn-success btn-block" onclick="return fix();">ورود
+                    </button>
+                    <button type="button" class="btn btn-default btn-block" data-toggle="modal"
+                            data-target="#myModal">ورود بدون شناسه(سرعت پایین)
+                    </button>
+
+                </form>
+            </div>
+            <div class="card-footer"><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw.change&amp;l=1">تغییر
+                    گذرواژه</a></div>
+        </div>
+    </div>
+</div>
+
+<% include includes/footer.ejs %>

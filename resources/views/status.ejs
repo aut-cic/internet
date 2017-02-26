@@ -1,22 +1,81 @@
 <% include includes/head.ejs %>
 
-<div class="container">
+<div class="container row pt-4">
 
-    <h4>
-        <%= user.name %>
-        <span> خوش آمدید</span>
-    </h4>
-
-    <div class="text-center">
-        <div class="btn-group btn-group-justified">
-            <a class="btn btn-outline-danger mt-1" href="/logout">خروج از اینترنت</a>
-            <a class="btn btn-outline-danger mt-1" href="/logout/all">خروج تمامی دستگاه ها از اینترنت</a>
+    <div class="col-md-3">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">
+                <%= user.name %> (<%= user.username %>)
+            </a>
+            <a href="/logout" class="list-group-item list-group-item-action">خروج از اینترنت</a>
+            <a href="/logout/all" class="list-group-item list-group-item-action">خروج تمامی دستگاه ها از اینترنت</a>
         </div>
-        <br>
-        <br>
-        <a class="btn btn-info mt-1 btn-lg" href="/">ورود به سیستم کنترل ترافیک مصرفی</a>
     </div>
 
+    <div class="col-md-9">
+        <div class="">
+            <% if(usage) { %>
+
+            <div>
+                <span>گروه کاربری: </span>
+                <strong><%= usage.groupname %></strong>
+            </div>
+            <br>
+
+
+            <div class="row">
+                <% for(let type of ['daily', 'weekly', 'monthly']) { %>
+                <div class="col-md-4">
+                    <div class="card ">
+                        <div class="card-header">
+                            <%= {
+                                daily:'روزانه', weekly
+                            :
+                                'هفتگی', monthly
+                            :
+                                'ماهیانه'
+                            }[type] %>
+                        </div>
+                        <div class="card-block" dir="ltr">
+                            Usage: <%= humanFileSize(usage.usage[type]) %> <br>
+                            Package: <%= usage.package[type] %> <br>
+                            Reset: <%= usage.resetConfig[type] %> <br>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+
+            <br>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>کانکشن های فعال</span>
+                </div>
+                <table class="table table-striped card-block table-bordered">
+                    <thead>
+                    <tr>
+                        <th>IP</th>
+                        <th>دانلود</th>
+                        <th>زمان اتصال</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% for(let session of usage.sessions) { %>
+                    <tr>
+                        <td><%= session.framedipaddress %></td>
+                        <td><%= humanFileSize(session.usage) %></td>
+                        <td><%= session.acctstarttime %></td>
+                    </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+            <% } %>
+        </div>
+
+    </div>
 </div>
 
 <% include includes/footer.ejs %>

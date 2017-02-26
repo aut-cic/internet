@@ -36,10 +36,12 @@ init({
         require('./controllers/captiveportal'),
     ]
 }).then(({hapi}) => {
+
     hapi.views({
         engines: {ejs: require('ejs')},
         path: __dirname + '/resources/views'
     });
+
     hapi.route({
         method: 'GET',
         path: '/static/{param*}',
@@ -51,5 +53,6 @@ init({
                 path: __dirname + '/resources/static'
             }
         }
-    })
+    });
+
 });
