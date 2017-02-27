@@ -1102,6 +1102,10 @@ items@2.x.x:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/items/-/items-2.1.1.tgz#8bd16d9c83b19529de5aea321acaada78364a198"
 
+jalaali-js@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-0.2.0.tgz#1096b3c720fc74e3dd2adf7a6fc01ea4fbb4ba1c"
+
 jodid25519@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
@@ -1489,11 +1493,18 @@ minio@^3.1.1:
   dependencies:
     minimist "0.0.8"
 
+moment-jalaali@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/moment-jalaali/-/moment-jalaali-0.6.1.tgz#450043895c8c8f7d66b38c86e1884dce05906965"
+  dependencies:
+    jalaali-js "^0.2.0"
+    moment "^2.12.0"
+
 moment@2.15.x:
   version "2.15.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.15.2.tgz#1bfdedf6a6e345f322fe956d5df5bd08a8ce84dc"
 
-moment@2.x.x, moment@^2.10.3, moment@^2.10.6:
+moment@2.x.x, moment@^2.10.3, moment@^2.10.6, moment@^2.12.0:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 

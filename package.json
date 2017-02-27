@@ -11,6 +11,7 @@
     "chokidar": "^1.6.1",
     "handlebars": "^4.0.6",
     "ldapjs": "^1.0.1",
+    "moment-jalaali": "^0.6.1",
     "nodemon": "^1.11.0",
     "nunjucks": "^3.0.0",
     "vision": "^4.1.1"

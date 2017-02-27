@@ -24,8 +24,19 @@
     display: block;
     width: 12.5rem;
     height: 6.25rem;
-    background: linear-gradient(to left, #c0392b 0%, #f1c40f 50%, #1abc9c 100%);
     border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+}
+
+.success .semi-circle{
+    background: #1abc9c;
+}
+
+.warning .semi-circle{
+    background: #f1c40f;
+}
+
+.danger .semi-circle{
+    background: #c0392b;
 }
 
 .semi-circle::before {

@@ -53,7 +53,7 @@
                             <div class="card-block text-center">
                                 {# Guage component #}
                                 <div class="gauge-c">
-                                    <div class="gauge">
+                                    <div class="gauge {{ package.color }}">
                                         <div class="mask">
                                             <div class="semi-circle"></div>
                                             <div class="semi-circle--mask" style="
@@ -66,13 +66,11 @@
                                 </div>
 
                                 <div class="text-muted">
-                                    {{ package.usage }} از {{ package.total }}
+                                    {{ package.usage }}
                                 </div>
                             </div>
-                            <div class="card-footer text-center card-{{ package.color }}">
-                                <span>ترافیک </span>
-                                {{ package.title }}
-                                <br>
+                            <div class="card-footer text-center card-{{ package.color2 }}">
+                                <h5>{{ package.title }} {{ package.total }}</h5>
                                 {{ package.title2 }}
                             </div>
                         </div>

@@ -42,7 +42,8 @@ body, .app {
 }
 
 .app-top {
-    background-color: #0275a8;
+    /*background-color: #0275a8;*/
+    background-color: #025ece !important;
 }
 
 .text-white, .text-white * {
@@ -174,4 +175,8 @@ input:-webkit-autofill:active {
 
 .package .card-footer {
     color: white;
+}
+
+.navbar-inverse {
+    /*background-color: #0275d8 !important;*/
 }
