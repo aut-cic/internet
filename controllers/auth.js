@@ -47,8 +47,6 @@ module.exports = class AuthController extends Controller {
     }
 
     async authorize_$$dst(request, reply, {dst}) {
-        let {code, state} = request.query || {};
-
         if (dst) {
             try {
                 dst = new Buffer(dst, 'base64').toString();
