@@ -66,6 +66,8 @@ module.exports = class AuthController extends Controller {
             const auth = this.hapi.plugins['bak-auth'].auth;
             let {id_token, user} = await auth.oauth_authorize('aut', request);
 
+            console.log("AUTH OK For " + user.id);
+
             // Sign smaller token
             let jwt = jwt_decode(id_token);
             let token = jwt_sign(jwt.s, auth_secret);
