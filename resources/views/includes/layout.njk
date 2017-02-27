@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,13 +11,13 @@
 
     <title>سامانه اینترنت امیرکبیر</title>
 
-    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/rtl.css" rel="stylesheet">
     <link href="/static/css/app.css" rel="stylesheet">
+    {% block styles %} {% endblock %}
 
 </head>
 <body>
-
 
 <div class="app">
     {% include "./nav.njk" %}
@@ -32,16 +32,14 @@
         {% block content %} {% endblock %}
     </div>
 
-    <div class="app-footer hidden-md-down">
-        <div class="m-2">
-            <span>کلیه حقوق برای دانشگاه صنعتی امیرکبیر محفوظ است</span>
-        </div>
-    </div>
-
 </div>
 
+<br>
+<br>
+<br>
 
 {% include "./scripts.njk" %}
+{% block scripts %} {% endblock %}
 {% include "./modal.njk" %}
 
 </body>

@@ -7,7 +7,6 @@
 }
 
 body, .app {
-    width: 100vw;
     min-height: 100vh;
     height: 100vh;
     direction: rtl;
@@ -22,14 +21,11 @@ body, .app {
 .login-page {
     background-size: cover;
     /*background: url(/static/img/bg_test3.jpg) no-repeat fixed center center;*/
-    background-size: cover;
     align-items: center;
     justify-content: center;
 }
 
 .app-container, .login-page {
-    width: 100%;
-    height: 100%;
     flex: 1;
     display: flex;
 }
@@ -166,4 +162,9 @@ input:-webkit-autofill:active {
 
 .navbar-inverse .navbar-toggler {
     border-color: transparent !important;
+}
+
+.active-package {
+    box-shadow: 10px 10px 20px #888888;
+
 }

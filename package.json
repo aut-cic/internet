@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "bak": "fandogh/bak",
+    "bootstrap": "4.0.0-",
     "chokidar": "^1.6.1",
     "handlebars": "^4.0.6",
     "ldapjs": "^1.0.1",
