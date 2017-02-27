@@ -164,7 +164,14 @@ input:-webkit-autofill:active {
     border-color: transparent !important;
 }
 
-.active-package {
-    box-shadow: 10px 10px 20px #888888;
+.package {
 
+}
+
+.package .active {
+    box-shadow: 10px 10px 20px #888888;
+}
+
+.package .card-footer {
+    color: white;
 }
