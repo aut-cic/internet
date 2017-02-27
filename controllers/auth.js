@@ -60,9 +60,10 @@ module.exports = class AuthController extends Controller {
             dst = 'http://aut.ac.ir';
         }
 
+        console.log("REQ");
         this.hapi.inject(`/api/oauth/aut/authorize?code=${code}&state=${state}`, ({result}) => {
             let {id_token, user} = result;
-
+            console.log("DONE");
             if (!id_token || !user) {
                 return reply.redirect('/');
             }
