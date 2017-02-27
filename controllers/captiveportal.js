@@ -39,7 +39,10 @@ module.exports = class CaptivePortalController extends Controller {
             return reply.redirect('/');
         }
 
-        const status = await user_usage(request.user.username);
+        const status = await user_usage({
+            username: request.user.username,
+            ip: request.ip,
+        });
 
         reply.view('status', {
             user: request.user,

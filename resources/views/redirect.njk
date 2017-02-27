@@ -2,24 +2,32 @@
 
 {% block content %}
 
-<div class="row text-center">
-    <div class="container ">
-        <div class="text-center">
-            <span><%= user.name %></span>
-            <span> خوش آمدید، شما تا لحظاتی دیگر به صفحه مورد نظر هدایت خواهید شد...</span>
-            <br>
-            <a href="<%= dst %>"><%= dst %></a>
-            <br>
-            <a href="/check?username=<%= username %>&password=<%= password %>">Test Auth</a>
+    <div class="container text-center mt-4">
+        <div class="container ">
+            <div class="text-center">
+                <span>{{  user.name }}</span>
+                <span> خوش آمدید، شما تا لحظاتی دیگر به صفحه مورد نظر هدایت خواهید شد...</span>
+                <br>
+                <br>
+                <form method="post" action="https://login.aut.ac.ir/login">
+                    <input name="username" type="hidden" value="{{ username }}">
+                    <input name="password" type="hidden" value="{{ password }}">
+                    <input type="hidden" name="dst" value="undefined">
+                    <input type="hidden" name="popup" value="false">
+                    <input type="hidden" id="cookie" name="erase-cookie" value="false">
+                    <button type="submit" class="btn btn-secondary">درصورتی که منتقل نشدید اینجا کلیک کنید</button>
+                </form>
+                <br>
+                <a href="/check?username={{ username }}&password={{ password }}">Test Auth</a>
+            </div>
         </div>
-    </div>
 
-    <script>
-//        setTimeout(function () {
+        <script>
+            //        setTimeout(function () {
             <!--window.location = '<%= dst %>'-->
-//        }, 3000);
-    </script>
+            //        }, 3000);
+        </script>
 
-</div>
+    </div>
 
 {% endblock %}
