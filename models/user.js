@@ -5,12 +5,13 @@ const {bcrypt_hash} = require('bak/lib/helpers/security');
 class User extends BaseUser {
 
     static get $visible() {
-        return ['_id', 'name', 'email', 'username'];
+        return ['_id', 'name', 'email', 'username', 'group'];
     }
 
     static get $schema() {
         return Object.assign({
             // exp: {type: Date, expires: 3600, default: Date.now},
+            group: {type: String}
 
         }, BaseUser.$schema);
     };

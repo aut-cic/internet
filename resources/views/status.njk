@@ -13,12 +13,20 @@
 
                 <div class="list-group-item">
                     <span>گروه کاربری: </span>
-                    <strong>{{ status.group }}</strong>
+                    {% if user %}
+                        <strong>{{ user.group }}</strong>
+                    {% else %}
+                        <strong>{{ usage.group }}</strong>
+                    {% endif %}
                 </div>
 
                 <div class="list-group-item">
                     <span>نام کاربری: </span>
-                    <strong>{{ user.username }}</strong>
+                    {% if user %}
+                        <strong>{{ user.username }}</strong>
+                    {% else %}
+                        <strong>{{ usage.username }}</strong>
+                    {% endif %}
                 </div>
 
                 <div class="list-group-item">

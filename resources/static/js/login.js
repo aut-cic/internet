@@ -35,5 +35,3 @@ function getQueryParams(qs) {
     return params;
 }
 
-var query = getQueryParams(document.location.search);
-//document.location="https://login.aut.ac.ir/login?dst="+query.dst;
