@@ -24,13 +24,15 @@ module.exports = class AuthController extends Controller {
 
     async login(request, reply) {
         let {dst} = request.query || {};
-        this.hapi.inject('/api/oauth/aut/login', ({result}) => {
-            let url = result.redirect_uri;
-            if (dst) {
-                url += '/' + new Buffer(dst).toString('base64');
-            }
-            reply.redirect(url);
-        })
+
+        const auth = this.hapi.plugins['bak-auth'].auth;
+        let redirect_uri = await auth.oauth_login('aut');
+
+        if (dst) {
+            redirect_uri += '/' + new Buffer(dst).toString('base64');
+        }
+
+        reply.redirect(redirect_uri);
     }
 
     async check(request, reply) {
@@ -60,13 +62,9 @@ module.exports = class AuthController extends Controller {
             dst = 'http://aut.ac.ir';
         }
 
-        console.log("REQ");
-        this.hapi.inject(`/api/oauth/aut/authorize?code=${code}&state=${state}`, ({result}) => {
-            let {id_token, user} = result;
-            console.log("DONE");
-            if (!id_token || !user) {
-                return reply.redirect('/');
-            }
+        try {
+            const auth = this.hapi.plugins['bak-auth'].auth;
+            let {id_token, user} = await auth.oauth_authorize('aut', request);
 
             // Sign smaller token
             let jwt = jwt_decode(id_token);
@@ -78,7 +76,12 @@ module.exports = class AuthController extends Controller {
                 password: token,
                 user,
             }).state('token', id_token, {isSecure: false});
-        });
+
+        } catch (e) {
+            console.error(e);
+            return reply.redirect('/');
+        }
+
     }
 
     async logout_$$all(request, reply, {all}) {
