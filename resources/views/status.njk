@@ -13,20 +13,12 @@
 
                 <div class="list-group-item">
                     <span>گروه کاربری: </span>
-                    {% if user %}
-                        <strong>{{ user.group }}</strong>
-                    {% else %}
-                        <strong>{{ usage.group }}</strong>
-                    {% endif %}
+                    <strong> {{ group }} </strong>
                 </div>
 
                 <div class="list-group-item">
                     <span>نام کاربری: </span>
-                    {% if user %}
-                        <strong>{{ user.username }}</strong>
-                    {% else %}
-                        <strong>{{ usage.username }}</strong>
-                    {% endif %}
+                    <strong> {{ username }} </strong>
                 </div>
 
                 <div class="list-group-item">
@@ -34,16 +26,18 @@
                     <strong> {{ ip }}</strong>
                 </div>
 
-                <a href="/logout" class="list-group-item list-group-item-action">خروج از حساب کاربری</a>
-                {#                <a href="/logout/all" class="list-group-item list-group-item-action">خروج تمامی دستگاه ها از اینترنت</a>#}
+                {% if(auth) %}
+                    <a href="/logout" class="list-group-item list-group-item-action">خروج از حساب کاربری</a>
+                    {#                <a href="/logout/all" class="list-group-item list-group-item-action">خروج تمامی دستگاه ها از اینترنت</a>#}
+                {% endif %}
             </div>
         </div>
 
         <div class="col-md-9">
 
-            <div class="alert alert-danger alert-dismissable">
-                مصرف شما از حد مجاز بیشتر شده است. و از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.
-            </div>
+            {#            <div class="alert alert-danger alert-dismissable">#}
+            {#                مصرف شما از حد مجاز بیشتر شده است. و از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.#}
+            {#            </div>#}
 
 
             <div class="row">

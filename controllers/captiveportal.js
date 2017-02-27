@@ -35,17 +35,25 @@ module.exports = class CaptivePortalController extends Controller {
     }
 
     async status(request, reply) {
-        if (!request.user) {
-            return reply.redirect('/');
+        // if (!request.user) {
+        //     return reply.redirect('/');
+        // }
+
+        let status;
+
+        try {
+            status = await user_usage({
+                username: request.user ? request.user.username : null,
+                ip: request.ip,
+            });
+        } catch (e) {
+            return reply({error: e, ip: request.ip});
         }
 
-        const status = await user_usage({
-            username: request.user.username,
-            ip: request.ip,
-        });
-
         reply.view('status', {
-            user: request.user,
+            username: request.user ? request.user.username : status.username,
+            group: request.user ? request.user.group : status.group,
+            auth: !!request.user,
             ip: request.ip,
             status,
         });
