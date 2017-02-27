@@ -6,6 +6,11 @@ module.exports = {
         }
     },
 
+    radius: {
+        username: 'opnsense',
+        password: 'opnsense@123'
+    },
+
     log: {},
 
     /**

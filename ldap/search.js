@@ -7,9 +7,9 @@ async function search(req, res, next) {
     let scope = req.scope;
     let filter = req.filter.toString();
 
-    console.log("SEARCH", {dn, filter});
-
     let username = req.filter.json.value;
+
+    console.log("SEARCH", username);
 
     let user = await User.findOne({id: username});
 
@@ -18,14 +18,24 @@ async function search(req, res, next) {
     }
 
     res.send({
-        //dn: 'CN=' + user._id + ',' + req.dn.toString(),
-        dn: user._id,
+        dn: 'CN=' + user.get('id'),
         attributes: Object.assign({
             objectclass: ['organization', 'top'],
+
+            group: user.get('group'),
+            radiusGroupName: user.get('group'),
+            real_username: user.get('username'),
+            email: user.get('email'),
+
         }, user)
     });
 
     res.end();
 }
 
-module.exports = search;
+module.exports = function (req, res, next) {
+    search(req, res, next).catch((e) => {
+        console.error(e);
+        res.end();
+    })
+};

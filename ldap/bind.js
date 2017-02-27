@@ -1,17 +1,20 @@
 const ldap = require('ldapjs');
 const auth = require('../lib/auth');
-
+const Config = require('config');
 // http://ldapjs.org/server.html#bind
 
-async function bind(req, res, next) {
-    let password = req.credentials;
+const rad_username = Config.get('radius.username');
+const rad_password = Config.get('radius.password');
 
-    //let username = req.dn.toString().split('cn=')[1].split(',')[0].trim();
-    let username = req.dn.toString();
+async function bind(req, res, next) {
+    const password = req.credentials;
+
+    const username = req.dn.toString().split('cn=')[1].split(',')[0].trim();
 
     console.log("BIND", username + ':' + password);
 
-    if (password === 'opnsense@123') {
+    if (username === rad_username && password === rad_password) {
+        console.log("RADIUS success login");
         return res.end();
     }
 
@@ -24,4 +27,9 @@ async function bind(req, res, next) {
     res.end();
 }
 
-module.exports = bind;
+module.exports = function (req, res, next) {
+    bind(req, res, next).catch((e) => {
+        console.error(e);
+        res.end();
+    })
+};

@@ -6,6 +6,11 @@ module.exports = {
         }
     },
 
+    radius: {
+        username: 'RADIUS_USERNAME',
+        password: 'RADIUS_PASSWORD'
+    },
+
     auth: {
         secret: 'AUTH_SECRET',
         oauth: {
