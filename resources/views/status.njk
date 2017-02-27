@@ -88,6 +88,7 @@
                     <thead>
                     <tr>
                         <th>IP</th>
+                        <th>مکان</th>
                         <th>دانلود</th>
                         <th>زمان اتصال</th>
                         <th>قطع اتصال</th>
@@ -97,6 +98,7 @@
                     {% for session in status.sessions %}
                         <tr>
                             <td>{{ session.ip }}</td>
+                            <td>{{ session.location }}</td>
                             <td>{{ session.usage }}</td>
                             <td>{{ session.time }}</td>
                             <td>
