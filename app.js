@@ -5,8 +5,8 @@ const {init} = require('bak');
 const MongoosePlugin = require('bak/lib/mongoose');
 const LoggingPlugin = require('bak/lib/logging');
 const AuthPlugin = require('bak/lib/auth');
-const VisionPlugin = require('vision');
 const InertPlugin = require('inert');
+const Views = require('./views');
 
 // LDAP Server
 require('./ldap');
@@ -25,34 +25,15 @@ init({
         // Auth
         {register: AuthPlugin, options: Object.assign({user_model: UserModel}, Config.get('auth'))},
 
-        // Vision
-        {register: VisionPlugin, options: {}},
-
         // Inert
         {register: InertPlugin, options: {}},
     ],
+
     routes: [
         require('./controllers/auth'),
         require('./controllers/captiveportal'),
     ]
+
 }).then(({hapi}) => {
-
-    hapi.views({
-        engines: {ejs: require('ejs')},
-        path: __dirname + '/resources/views'
-    });
-
-    hapi.route({
-        method: 'GET',
-        path: '/static/{param*}',
-        config:{
-            auth: false,
-        },
-        handler: {
-            directory: {
-                path: __dirname + '/resources/static'
-            }
-        }
-    });
-
+    Views.register(hapi);
 });

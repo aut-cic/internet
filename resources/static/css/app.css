@@ -21,7 +21,7 @@ body, .app {
 
 .login-page {
     background-size: cover;
-//background: url(/bg_test3.jpg) no-repeat fixed center center;
+    /*background: url(/static/img/bg_test3.jpg) no-repeat fixed center center;*/
     background-size: cover;
     align-items: center;
     justify-content: center;

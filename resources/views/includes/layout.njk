@@ -17,9 +17,10 @@
 
 </head>
 <body>
-<div class="app">
 
-    <% include nav.ejs %>
+
+<div class="app">
+    {% include "./nav.njk" %}
 
     <div class="app-top">
         <div class="p-2">
@@ -28,3 +29,20 @@
     </div>
 
     <div class="app-container">
+        {% block content %} {% endblock %}
+    </div>
+
+    <div class="app-footer hidden-md-down">
+        <div class="m-2">
+            <span>کلیه حقوق برای دانشگاه صنعتی امیرکبیر محفوظ است</span>
+        </div>
+    </div>
+
+</div>
+
+
+{% include "./scripts.njk" %}
+{% include "./modal.njk" %}
+
+</body>
+</html>

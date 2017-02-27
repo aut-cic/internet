@@ -1,7 +1,8 @@
-<% include includes/head.ejs %>
+{% extends "includes/layout.njk" %}
 
+{% block content %}
 <div class="login-page">
-    <div class="col-xs-12 col-sm-9 actions-box">
+    <div class="col-xs-12 col-sm-12 actions-box">
         <div class="card mt-3">
             <div class="card-header card-">سیستم ورود قدیمی</div>
             <div class="card-block">
@@ -41,5 +42,4 @@
         </div>
     </div>
 </div>
-
-<% include includes/footer.ejs %>
+{% endblock %}
