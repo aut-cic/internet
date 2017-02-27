@@ -27,17 +27,25 @@
                 </div>
 
                 {% if(auth) %}
-                    <a href="/logout" class="list-group-item list-group-item-action">خروج از حساب کاربری</a>
+                    <a href="/logout" class="list-group-item list-group-item-danger">خروج از اینترنت</a>
                     {#                <a href="/logout/all" class="list-group-item list-group-item-action">خروج تمامی دستگاه ها از اینترنت</a>#}
+                    {#            {% endif %}#}
+                {% else %}
+                    <a class="list-group-item list-group-item-success" href="/login">
+                        <span>ورود به سیستم</span>
+                    </a>
                 {% endif %}
             </div>
         </div>
 
         <div class="col-md-9">
 
-            {#            <div class="alert alert-danger alert-dismissable">#}
-            {#                مصرف شما از حد مجاز بیشتر شده است. و از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.#}
-            {#            </div>#}
+            {% if status.active_type == 'yearly' %}
+                <div class="alert alert-danger alert-dismissable">
+                    <span>مصرف شما از حد مجاز بیشتر شده است.</span>
+                    <span> از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.</span>
+                </div>
+            {% endif %}
 
 
             <div class="row">
