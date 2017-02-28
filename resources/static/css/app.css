@@ -165,7 +165,7 @@ input:-webkit-autofill:active {
 }
 
 .package.active {
-    box-shadow: 7px 7px 20px #888888;
+    /*box-shadow: 7px 7px 20px #888888;*/
 }
 
 .package .card-footer {
@@ -174,4 +174,46 @@ input:-webkit-autofill:active {
 
 .navbar-inverse {
     background-color: #303F9F !important;
+}
+
+/* Pricing */
+/*
+ * Developer: Alireza Eskandarpour Shoferi
+ * Designer: Wouter de Bres (dribbble.com/wdeb)
+ *
+ * Distributed under the terms of the MIT license
+ * http://opensource.org/licenses/MIT
+ */
+
+.package {
+    border: 3px solid #e8e8e8;
+    border-radius: 7px;
+}
+
+.package.active {
+    border-color: #888888;
+}
+
+/* Triangle */
+.package.active::before {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 64px 64px 0 0;
+    border-color: #888888 transparent transparent transparent;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+}
+
+.package.active::after {
+    font-family: "Glyphicons Halflings";
+    content: "\e013";
+    color: white;
+    position: absolute;
+    left: 9px;
+    top: 6px;
+    text-shadow: 0 0 2px #888888;
+    font-size: 1.4rem;
 }
