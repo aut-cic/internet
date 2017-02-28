@@ -18,8 +18,17 @@ module.exports = class CaptivePortalController extends Controller {
     }
 
     async _(request, reply) {
+
         if (request.user) {
             return reply.redirect('/status');
+        }
+
+        try {
+            let status = await this._usage(request);
+            if (status) {
+                return reply.redirect('/status');
+            }
+        } catch (e) {
         }
 
         reply.view(request.query.old ? 'old' : 'index');
@@ -34,20 +43,19 @@ module.exports = class CaptivePortalController extends Controller {
 
     }
 
+    _usage(request) {
+        return user_usage({
+            username: request.user ? request.user.username : null,
+            ip: request.ip,
+        });
+    }
+
     async status(request, reply) {
-        // if (!request.user) {
-        //     return reply.redirect('/');
-        // }
-
-        let status;
-
         try {
-            status = await user_usage({
-                username: request.user ? request.user.username : null,
-                ip: request.ip,
-            });
+            var status = await this._usage(request);
         } catch (e) {
-            return reply({error: e, ip: request.ip});
+            return reply.redirect('/');
+            // return reply({error: e, ip: request.ip});
         }
 
         reply.view('status', {
