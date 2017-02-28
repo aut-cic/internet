@@ -1,5 +1,3 @@
-document.login.dst.value = query.dst;
-
 function fix() {
     var user = document.login.username.value;
     var indx = user.indexOf("@aut.ac.ir");

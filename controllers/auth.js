@@ -84,11 +84,4 @@ module.exports = class AuthController extends Controller {
 
     }
 
-    async logout_$$all(request, reply, {all}) {
-        await request.user.logout(all ? null : request.session);
-
-        reply.redirect('http://login.aut.ac.ir/logout?dst=https://internet.aut.ac.ir')
-            .unstate('token', {isSecure: false});
-    }
-
 };

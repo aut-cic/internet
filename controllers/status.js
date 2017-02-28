@@ -3,11 +3,11 @@ const auth = require('../lib/auth');
 
 const Config = require('config');
 const {jwt_sign} = require('bak/lib/helpers/security');
-const {user_usage} = require('../lib/acct');
+const {user_usage, user_logout} = require('../lib/acct');
 
 const auth_secret = Config.get('auth.secret');
 
-module.exports = class CaptivePortalController extends Controller {
+module.exports = class StatusController extends Controller {
 
     constructor() {
         super({
@@ -18,6 +18,10 @@ module.exports = class CaptivePortalController extends Controller {
     }
 
     async _(request, reply) {
+
+        const dst = request.query.dst || 'https://internet.aut.ac.ir/status';
+
+        const error = request.query.error;
 
         if (request.user) {
             return reply.redirect('/status');
@@ -31,7 +35,10 @@ module.exports = class CaptivePortalController extends Controller {
         } catch (e) {
         }
 
-        reply.view(request.query.old ? 'old' : 'index');
+        reply.view(request.query.next ? 'index' : 'old',{
+            dst,
+            error
+        });
     }
 
     async help(request, reply) {
@@ -65,6 +72,25 @@ module.exports = class CaptivePortalController extends Controller {
             ip: request.ip,
             status,
         });
+    }
+
+    async status_logout_$$ip(request, reply, {ip}) {
+        try {
+            var status = await user_logout({
+                username: request.user ? request.user.username : null,
+                ip: ip || request.ip,
+            });
+        } catch (e) {
+
+        }
+
+        if (request.user && (!ip || ip === request.ip)) {
+            await request.user.logout(request.session);
+            return reply.redirect('https://internet.aut.ac.ir')
+                .unstate('token', {isSecure: false});
+        }
+
+        return reply.redirect('/status');
     }
 
 

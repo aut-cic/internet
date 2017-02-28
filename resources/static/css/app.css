@@ -3,7 +3,7 @@
 @import url(../fonts/material-design-icons/material-design-icons.css);
 
 .body, body, button, input, optgroup, select, textarea {
-    font-family: "Shabnam", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "farsi", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body, .app {
@@ -42,8 +42,7 @@ body, .app {
 }
 
 .app-top {
-    /*background-color: #0275a8;*/
-    background-color: #025ece !important;
+    background-color: #3F51B5 !important;
 }
 
 .text-white, .text-white * {
@@ -165,12 +164,8 @@ input:-webkit-autofill:active {
     border-color: transparent !important;
 }
 
-.package {
-
-}
-
-.package .active {
-    box-shadow: 10px 10px 20px #888888;
+.package.active {
+    box-shadow: 7px 7px 20px #888888;
 }
 
 .package .card-footer {
@@ -178,5 +173,5 @@ input:-webkit-autofill:active {
 }
 
 .navbar-inverse {
-    /*background-color: #0275d8 !important;*/
+    background-color: #303F9F !important;
 }

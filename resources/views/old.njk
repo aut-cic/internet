@@ -1,45 +1,74 @@
 {% extends "includes/layout.njk" %}
 
 {% block content %}
-<div class="login-page">
-    <div class="col-xs-12 col-sm-12 actions-box">
-        <div class="card mt-3">
-            <div class="card-header card-">سیستم ورود قدیمی</div>
-            <div class="card-block">
-                <form method="post" action="https://login.aut.ac.ir/login" class="login-form" name="login">
-                    <div class="form-group required">
-                        <label>آدرس رایانامه
-                            <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.add&amp;l=1">(شناسه
-                                    کاربری ندارم)</a></small>
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-addon">aut.ac.ir@</span>
-                            <input name="username" type="text" class="form-control" placeholder="ایمیل"
-                                   data-placement="top" data-trigger="manual"
-                                   data-content="لطفا شناسه کاربری معتبر وارد کنید.">
+    <div class="row mt-5">
+        <div class="col-xs-12 col-sm-4">
+            <div class="card">
+                <div class="card-header card-inverse card-primary">ورود به اینترنت</div>
+                <div class="card-block">
+                    {% if error %}
+                        <div class="alert-dismissable alert alert-danger">
+                            {{ error }}
                         </div>
-                    </div>
-                    <div class="form-group required">
-                        <label>گذرواژه
-                            <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw&amp;l=1">(گذرواژه
+                    {% endif %}
+                    <form method="post" action="https://login.aut.ac.ir/login" class="login-form" name="login">
+                        <div class="form-group required">
+                            <label>آدرس رایانامه
+                                <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.add&amp;l=1">(شناسه
+                                    کاربری ندارم)</a></small>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon">aut.ac.ir@</span>
+                                <input name="username" dir="ltr" type="text" class="form-control" placeholder="ایمیل"
+                                       data-placement="top" data-trigger="manual"
+                                       data-content="لطفا شناسه کاربری معتبر وارد کنید.">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label>گذرواژه
+                                <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw&amp;l=1">(گذرواژه
                                     خود را فراموش کرده ام)</a></small>
-                        </label>
-                        <input type="password" name="password" class="form-control" placeholder="گذرواژه">
-                    </div>
-                    <input type="hidden" name="dst" value="undefined">
-                    <input type="hidden" name="popup" value="false">
-                    <input type="hidden" id="cookie" name="erase-cookie" value="false">
-                    <button type="submit" class="btn btn-success btn-block" onclick="return fix();">ورود
-                    </button>
-                    <button type="button" class="btn btn-default btn-block" data-toggle="modal"
-                            data-target="#myModal">ورود بدون شناسه(سرعت پایین)
-                    </button>
-
-                </form>
-            </div>
-            <div class="card-footer"><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw.change&amp;l=1">تغییر
+                            </label>
+                            <input dir="ltr" type="password" name="password" class="form-control" placeholder="گذرواژه">
+                        </div>
+                        <input type="hidden" name="dst" value="{{ dst }}">
+                        <input type="hidden" name="popup" value="false">
+                        <input type="hidden" id="cookie" name="erase-cookie" value="false">
+                        <button type="submit" class="btn btn-success btn-lg btn-block" onclick="return fix();">ورود
+                        </button>
+                        <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal"
+                                data-target="#myModal">ورود بدون شناسه(سرعت پایین)
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer"><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw.change&amp;l=1">تغییر
                     گذرواژه</a></div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-8">
+
+
+            <a class="hidden-sm-up" href="https://slogin.aut.ac.ir/2">
+                <div class="alert alert-info" role="alert"> جهت ورود کلیک کنید</div>
+            </a>
+
+            <div class="alert alert-warning" role="alert">توجه داشته باشید که آدرس سایت حتما با <a
+                    href="https://login.aut.ac.ir">https://login.aut.ac.ir</a> شروع شده باشد.
+            </div>
+            <div class="alert alert-success" role="alert">در صورتی که نام کاربری ندارید حتما در اسرع وقت به انفورماتیک
+                دانشگاه مراجعه نمایید.
+            </div>
+            <div class="alert alert-info" role="alert">در صورتی که مشکلی در ورود و یا نوع کاربری خود دارید از طریق <a
+                    href="mailto://support@aut.ac.ir">support@aut.ac.ir</a> ما را مطلع سازید.
+            </div>
+            <div class="alert alert-warning" role="alert">هدف از این سامانه بالا بردن سرعت اینترنت بیشتر کاربران است.
+            </div>
+            <div class="alert alert-danger" role="alert">توجه داشته باشید ورود بدون شناسه کاربری به زودی حذف خواهد شد.
+            </div>
+            <div class="alert alert-info" role="alert">برای خروج از حساب کاربری خود از لینک <a
+                    href="https://login.aut.ac.ir/">https://login.aut.ac.ir</a> استفاده کنید.
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
