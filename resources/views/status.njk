@@ -39,6 +39,16 @@
 
         <div class="col-md-9 col-sm-12">
 
+            {% if(dst) %}
+                <div class="alert alert-success">
+                    <h4>شما با موفقیت وارد شدید.</h4>
+                    <div>در غیر این صورت پس از ۳۰ ثانیه به تارنمای <a class="" href="{{ dst }}">{{ dst }}</a>هدایت می
+                        شوید.
+                    </div>
+                    <a class="btn btn-lg btn-success btn-block" href="{{ dst }}">ادامه به تارنمای مورد نظر</a>
+                </div>
+            {% endif %}
+
             {% if logout %}
                 <div class="alert alert-info alert-dismissable">
                     <span>درخواست قطع اتصال </span>
@@ -142,6 +152,11 @@
 
 {% block styles %}
     <link href="/static/css/gauge.css" rel="stylesheet">
+
+    {% if(dst) %}
+        <meta http-equiv="refresh" content="30; url={{ dst }}">
+    {% endif %}
+
 {% endblock %}
 
 {% block scripts %}

@@ -54,7 +54,7 @@ module.exports = class StatusController extends Controller {
     async status(request, reply) {
         const status = await this._usage(request);
 
-        const {logout} = request.query;
+        const {logout, dst} = request.query;
 
         if (!status) {
             return reply.redirect('/').unstate('token', {isSecure: false});
@@ -67,6 +67,7 @@ module.exports = class StatusController extends Controller {
             ip: request.ip,
             status,
             logout,
+            dst
         });
     }
 
