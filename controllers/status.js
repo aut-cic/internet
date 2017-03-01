@@ -23,13 +23,13 @@ module.exports = class StatusController extends Controller {
 
         const error = request.query.error;
 
-        if (request.user) {
-            return reply.redirect('/status');
-        }
-
         const status = await this._usage(request);
 
         if (status) {
+            return reply.redirect('/status');
+        }
+
+        if (request.user) {
             return reply.redirect('/status');
         }
 
@@ -57,7 +57,7 @@ module.exports = class StatusController extends Controller {
         const {logout} = request.query;
 
         if (!status) {
-            return reply.redirect('/');
+            return reply.redirect('/').unstate('token', {isSecure: false});
         }
 
         reply.view('status', {
