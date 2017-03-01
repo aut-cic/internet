@@ -39,17 +39,6 @@
 
         <div class="col-md-9 col-sm-12">
 
-            {% if status.active_type == 'yearly' %}
-                <div class="alert alert-danger alert-dismissable">
-                    <span>مصرف شما از حد مجاز بیشتر شده است.</span>
-                    <span> از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.</span>
-                </div>
-            {% endif %}
-
-            <div class="alert alert-warning alert-dismissable">
-                <span>            شما روزانه تا میزان 1 گیگ با سرعت نامحدود می توانید از اینترنت استفاده کنید کنید مگر آنکه حجم هفتگی یا ماهیانه شما به پایان رسیده باشد</span>
-            </div>
-
             {% if logout %}
                 <div class="alert alert-info alert-dismissable">
                     <span>درخواست قطع اتصال </span>
@@ -57,6 +46,22 @@
                     <span> ارسال شد.</span>
                 </div>
             {% endif %}
+
+            {% if status.active_type == 'yearly' %}
+                <div class="alert alert-danger alert-dismissable">
+                    <span>مصرف شما از حد مجاز بیشتر شده است.</span>
+                    <span> از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.</span>
+                </div>
+            {% endif %}
+
+            <div class="alert alert-success alert-dismissable">
+                <span>شما روزانه تا میزان</span>
+                <strong>{{ status.packages[0].total }}</strong>
+                <span> با سرعت نامحدود می توانید از اینترنت استفاده کنید، مادامی که حجم هفتگی یا ماهیانه شما به پایان نرسیده باشد.</span>
+                <br>
+                <span> از ساعت 2 شب تا 7 صبح حجم مصرفی شما با ضریب 0.1 محاسبه می گردد.</span>
+            </div>
+
 
             <div class="row">
                 {% for package in status.packages %}
@@ -101,7 +106,7 @@
                             <tr>
                                 <th>آی پی</th>
                                 <th>مکان</th>
-                                <th>دانلود</th>
+                                <th>میزان مصرف</th>
                                 <th>زمان ورود به سامانه</th>
                                 <th>قطع اتصال</th>
                             </tr>

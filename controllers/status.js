@@ -61,7 +61,7 @@ module.exports = class StatusController extends Controller {
         }
 
         reply.view('status', {
-            username: request.user ? request.user.username : null,
+            username: request.user ? request.user.username : status.username,
             group: request.user ? request.user.group : status.group,
             auth: !!request.user,
             ip: request.ip,
