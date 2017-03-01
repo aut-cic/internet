@@ -3,7 +3,7 @@ function fix() {
     var indx = user.indexOf("@aut.ac.ir");
     if (indx > 0)
         document.login.username.value = user.substring(0, indx);
-    if (user === "test") {
+    if (user === "guest") {
         var username = $(document.login.username);
         var parent = $(username).closest('.input-group');
         parent.addClass('has-error has-feedback');
@@ -16,8 +16,8 @@ function fix() {
 }
 
 function guestLogin() {
-    document.login.username.value = "test";
-    document.login.password.value = "test";
+    document.login.username.value = "guest";
+    document.login.password.value = "guest";
     document.getElementById("cookie").value = "true";
     document.login.submit();
 }
