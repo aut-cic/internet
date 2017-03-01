@@ -7,8 +7,10 @@
 }
 
 body, .app {
-    min-height: 100vh;
-    height: 100vh;
+
+    min-height: 100%;
+    height: 100%;
+
     direction: rtl;
     background-color: #F3EFF5;
 }
@@ -16,13 +18,9 @@ body, .app {
 .app {
     display: flex;
     flex-direction: column;
-}
-
-.login-page {
-    background-size: cover;
+    /*background-size: cover;*/
     /*background: url(/static/img/bg_test3.jpg) no-repeat fixed center center;*/
-    align-items: center;
-    justify-content: center;
+
 }
 
 .app-container, .login-page {
@@ -38,6 +36,8 @@ body, .app {
 }
 
 .app-footer {
+    margin-top: 20px;
+    padding:10px;
     background-color: #333;
 }
 
