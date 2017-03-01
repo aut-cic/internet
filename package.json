@@ -15,6 +15,7 @@
     "moment-jalaali": "^0.6.1",
     "nodemon": "^1.11.0",
     "nunjucks": "^3.0.0",
+    "ua-parser-js": "^0.7.12",
     "vision": "^4.1.1"
   }
 }
