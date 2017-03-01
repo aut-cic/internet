@@ -27,8 +27,7 @@ module.exports = class StatusController extends Controller {
             return reply.redirect('/status');
         }
 
-
-        let status = await this._usage(request);
+        const status = await this._usage(request);
 
         if (status) {
             return reply.redirect('/status');
@@ -55,16 +54,19 @@ module.exports = class StatusController extends Controller {
     async status(request, reply) {
         const status = await this._usage(request);
 
-        if(!status) {
+        const {logout} = request.query;
+
+        if (!status) {
             return reply.redirect('/');
         }
 
         reply.view('status', {
-            username: request.user ? request.user.username : status.username,
+            username: request.user ? request.user.username : null,
             group: request.user ? request.user.group : status.group,
             auth: !!request.user,
             ip: request.ip,
             status,
+            logout,
         });
     }
 
@@ -80,7 +82,7 @@ module.exports = class StatusController extends Controller {
                 .unstate('token', {isSecure: false});
         }
 
-        return reply.redirect('/status');
+        return reply.redirect('/status?logout=' + ip);
     }
 
 

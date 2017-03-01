@@ -10,10 +10,12 @@
                     <span>سامانه اینترنت</span>
                 </div>
 
-                <div class="list-group-item ">
-                    <span>نام کاربری: </span>
-                    <strong> {{ username }} </strong>
-                </div>
+                {% if(username) %}
+                    <div class="list-group-item ">
+                        <span>نام کاربری: </span>
+                        <strong> {{ username }} </strong>
+                    </div>
+                {% endif %}
 
                 <div class="list-group-item">
                     <span>گروه کاربری: </span>
@@ -43,6 +45,12 @@
             <div class="alert alert-warning alert-dismissable">
                 <span>            شما روزانه تا میزان 1 گیگ با سرعت نامحدود می توانید از اینترنت استفاده کنید کنید مگر آنکه حجم هفتگی یا ماهیانه شما به پایان رسیده باشد</span>
             </div>
+
+            {% if logout %}
+                <div class="alert alert-danger alert-dismissable">
+                    <span>درخواست قطع اتصال ارسال شد</span>
+                </div>
+            {% endif %}
 
             <div class="row">
                 {% for package in status.packages %}
