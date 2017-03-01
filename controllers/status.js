@@ -46,7 +46,7 @@ module.exports = class StatusController extends Controller {
 
     _usage(request) {
         return user_usage({
-            username: request.user ? request.user.username : null,
+            username: request.user ? request.user.id : null,
             ip: request.ip,
         });
     }
