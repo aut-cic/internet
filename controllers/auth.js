@@ -58,7 +58,7 @@ module.exports = class AuthController extends Controller {
         }
 
         if (!dst) {
-            dst = 'http://aut.ac.ir';
+            dst = 'https://internet.aut.ac.ir';
         }
 
         try {
