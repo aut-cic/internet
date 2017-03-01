@@ -71,8 +71,16 @@ module.exports = class StatusController extends Controller {
     }
 
     async status_logout_$$ip(request, reply, {ip}) {
+
+        const status = await this._usage(request);
+
+        if (!status) {
+            return reply.redirect('/')
+                .unstate('token', {isSecure: false});
+        }
+
         await user_logout({
-            username: request.user ? request.user.username : null,
+            username: status.username,
             ip: ip || request.ip,
         });
 
