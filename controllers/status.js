@@ -91,9 +91,9 @@ module.exports = class StatusController extends Controller {
                 return reply.redirect('https://internet.aut.ac.ir')
                     .unstate('token', {isSecure: false});
             }
-            // Else direct microtic logout
-            return reply.redirect('https://login.aut.ac.ir/logout')
-                .unstate('token', {isSecure: false});
+            // // Else direct microtic logout
+            // return reply.redirect('https://login.aut.ac.ir/logout')
+            //     .unstate('token', {isSecure: false});
         }
 
         return reply.redirect('/status?logout=' + (ip || request.ip));
