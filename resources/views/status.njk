@@ -39,16 +39,6 @@
 
         <div class="col-md-9 col-sm-12">
 
-            {% if(dst) %}
-                <div class="alert alert-success">
-                    <h4>شما با موفقیت وارد شدید.</h4>
-                    <div>در غیر این صورت پس از ۳۰ ثانیه به تارنمای <a class="" href="{{ dst }}">{{ dst }}</a>هدایت می
-                        شوید.
-                    </div>
-                    <a class="btn btn-lg btn-success btn-block" href="{{ dst }}">ادامه به تارنمای مورد نظر</a>
-                </div>
-            {% endif %}
-
             {% if logout %}
                 <div class="alert alert-info alert-dismissable">
                     <span>درخواست قطع اتصال </span>
@@ -57,10 +47,17 @@
                 </div>
             {% endif %}
 
-            {% if status.active_type == 'yearly' %}
-                <div class="alert alert-danger alert-dismissable">
-                    <span>مصرف شما از حد مجاز بیشتر شده است.</span>
-                    <span> از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.</span>
+            {% if(dst) %}
+                <div class="card mb-3 card-outline-primary">
+                    <div class="card-block">
+                        <strong>شما با موفقیت وارد شدید.</strong>
+                        <div>در غیر این صورت پس از ۳۰ ثانیه به تارنمای <a class="" href="{{ dst }}">{{ dst }}</a>
+                            <span>هدایت می شوید.</span>
+                        </div>
+                        <div class="text-center">
+                            <a class="btn btn-primary" href="{{ dst }}">ادامه به تارنمای مورد نظر</a>
+                        </div>
+                    </div>
                 </div>
             {% endif %}
 
@@ -69,8 +66,16 @@
                 <strong>{{ status.packages[0].total }}</strong>
                 <span> با سرعت نامحدود می توانید از اینترنت استفاده کنید، مادامی که حجم هفتگی یا ماهیانه شما به پایان نرسیده باشد.</span>
                 <br>
-                <span> از ساعت 2 شب تا 7 صبح حجم مصرفی شما با ضریب 0.1 محاسبه می گردد.</span>
+                <span> از ساعت 2 شب تا 7 صبح حجم مصرفی شما با ضریب 0.4 محاسبه می گردد.</span>
             </div>
+
+
+            {% if status.active_type == 'yearly' %}
+                <div class="alert alert-danger alert-dismissable">
+                    <span>مصرف شما از حد مجاز بیشتر شده است.</span>
+                    <span> از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.</span>
+                </div>
+            {% endif %}
 
 
             <div class="row">
