@@ -27,15 +27,14 @@ module.exports = class StatusController extends Controller {
             return reply.redirect('/status');
         }
 
-        try {
-            let status = await this._usage(request);
-            if (status) {
-                return reply.redirect('/status');
-            }
-        } catch (e) {
+
+        let status = await this._usage(request);
+
+        if (status) {
+            return reply.redirect('/status');
         }
 
-        reply.view(request.query.next ? 'index' : 'old',{
+        reply.view(request.query.next ? 'index' : 'old', {
             dst,
             error
         });
@@ -45,10 +44,6 @@ module.exports = class StatusController extends Controller {
         reply.view('help');
     }
 
-    async sessions_logout_sid(request, reply, {sid}) {
-
-
-    }
 
     _usage(request) {
         return user_usage({
@@ -58,11 +53,10 @@ module.exports = class StatusController extends Controller {
     }
 
     async status(request, reply) {
-        try {
-            var status = await this._usage(request);
-        } catch (e) {
+        const status = await this._usage(request);
+
+        if(!status) {
             return reply.redirect('/');
-            // return reply({error: e, ip: request.ip});
         }
 
         reply.view('status', {
@@ -75,14 +69,10 @@ module.exports = class StatusController extends Controller {
     }
 
     async status_logout_$$ip(request, reply, {ip}) {
-        try {
-            var status = await user_logout({
-                username: request.user ? request.user.username : null,
-                ip: ip || request.ip,
-            });
-        } catch (e) {
-
-        }
+        await user_logout({
+            username: request.user ? request.user.username : null,
+            ip: ip || request.ip,
+        });
 
         if (request.user && (!ip || ip === request.ip)) {
             await request.user.logout(request.session);

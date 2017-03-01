@@ -191,7 +191,7 @@ input:-webkit-autofill:active {
 }
 
 .package.active {
-    border-color: #888888;
+    border-color: #aaaaaa;
 }
 
 /* Triangle */
@@ -200,7 +200,7 @@ input:-webkit-autofill:active {
     height: 0;
     border-style: solid;
     border-width: 64px 64px 0 0;
-    border-color: #888888 transparent transparent transparent;
+    border-color: #aaaaaa transparent transparent transparent;
     position: absolute;
     left: 0;
     top: 0;
@@ -214,6 +214,6 @@ input:-webkit-autofill:active {
     position: absolute;
     left: 9px;
     top: 6px;
-    text-shadow: 0 0 2px #888888;
+    text-shadow: 0 0 2px #aaaaaa;
     font-size: 1.4rem;
 }

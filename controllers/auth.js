@@ -22,6 +22,7 @@ module.exports = class AuthController extends Controller {
         });
     }
 
+
     async login(request, reply) {
         let {dst} = request.query || {};
 

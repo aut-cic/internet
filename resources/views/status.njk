@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="pt-4 row">
-        <div class="col-md-3 mb-3">
+        <div class="col-md-3 col-sm-12 mb-3">
 
             <div class="list-group">
 
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-9 col-sm-12">
 
             {% if status.active_type == 'yearly' %}
                 <div class="alert alert-danger alert-dismissable">
@@ -44,10 +44,9 @@
                 <span>            شما روزانه تا میزان 1 گیگ با سرعت نامحدود می توانید از اینترنت استفاده کنید کنید مگر آنکه حجم هفتگی یا ماهیانه شما به پایان رسیده باشد</span>
             </div>
 
-
             <div class="row">
                 {% for package in status.packages %}
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-12">
                         <div class="card package mb-2 {% if(package.active) %} active {% endif %}">
                             <div class="card-block text-center">
                                 {# Guage component #}
@@ -77,42 +76,49 @@
                 {% endfor %}
             </div>
 
-            <div class="card mt-5">
-                <div class="card-header">
-                    <span>دستگاه های فعال</span>
+            <div class="row">
+                <div class="col-12 hidden-xs-down">
+                    <div class="card mt-5 hidden-md-down2">
+                        <div class="card-header">
+                            <span>دستگاه های فعال</span>
+                        </div>
+                        <div class="card-block">
+                            <table class="table table-striped table-bordered table-responsive">
+                                <thead>
+                                <tr>
+                                    <th>آی پی</th>
+                                    <th>مکان</th>
+                                    <th>دانلود</th>
+                                    <th>زمان اتصال</th>
+                                    <th>قطع اتصال</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for session in status.sessions %}
+                                    <tr>
+                                        <td>{{ session.ip }}</td>
+                                        <td>{{ session.location }}</td>
+                                        <td>{{ session.usage }}</td>
+                                        <td>{{ session.time }}</td>
+                                        <td>
+                                            {% if session.ip != ip %}
+                                                <a class="btn btn-sm btn-danger"
+                                                   href="/status/logout/{{ session.ip }}">
+                                                    x
+                                                </a>
+                                            {% else %}
+                                                <span>دستگاه فعلی</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <table class="table table-striped card-block table-bordered">
-                    <thead>
-                    <tr>
-                        <th>آی پی</th>
-                        <th>مکان</th>
-                        <th>دانلود</th>
-                        <th>زمان اتصال</th>
-                        <th>قطع اتصال</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for session in status.sessions %}
-                        <tr>
-                            <td>{{ session.ip }}</td>
-                            <td>{{ session.location }}</td>
-                            <td>{{ session.usage }}</td>
-                            <td>{{ session.time }}</td>
-                            <td>
-                                {% if session.ip != ip %}
-                                    <a class="btn btn-sm btn-danger"
-                                       href="/status/logout/{{ session.ip }}">
-                                        x
-                                    </a>
-                                {% else %}
-                                    <span>دستگاه فعلی</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
             </div>
+
         </div>
     </div>
 {% endblock %}
