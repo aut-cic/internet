@@ -28,7 +28,11 @@
                 </div>
 
                 <a href="/status/logout" class="list-group-item list-group-item-danger">
-                    <span> خروج از سامانه</span>
+                    {% if(username) %}
+                        <span> خروج از حساب</span>
+                    {% else %}
+                        <span>خروج از اینترنت</span>
+                    {% endif %}
                 </a>
             </div>
         </div>
@@ -47,8 +51,10 @@
             </div>
 
             {% if logout %}
-                <div class="alert alert-danger alert-dismissable">
-                    <span>درخواست قطع اتصال ارسال شد</span>
+                <div class="alert alert-info alert-dismissable">
+                    <span>درخواست قطع اتصال </span>
+                    <span> {{ logout }} </span>
+                    <span> ارسال شد.</span>
                 </div>
             {% endif %}
 
