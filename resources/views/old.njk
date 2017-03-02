@@ -5,6 +5,7 @@
         <div class="row mt-5">
             <div class="col-sm-12 col-md-4">
                 <div class="card">
+
                     <div class="card-header card-inverse card-primary">ورود به اینترنت</div>
                     <div class="card-block">
                         {% if error %}
@@ -12,37 +13,46 @@
                                 {{ error }}
                             </div>
                         {% endif %}
-                        <form method="post" action="https://login.aut.ac.ir/login" class="form" name="login">
-                            <div class="form-group required">
-                                <label>آدرس رایانامه
-                                    <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.add&amp;l=1">(شناسه
-                                        کاربری ندارم)</a></small>
-                                </label>
-                                <div class="input-group">
-                                    <span class="input-group-addon">aut.ac.ir@</span>
-                                    <input name="username" dir="ltr" type="text" class="form-control"
-                                           placeholder="ایمیل"
-                                           data-placement="top" data-trigger="manual"
-                                           data-content="لطفا شناسه کاربری معتبر وارد کنید.">
+
+                        {% if(external) %}
+                            <p class="text-muted">
+                                <span>ورود به سیستم فقط برای کاربران داخل دانشگاه امکان پذیر است.</span>
+                                <span>لطفا بررسی فرمایید نرم افزار عبور از تحریم استفاده نشده باشد.</span>
+                            </p>
+                        {% else %}
+                            <form method="post" action="https://login.aut.ac.ir/login" class="form" name="login">
+                                <div class="form-group required">
+                                    <label>آدرس رایانامه
+                                        <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.add&amp;l=1">(شناسه
+                                            کاربری ندارم)</a></small>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">aut.ac.ir@</span>
+                                        <input name="username" dir="ltr" type="text" class="form-control"
+                                               placeholder="ایمیل"
+                                               data-placement="top" data-trigger="manual"
+                                               data-content="لطفا شناسه کاربری معتبر وارد کنید.">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group required">
-                                <label>گذرواژه
-                                    <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw&amp;l=1">(گذرواژه
-                                        خود را فراموش کرده ام)</a></small>
-                                </label>
-                                <input dir="ltr" type="password" name="password" class="form-control"
-                                       placeholder="گذرواژه">
-                            </div>
-                            <input type="hidden" name="dst" value="{{ dst }}">
-                            <input type="hidden" name="popup" value="false">
-                            <input type="hidden" id="cookie" name="erase-cookie" value="false">
-                            <button type="submit" class="btn btn-success btn-lg btn-block" onsubmit="return fix();">ورود
-                            </button>
-                            <button type="button" class="btn btn-default btn-block" data-toggle="modal"
-                                    data-target="#myModal">ورود بدون شناسه(سرعت پایین)
-                            </button>
-                        </form>
+                                <div class="form-group required">
+                                    <label>گذرواژه
+                                        <small><a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw&amp;l=1">(گذرواژه
+                                            خود را فراموش کرده ام)</a></small>
+                                    </label>
+                                    <input dir="ltr" type="password" name="password" class="form-control"
+                                           placeholder="گذرواژه">
+                                </div>
+                                <input type="hidden" name="dst" value="{{ dst }}">
+                                <input type="hidden" name="popup" value="false">
+                                <input type="hidden" id="cookie" name="erase-cookie" value="false">
+                                <button type="submit" class="btn btn-success btn-lg btn-block" onsubmit="return fix();">
+                                    ورود
+                                </button>
+                                <button type="button" class="btn btn-default btn-block" data-toggle="modal"
+                                        data-target="#myModal">ورود بدون شناسه(سرعت پایین)
+                                </button>
+                            </form>
+                        {% endif %}
                     </div>
                     <div class="card-footer"><a
                             href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw.change&amp;l=1">تغییر

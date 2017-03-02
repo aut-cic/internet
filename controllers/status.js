@@ -25,6 +25,8 @@ module.exports = class StatusController extends Controller {
 
         const status = await this._usage(request);
 
+        const external = request.ip.indexOf('192') !== 0;
+
         if (status) {
             return reply.redirect('/status');
         }
@@ -35,7 +37,8 @@ module.exports = class StatusController extends Controller {
 
         reply.view(request.query.next ? 'index' : 'old', {
             dst,
-            error
+            error,
+            external
         });
     }
 
