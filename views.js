@@ -30,6 +30,9 @@ exports.register = (server, options, next) => {
         path: '/static/{param*}',
         config: {
             auth: false,
+            cache: {
+                expiresIn: 30 * 60 * 1000,
+            }
         },
         handler: {
             directory: {

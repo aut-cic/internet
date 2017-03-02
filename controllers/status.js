@@ -46,6 +46,7 @@ module.exports = class StatusController extends Controller {
 
     _usage(request) {
         const ip = request.ip.indexOf('192') === 0 ? request.ip : null;
+
         return user_usage({
             username: request.user ? request.user.id : null,
             ip,

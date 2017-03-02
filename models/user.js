@@ -10,8 +10,8 @@ class User extends BaseUser {
 
     static get $schema() {
         return Object.assign({
-            // exp: {type: Date, expires: 3600, default: Date.now},
-            group: {type: String}
+            group: {type: String},
+            id: {type: String}
 
         }, BaseUser.$schema);
     };
