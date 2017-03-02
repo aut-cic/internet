@@ -191,7 +191,7 @@ input:-webkit-autofill:active {
 }
 
 .package.active {
-    border-color: #aaaaaa;
+    border-color: #aabbaa;
 }
 
 /* Triangle */
@@ -200,11 +200,21 @@ input:-webkit-autofill:active {
     height: 0;
     border-style: solid;
     border-width: 64px 64px 0 0;
-    border-color: #aaaaaa transparent transparent transparent;
+    border-color: #aabbaa transparent transparent transparent;
     position: absolute;
     left: 0;
     top: 0;
     content: "";
+}
+
+.package:not(.active) .card-footer {
+    /*background-color: #aaaaaa;*/
+    box-shadow: inset 0px 0px 400px 110px rgba(255,255,255, .1);
+    -webkit-filter: blur(.5px);
+    -moz-filter: blur(.5px);
+    -o-filter: blur(.5px);
+    -ms-filter: blur(.5px);
+    filter: blur(.5px);
 }
 
 .package.active::after {
@@ -214,6 +224,6 @@ input:-webkit-autofill:active {
     position: absolute;
     left: 9px;
     top: 6px;
-    text-shadow: 0 0 2px #aaaaaa;
+    text-shadow: 0 0 2px #aabbaa;
     font-size: 1.4rem;
 }

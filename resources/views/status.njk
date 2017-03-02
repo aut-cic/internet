@@ -39,14 +39,7 @@
 
         <div class="col-md-9 col-sm-12">
 
-            {% if logout %}
-                <div class="alert alert-info alert-dismissable">
-                    <span>درخواست قطع اتصال </span>
-                    <span> {{ logout }} </span>
-                    <span> ارسال شد.</span>
-                </div>
-            {% endif %}
-
+            {# Redirect Message #}
             {% if(dst) %}
                 <div class="card mb-3 card-outline-primary">
                     <div class="card-block">
@@ -55,101 +48,131 @@
                             <span>هدایت می شوید.</span>
                         </div>
                         <div class="text-center">
-                            <a class="btn btn-primary" href="{{ dst }}">ادامه به تارنمای مورد نظر</a>
+                            <a class="btn btn-pssrimary" href="{{ dst }}">ادامه به تارنمای مورد نظر</a>
                         </div>
                     </div>
                 </div>
             {% endif %}
 
-            <div class="alert alert-success alert-dismissable">
-                <span>شما روزانه تا میزان</span>
-                <strong>{{ status.packages[0].total }}</strong>
-                <span> با سرعت نامحدود می توانید از اینترنت استفاده کنید، مادامی که حجم هفتگی یا ماهیانه شما به پایان نرسیده باشد.</span>
-                <br>
-                <span> از ساعت 2 شب تا 7 صبح حجم مصرفی شما با ضریب 0.4 محاسبه می گردد.</span>
-            </div>
+            {% if(username != 'guest2') %}
 
+                {# Logout Message #}
+                {% if logout %}
+                    <div class="alert alert-info alert-dismissable">
+                        <span>درخواست قطع اتصال </span>
+                        <span> {{ logout }} </span>
+                        <span> ارسال شد.</span>
+                    </div>
+                {% endif %}
 
-            {% if status.active_type == 'yearly' %}
-                <div class="alert alert-danger alert-dismissable">
-                    <span>مصرف شما از حد مجاز بیشتر شده است.</span>
-                    <span> از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.</span>
+                {# Usage notice #}
+                <div class="alert alert-warning alert-dismissable">
+                    <span>شما روزانه تا میزان</span>
+                    <strong>{{ status.packages[0].total }}</strong>
+                    <span> با سرعت نامحدود می توانید از اینترنت استفاده کنید، مادامی که حجم هفتگی یا ماهیانه شما به پایان نرسیده باشد.</span>
+                    <br>
+                    <span> از ساعت 1 شب تا 7 صبح حجم مصرفی شما با ضریب  محاسبه می گردد.</span>
+                    <strong>0.1</strong>
+                    <span> محاسبه می گردد.</span>
                 </div>
-            {% endif %}
 
+                {# Heleper notice #}
+                <div class="alert alert-success">
+                    <strong>توجه:</strong>
+                    <span>هیچ محدودیت بر روی حجم مصرفی وجود ندارد اما سرعت شما با توجه به میزان مصرف مطابق جدول زیر تغییر می کند.</span>
+                </div>
 
-            <div class="row">
-                {% for package in status.packages %}
-                    <div class="col-md-4 col-sm-12">
-                        <div class="card package mb-2 {% if(package.active) %} active {% endif %}">
-                            <div class="card-block text-center">
-                                {# Guage component #}
-                                <div class="gauge-c">
-                                    <div class="gauge {{ package.color }}">
-                                        <div class="mask">
-                                            <div class="semi-circle"></div>
-                                            <div class="semi-circle--mask" style="
-                                                    -webkit-transform: rotate({{ package.degree }}deg);
-                                                    -moz-transform: rotate({{ package.degree }}deg);
-                                                    transform: rotate({{ package.degree }}deg);
-                                                    "></div>
+                {# Free notice #}
+                {% if status.active_type == 'free' %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <span>مصرف شما از حد مجاز بیشتر شده است.</span>
+                        <span> از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.</span>
+                    </div>
+                {% endif %}
+
+                {# Packages #}
+                <div class="row">
+                    {% for package in status.packages %}
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="card package mb-2 {% if(package.active) %} active {% endif %}">
+                                <div class="card-block text-center">
+                                    {# Guage component #}
+                                    <div class="gauge-c">
+                                        <div class="gauge {{ package.color }}">
+                                            <div class="mask">
+                                                <div class="semi-circle"></div>
+                                                <div class="semi-circle--mask" style="
+                                                        -webkit-transform: rotate({{ package.degree }}deg);
+                                                        -moz-transform: rotate({{ package.degree }}deg);
+                                                        transform: rotate({{ package.degree }}deg);
+                                                        "></div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="text-muted">
-                                    {{ package.usage }}
-                                </div>
-                            </div>
-                            <div class="card-footer text-center card-{{ package.color2 }}">
-                                <h5>{{ package.title }} {{ package.total }}</h5>
-                                {{ package.title2 }}
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-
-            <div class="row">
-                <div class="col-12 hidden-xs-down">
-                    <div class="card mt-5 hidden-md-down2">
-                        <div class="card-header">
-                            <span>دستگاه های فعال</span>
-                        </div>
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>آی پی</th>
-                                <th>مکان</th>
-                                <th>میزان مصرف</th>
-                                <th>زمان ورود به سامانه</th>
-                                <th>قطع اتصال</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for session in status.sessions %}
-                                <tr>
-                                    <td>{{ session.ip }}</td>
-                                    <td>{{ session.location }}</td>
-                                    <td>{{ session.usage }}</td>
-                                    <td>{{ session.time }}</td>
-                                    <td>
-                                        {% if session.ip != ip %}
-                                            <a class="btn btn-sm btn-danger"
-                                               href="/status/logout/{{ session.ip }}">
-                                                x
-                                            </a>
-                                        {% else %}
-                                            <span>دستگاه فعلی</span>
+                                    <div class="text-muted">
+                                        {{ package.usage }}
+                                        {% if(package.active) %}
                                         {% endif %}
-                                    </td>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-center card-{{ package.color2 }}">
+                                    <h5>{{ package.title2 }}</h5>
+                                    <span>{{ package.title }} {{ package.total }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {# Sessions #}
+                <div class="row">
+                    <div class="col-12 hidden-xs-down">
+                        <div class="card mt-5 hidden-md-down2">
+                            <div class="card-header">
+                                <span>دستگاه های فعال</span>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>آی پی</th>
+                                    <th>مکان</th>
+                                    <th>میزان مصرف</th>
+                                    <th>زمان ورود به سامانه</th>
+                                    <th>قطع اتصال</th>
                                 </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                {% for session in status.sessions %}
+                                    <tr>
+                                        <td>{{ session.ip }}</td>
+                                        <td>{{ session.location }}</td>
+                                        <td>{{ session.usage }}</td>
+                                        <td>{{ session.time }}</td>
+                                        <td>
+                                            {% if session.ip != ip %}
+                                                <a class="btn btn-sm btn-danger"
+                                                   href="/status/logout/{{ session.ip }}">
+                                                    x
+                                                </a>
+                                            {% else %}
+                                                <span>دستگاه فعلی</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="row text-muted">
+                    <div class="col-md-6 col-md-offset-5">
+                        <h4>کاربر میهمان</h4>
+                    </div>
+                </div>
+            {% endif %}
 
         </div>
     </div>
