@@ -39,21 +39,6 @@
 
         <div class="col-md-9 col-sm-12">
 
-            {# Redirect Message #}
-            {% if(dst) %}
-                <div class="card mb-3 card-outline-primary">
-                    <div class="card-block">
-                        <strong>شما با موفقیت وارد شدید.</strong>
-                        <div>در این صورت پس از ۳۰ ثانیه به تارنمای <a class="" href="{{ dst }}">{{ dst }}</a>
-                            <span>هدایت می شوید.</span>
-                        </div>
-                        <div class="text-center">
-                            <a class="btn btn-pssrimary" href="{{ dst }}">ادامه به تارنمای مورد نظر</a>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-
             {% if(username != 'guest2') %}
 
                 {# Logout Message #}
@@ -177,6 +162,21 @@
 
         </div>
     </div>
+
+    {# Redirect Message #}
+    {% if(dst) %}
+        <div class="fixed-top text-center">
+            <div class="alert alert-info" style="border-radius: 0;margin: 0;opacity: .9;">
+                {#                        <div style="display: inline-block" class="loader ml-2"></div>#}
+                <span>شما با موفقیت وارد شدید و پس از ۳۰ ثانیه به</span>
+                <a href="{{ dst }}"> تارنمای مورد نظر </a>
+                <span> هدایت می شوید.</span>
+                <a href="/status" class="btn btn-sm btn-primary">ماندن در این صفحه</a>
+                {#                <a href="{{ dst }}" class="btn btn-sm btn-primary">هدایت به تارنمای مورد نظر</a>#}
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block styles %}
