@@ -20,12 +20,6 @@ body, .app {
     flex-direction: column;
     /*background-size: cover;*/
     /*background: url(/static/img/bg_test3.jpg) no-repeat fixed center center;*/
-
-}
-
-.app-container, .login-page {
-    flex: 1;
-    display: flex;
 }
 
 .app-top, .app-footer {
