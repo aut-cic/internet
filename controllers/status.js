@@ -19,7 +19,7 @@ module.exports = class StatusController extends Controller {
 
     async _(request, reply) {
 
-        const dst = request.query.dst || 'https://internet.aut.ac.ir/status';
+        const dst = request.query.dst;
 
         const error = request.query.error;
 
@@ -62,7 +62,7 @@ module.exports = class StatusController extends Controller {
         let {logout, dst} = request.query;
 
         if (!status) {
-            return reply.redirect('https://internet.aut.ac.ir?error=عدم%20امکان%20نمایش%20وضعیت').unstate('token', {isSecure: false});
+            return reply.redirect('/').unstate('token', {isSecure: false});
         }
 
         if (dst && dst.indexOf('internet.aut.ac.ir') !== -1) {
