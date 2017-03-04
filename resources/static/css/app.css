@@ -22,6 +22,10 @@ body, .app {
     /*background: url(/static/img/bg_test3.jpg) no-repeat fixed center center;*/
 }
 
+.app-container {
+    width: 100%;
+}
+
 .app-top, .app-footer {
     min-height: 28px;
     display: flex;
