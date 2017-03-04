@@ -96,7 +96,10 @@ module.exports = class StatusController extends Controller {
 
         // If self logging out
         if (!ip || ip === request.ip) {
-            await request.user.logout(request.session);
+            if (request.user) {
+                await request.user.logout(request.session);
+            }
+
             return reply.redirect('/')
                 .unstate('token', {isSecure: false});
         }
