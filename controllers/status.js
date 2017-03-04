@@ -62,7 +62,7 @@ module.exports = class StatusController extends Controller {
         let {logout, dst} = request.query;
 
         if (!status) {
-            return reply.redirect('/?error=عدم%20امکان%20نمایش%20وضعیت').unstate('token', {isSecure: false});
+            return reply.redirect('https://internet.aut.ac.ir?error=عدم%20امکان%20نمایش%20وضعیت').unstate('token', {isSecure: false});
         }
 
         if (dst && dst.indexOf('internet.aut.ac.ir') !== -1) {
@@ -85,7 +85,7 @@ module.exports = class StatusController extends Controller {
         const status = await this._usage(request);
 
         if (!status) {
-            return reply.redirect('/?error=عدم%20امکان%20نمایش%20وضعیت')
+            return reply.redirect('/')
                 .unstate('token', {isSecure: false});
         }
 
@@ -98,7 +98,7 @@ module.exports = class StatusController extends Controller {
         if (!ip || ip === request.ip) {
             if (request.user) {
                 await request.user.logout(request.session);
-                return reply.redirect('/?error=%D8%B4%D9%85%D8%A7%20%D8%A8%D8%A7%20%D9%85%D9%88%D9%81%D9%82%DB%8C%D8%AA%20%D8%A7%D8%B2%20%D8%AD%D8%B3%D8%A7%D8%A8%20%D8%AE%D9%88%D8%AF%20%D8%AE%D8%A7%D8%B1%D8%AC%20%D8%B4%D8%AF%DB%8C%D8%AF')
+                return reply.redirect('/')
                     .unstate('token', {isSecure: false});
             }
             // // Else direct microtic logout
