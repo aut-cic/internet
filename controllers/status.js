@@ -59,10 +59,14 @@ module.exports = class StatusController extends Controller {
     async status(request, reply) {
         const status = await this._usage(request);
 
-        const {logout, dst} = request.query;
+        let {logout, dst} = request.query;
 
         if (!status) {
             return reply.redirect('/').unstate('token', {isSecure: false});
+        }
+
+        if (dst && dst.indexOf('internet.aut.ac.ir') !== -1) {
+            dst = null;
         }
 
         reply.view('status', {
