@@ -17,16 +17,14 @@ async function search(req, res, next) {
         return res.end();
     }
 
+
     res.send({
         dn: 'CN=' + user.get('id'),
         attributes: Object.assign({
             objectclass: ['organization', 'top'],
-
-            group: user.get('group'),
-            radiusGroupName: user.get('group'),
+            memberOf: [user.get('group')],
             real_username: user.get('username'),
             email: user.get('email'),
-
         }, user)
     });
 
