@@ -96,14 +96,9 @@ module.exports = class StatusController extends Controller {
 
         // If self logging out
         if (!ip || ip === request.ip) {
-            if (request.user) {
-                await request.user.logout(request.session);
-                return reply.redirect('/')
-                    .unstate('token', {isSecure: false});
-            }
-            // // Else direct microtic logout
-            // return reply.redirect('https://login.aut.ac.ir/logout')
-            //     .unstate('token', {isSecure: false});
+            await request.user.logout(request.session);
+            return reply.redirect('/')
+                .unstate('token', {isSecure: false});
         }
 
         return reply.redirect('/status?logout=' + (ip || request.ip));
