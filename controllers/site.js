@@ -80,6 +80,10 @@ module.exports = class SiteController extends Controller {
         });
     }
 
+    async throwCrash(request, reply) {
+        a=2;
+    }
+
     async status_logout_$$ip(request, reply, {ip}) {
 
         const status = await this._usage(request);
