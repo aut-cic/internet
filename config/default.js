@@ -11,7 +11,11 @@ module.exports = {
         password: 'opnsense@123'
     },
 
-    log: {},
+    log: {
+        sentry: {
+            dsn: 'SENTRY_DSN',
+        },
+    },
 
     /**
      * Configure auth
