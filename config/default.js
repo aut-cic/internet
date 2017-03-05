@@ -13,7 +13,7 @@ module.exports = {
 
     log: {
         sentry: {
-            dsn: 'SENTRY_DSN',
+            dsn: null,
         },
     },
 
