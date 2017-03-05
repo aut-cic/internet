@@ -7,7 +7,7 @@ const {user_usage, user_logout} = require('../lib/acct');
 
 const auth_secret = Config.get('auth.secret');
 
-module.exports = class StatusController extends Controller {
+module.exports = class SiteController extends Controller {
 
     constructor() {
         super({

@@ -31,7 +31,7 @@ init({
 
     routes: [
         require('./controllers/auth'),
-        require('./controllers/status'),
+        require('./controllers/site'),
     ]
 
 }).then(({hapi}) => {
