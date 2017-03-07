@@ -4,7 +4,7 @@ const auth = require('../lib/auth');
 const Config = require('config');
 const {jwt_sign} = require('bak/lib/helpers/security');
 const {user_usage, user_logout} = require('../lib/acct');
-
+const {lookupIP} = require('../lib/ip');
 const auth_secret = Config.get('auth.secret');
 
 module.exports = class SiteController extends Controller {
@@ -80,6 +80,7 @@ module.exports = class SiteController extends Controller {
             group: request.user ? request.user.group : status.group,
             auth: !!request.user,
             ip: request.ip,
+            location: lookupIP(request.ip).description,
             status,
             logout,
             dst
