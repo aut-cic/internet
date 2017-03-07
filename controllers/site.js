@@ -43,7 +43,7 @@ module.exports = class SiteController extends Controller {
     }
 
     async _post(request, reply) {
-        let {username, password} = request.payload;
+        let {username, password} = request.payload || {};
         username = (username || '').toLowerCase().split('@')[0];
         reply.redirect(`https://login.aut.ac.ir?username=${username}&password=${password}`);
     }
@@ -97,13 +97,27 @@ module.exports = class SiteController extends Controller {
 
         const status = await this._usage(request);
 
+        if (!ip) {
+            ip = request.ip;
+        }
+
         if (!status) {
             return reply.redirect('/')
                 .unstate('token', {isSecure: false});
         }
 
+        let current_session = null;
+
+        for (let session of status.sessions) {
+            if (session.ip === ip) {
+                current_session = session;
+                break;
+            }
+        }
+
         await user_logout({
             username: status.username,
+            acctuniqueid: session.acctuniqueid,
             ip: ip || request.ip,
         });
 
