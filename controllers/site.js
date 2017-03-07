@@ -71,7 +71,7 @@ module.exports = class SiteController extends Controller {
             return reply.redirect('/').unstate('token', {isSecure: false});
         }
 
-        if (dst && dst.indexOf('internet.aut.ac.ir') !== -1) {
+        if (dst && (dst.indexOf('internet.aut.ac.ir') !== -1 || dst.indexOf('login.aut.ac.ir') !== -1)) {
             dst = null;
         }
 
