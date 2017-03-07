@@ -75,12 +75,14 @@ module.exports = class SiteController extends Controller {
             dst = null;
         }
 
+        const location = lookupIP(request.ip);
+
         reply.view('status', {
             username: request.user ? request.user.username : status.username,
             group: request.user ? request.user.group : status.group,
             auth: !!request.user,
             ip: request.ip,
-            location: lookupIP(request.ip).description,
+            location: location ? location.description : '-',
             status,
             logout,
             dst
