@@ -42,6 +42,12 @@ module.exports = class SiteController extends Controller {
         });
     }
 
+    async _post(request, reply) {
+        let {username, password} = request.payload;
+        username = (username || '').toLowerCase().split('@')[0];
+        reply.redirect(`https://login.aut.ac.ir?username=${username}&password=${password}`);
+    }
+
     async help(request, reply) {
         reply.view('help');
     }
@@ -81,7 +87,7 @@ module.exports = class SiteController extends Controller {
     }
 
     async throwCrash(request, reply) {
-        a=2;
+        a = 2;
     }
 
     async status_logout_$$ip(request, reply, {ip}) {
