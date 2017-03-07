@@ -115,9 +115,13 @@ module.exports = class SiteController extends Controller {
             }
         }
 
+        if (!current_session) {
+            current_session = {};
+        }
+
         await user_logout({
             username: status.username,
-            acctuniqueid: session.acctuniqueid,
+            acctuniqueid: current_session.acctuniqueid,
             ip: ip || request.ip,
         });
 
