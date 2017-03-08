@@ -89,6 +89,10 @@ module.exports = class SiteController extends Controller {
         });
     }
 
+    async ipInfo_$$ip(request, reply, {ip}) {
+        reply(lookupIP(ip || request.ip));
+    }
+
     async throwCrash(request, reply) {
         a = 2;
     }
