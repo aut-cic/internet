@@ -24,7 +24,7 @@ module.exports = class SiteController extends Controller {
 
         const status = await this._usage(request);
 
-        const external = false;//request.ip.indexOf('192') !== 0 && request.ip.indexOf('172') !== 0;
+        const external = request.ip.indexOf('192') !== 0 && request.ip.indexOf('172') !== 0;
 
         if (status || request.user) {
             return reply.redirect('/status');
