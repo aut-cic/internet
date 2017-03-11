@@ -6,7 +6,7 @@
     "dev": "node node_modules/nodemon/bin/nodemon --ignore resources/static --preserve-symlinks app"
   },
   "dependencies": {
-    "bak": "^0.5.4",
+    "bak": "^0.5.5",
     "chokidar": "^1.6.1",
     "handlebars": "^4.0.6",
     "ip": "^1.1.5",
