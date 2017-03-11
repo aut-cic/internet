@@ -4,9 +4,8 @@ const {init} = require('bak');
 // Bak & Hapi plugins
 const MongoosePlugin = require('bak/lib/mongoose');
 const LoggingPlugin = require('bak/lib/logging');
+const ViewPlugin = require('bak/lib/view');
 const AuthPlugin = require('bak/lib/auth');
-const InertPlugin = require('inert');
-const Views = require('./views');
 
 // LDAP Server
 require('./ldap');
@@ -25,8 +24,8 @@ init({
         // Auth
         {register: AuthPlugin, options: Object.assign({user_model: UserModel}, Config.get('auth'))},
 
-        // Inert
-        {register: InertPlugin, options: {}},
+        // View
+        {register: ViewPlugin},
     ],
 
     routes: [
@@ -34,6 +33,4 @@ init({
         require('./controllers/site'),
     ]
 
-}).then(({hapi}) => {
-    Views.register(hapi);
 });

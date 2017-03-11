@@ -32,7 +32,7 @@
                     <strong> {{ location }}</strong>
                 </div>
 
-                <a href="/status/logout" class="list-group-item list-group-item-danger">
+                <a href="/status/logout/{{ status.current_session.id }}" class="list-group-item list-group-item-danger">
                     <span>خروج از اینترنت</span>
                 </a>
             </div>
@@ -139,7 +139,7 @@
                                         <td>
                                             {% if session.ip != ip %}
                                                 <a class="btn btn-sm btn-danger"
-                                                   href="/status/logout/{{ session.ip }}">
+                                                   href="/status/logout/{{ session.id }}">
                                                     x
                                                 </a>
                                             {% else %}

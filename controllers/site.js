@@ -1,6 +1,5 @@
 const Controller = require('bak/lib/controller');
 const auth = require('../lib/auth');
-
 const Config = require('config');
 const {jwt_sign} = require('bak/lib/helpers/security');
 const {user_usage, user_logout} = require('../lib/acct');
@@ -25,13 +24,9 @@ module.exports = class SiteController extends Controller {
 
         const status = await this._usage(request);
 
-        const external = request.ip.indexOf('192') !== 0 && request.ip.indexOf('172') !== 0;
+        const external = false;//request.ip.indexOf('192') !== 0 && request.ip.indexOf('172') !== 0;
 
-        if (status) {
-            return reply.redirect('/status');
-        }
-
-        if (request.user) {
+        if (status || request.user) {
             return reply.redirect('/status');
         }
 
@@ -42,20 +37,12 @@ module.exports = class SiteController extends Controller {
         });
     }
 
-    async _post(request, reply) {
-        let {username, password} = request.payload || {};
-        username = (username || '').toLowerCase().split('@')[0];
-        reply.redirect(`https://login.aut.ac.ir?username=${username}&password=${password}`);
-    }
-
     async help(request, reply) {
         reply.view('help');
     }
 
-
     _usage(request) {
         const ip = (request.ip.indexOf('192') === 0 || request.ip.indexOf('172') === 0) ? request.ip : null;
-
         return user_usage({
             username: request.user ? request.user.id : null,
             ip,
@@ -97,49 +84,36 @@ module.exports = class SiteController extends Controller {
         a = 2;
     }
 
-    async status_logout_$$ip(request, reply, {ip}) {
+    async status_logout_$$id(request, reply, {id}) {
 
         const status = await this._usage(request);
 
-        if (!ip) {
-            ip = request.ip;
-        }
-
         if (!status) {
-            return reply.redirect('/')
-                .unstate('token', {isSecure: false});
+            return reply.redirect('/').unstate('token', {isSecure: false});
         }
 
-        let current_session = null;
-
-        for (let session of status.sessions) {
-            if (session.ip === ip) {
-                current_session = session;
-                break;
+        let session = status.current_session;
+        if (id) {
+            for (let s of status.sessions) {
+                if (s.id === id) {
+                    session = s;
+                    break;
+                }
             }
-        }
-
-        if (!current_session) {
-            current_session = {};
         }
 
         await user_logout({
             username: status.username,
-            acctuniqueid: current_session.acctuniqueid,
-            ip: ip || request.ip,
+            acctuniqueid: session,
+            ip: session.ip,
         });
 
-        // If self logging out
-        if (!ip || ip === request.ip) {
-            if (request.user) {
-                await request.user.logout(request.session);
-            }
 
-            return reply.redirect('/')
-                .unstate('token', {isSecure: false});
+        if (request.user) {
+            await request.user.logout(request.session);
         }
 
-        return reply.redirect('/status?logout=' + (ip || request.ip));
+        return reply.redirect('/').unstate('token', {isSecure: false});
     }
 
 

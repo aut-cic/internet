@@ -24,6 +24,7 @@
                                   action="https://login.aut.ac.ir/login"
                                   class="form"
                                   name="login"
+                                  onsubmit="fixLoginForm()"
                             >
                                 <div class="form-group required">
                                     <label>آدرس رایانامه
@@ -35,6 +36,7 @@
                                         <input name="username" dir="ltr" type="text" class="form-control"
                                                placeholder="ایمیل"
                                                tabindex="1"
+                                               onchange="fixLoginForm()"
                                                data-placement="top" data-trigger="manual"
                                                data-content="لطفا شناسه کاربری معتبر وارد کنید.">
                                     </div>
@@ -51,15 +53,14 @@
                                 <input type="hidden" name="dst" value="{{ dst }}">
                                 <input type="hidden" name="popup" value="false">
                                 <input type="hidden" id="cookie" name="erase-cookie" value="false">
-                                <button type="submit" class="btn btn-success btn-lg btn-block" tabindex="3"
-                                        onsubmit="return fix();">
-                                    ورود
+                                <button type="submit" class="btn btn-success btn-lg btn-block" tabindex="3">
+                                    <span>ورود</span>
                                 </button>
                                 {#                                <button type="button" class="btn btn-default btn-block" data-toggle="modal"#}
                                 {#                                        data-target="#myModal">ورود بدون شناسه(سرعت پایین)#}
                                 {#                                </button>#}
-                                <button class="btn btn-default btn-block" onclick="guestLogin()" tabindex="4">ورود بدون
-                                    شناسه(سرعت پایین)
+                                <button class="btn btn-default btn-block" onclick="guestLogin()" tabindex="4">
+                                    <span>ورود بدون شناسه (سرعت پایین)</span>
                                 </button>
                             </form>
                         {% endif %}
