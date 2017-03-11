@@ -104,7 +104,7 @@ module.exports = class SiteController extends Controller {
 
         await user_logout({
             username: status.username,
-            acctuniqueid: session,
+            acctuniqueid: session.id,
             ip: session.ip,
         });
 
