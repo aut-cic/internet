@@ -25,7 +25,7 @@ init({
         {register: AuthPlugin, options: Object.assign({user_model: UserModel}, Config.get('auth'))},
 
         // View
-        {register: ViewPlugin},
+        {register: ViewPlugin, options: {staticCache: 300 * 60 * 1000}},
     ],
 
     routes: [

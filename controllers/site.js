@@ -5,6 +5,7 @@ const {jwt_sign} = require('bak/lib/helpers/security');
 const {user_usage, user_logout} = require('../lib/acct');
 const {lookupIP} = require('../lib/ip');
 const auth_secret = Config.get('auth.secret');
+const {stats} = require('../lib/cache');
 
 module.exports = class SiteController extends Controller {
 
@@ -82,6 +83,10 @@ module.exports = class SiteController extends Controller {
 
     async throwCrash(request, reply) {
         a = 2;
+    }
+
+    async cache_stats(request, reply) {
+        reply(stats);
     }
 
     async status_logout_$$id(request, reply, {id}) {
