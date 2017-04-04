@@ -1,6 +1,6 @@
 pipeline:
   docker:
-    image: ${DOCKER_IMAGE}:1.12
+    image: plugins/docker:1.12
     mirror: ${REGISTRY_MIRROR}
     registry: ${DOCKER_REGISTRY}
     repo: ${DOCKER_REGISTRY}/${DRONE_REPO_NAME}
