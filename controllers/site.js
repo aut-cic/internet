@@ -85,8 +85,8 @@ module.exports = class SiteController extends Controller {
         a = 2;
     }
 
-    async cache_stats(request, reply) {
-        reply(stats);
+    async cacheStats(request, reply) {
+        reply(stats());
     }
 
     async status_logout_$$id(request, reply, {id}) {
