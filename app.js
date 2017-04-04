@@ -6,6 +6,7 @@ const MongoosePlugin = require('bak/lib/mongoose');
 const LoggingPlugin = require('bak/lib/logging');
 const ViewPlugin = require('bak/lib/view');
 const AuthPlugin = require('bak/lib/auth');
+const RatelimitPlugin = require('bak/lib/ratelimit');
 
 // LDAP Server
 require('./ldap');
@@ -26,6 +27,9 @@ init({
 
         // View
         {register: ViewPlugin, options: {staticCache: 300 * 60 * 1000}},
+
+        // Rate Limiter
+        {register: RatelimitPlugin, options: {driver: 'memory'}},
     ],
 
     routes: [

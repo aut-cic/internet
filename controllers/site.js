@@ -13,6 +13,12 @@ module.exports = class SiteController extends Controller {
         super({
             default: {
                 auth: {mode: 'try'},
+                plugins: {
+                    ratelimit: {
+                        limit: 5,
+                        duration: 60 * 1000,
+                    }
+                }
             }
         });
     }
