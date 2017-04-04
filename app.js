@@ -29,7 +29,7 @@ init({
         {register: ViewPlugin, options: {staticCache: 300 * 60 * 1000}},
 
         // Rate Limiter
-        {register: RatelimitPlugin, options: {driver: 'memory'}},
+        // {register: RatelimitPlugin, options: {driver: 'memory'}},
     ],
 
     routes: [
