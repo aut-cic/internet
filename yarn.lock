@@ -152,9 +152,9 @@ backoff@^2.5.0:
   dependencies:
     precond "0.2"
 
-bak@^0.5.5:
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/bak/-/bak-0.5.5.tgz#771c1abfd3d7f68ceb76a3665e76c375bd54298e"
+bak@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/bak/-/bak-0.5.6.tgz#c265efd246436c483e64eee7e01f861dc1f10fc5"
   dependencies:
     axios "^0.15.3"
     bcryptjs "^2.4.3"
