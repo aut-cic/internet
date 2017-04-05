@@ -83,11 +83,11 @@ module.exports = class SiteController extends Controller {
         });
     }
 
-    async ipInfo_$$ip(request, reply, {ip}) {
+    async ipInfo_lookup_$$ip(request, reply, {ip}) {
         reply(lookupIP(ip || request.ip));
     }
 
-    async ipInfo_all(request, reply) {
+    async ipInfo(request, reply) {
         const subenets = updateDB();
         reply(subenets);
     }
