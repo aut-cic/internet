@@ -3,7 +3,7 @@ const auth = require('../lib/auth');
 const Config = require('config');
 const {jwt_sign} = require('bak/lib/helpers/security');
 const {user_usage, user_logout} = require('../lib/acct');
-const {lookupIP} = require('../lib/ip');
+const {lookupIP, updateDB} = require('../lib/ip');
 const auth_secret = Config.get('auth.secret');
 const {stats} = require('../lib/cache');
 
@@ -87,12 +87,9 @@ module.exports = class SiteController extends Controller {
         reply(lookupIP(ip || request.ip));
     }
 
-    async throwCrash(request, reply) {
-        a = 2;
-    }
-
-    async cacheStats(request, reply) {
-        reply(stats());
+    async ipInfo_update(request, reply) {
+        const subenets = updateDB();
+        reply(subenets);
     }
 
     async status_logout_$$id(request, reply, {id}) {
