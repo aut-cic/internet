@@ -87,7 +87,7 @@ module.exports = class SiteController extends Controller {
         reply(lookupIP(ip || request.ip));
     }
 
-    async ipInfo_update(request, reply) {
+    async ipInfo_all(request, reply) {
         const subenets = updateDB();
         reply(subenets);
     }
