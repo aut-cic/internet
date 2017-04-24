@@ -1,8 +1,7 @@
-FROM banian/node
+FROM node:alpine
 
-# Copy dependencies in seperate layers
-COPY package.json yarn.lock /usr/src/app/
-RUN NODE_ENV=production yarn
+ENV NODE_ENV=production
+WORKDIR /usr/src/app
+CMD npm start
 
-# Copy source
-COPY . /usr/src/app/
+ADD . /usr/src/app

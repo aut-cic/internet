@@ -79,7 +79,8 @@ module.exports = class SiteController extends Controller {
             location: location ? location.description : '-',
             status,
             logout,
-            dst
+            dst,
+            rand: Math.floor(Math.random() * 1000)
         });
     }
 

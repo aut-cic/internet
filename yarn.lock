@@ -136,11 +136,11 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-axios@^0.15.3:
-  version "0.15.3"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.15.3.tgz#2c9d638b2e191a08ea1d6cc988eadd6ba5bdc053"
+axios@^0.16.1:
+  version "0.16.1"
+  resolved "https://npm.cloud.aut.ac.ir/axios/-/axios-0.16.1.tgz#c0b6d26600842384b8f509e57111f0d2df8223ca"
   dependencies:
-    follow-redirects "1.0.0"
+    follow-redirects "^1.2.3"
 
 b64@3.x.x:
   version "3.0.2"
@@ -152,18 +152,19 @@ backoff@^2.5.0:
   dependencies:
     precond "0.2"
 
-bak@^0.5.6:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/bak/-/bak-0.5.6.tgz#c265efd246436c483e64eee7e01f861dc1f10fc5"
+bak@^0.6.0:
+  version "0.6.0"
+  resolved "https://npm.cloud.aut.ac.ir/bak/-/bak-0.6.0.tgz#325fc06f92e211f0e6fdc820ec1ae3b2fa0c560a"
   dependencies:
-    axios "^0.15.3"
+    axios "^0.16.1"
     bcryptjs "^2.4.3"
-    bell "^8.5.0"
-    boom "^4.2.0"
+    bell "^8.6.0"
+    boom "^4.3.1"
+    cachegoose "^3.0.2"
     catbox "^7.1.3"
     catbox-memory "^2.0.4"
-    catbox-mongodb "^3.0.0"
-    catbox-redis "^2.0.2"
+    catbox-mongodb "^3.0.1"
+    catbox-redis "^3.0.1"
     chalk "^1.1.3"
     config "^1.2.5"
     crumb "^6.0.3"
@@ -171,24 +172,24 @@ bak@^0.5.6:
     good "^7.1.0"
     good-console "^6.4.0"
     good-influx "^2.1.0"
-    good-squeeze "^5.0.1"
+    good-squeeze "^5.0.2"
     h2o2 "^5.4.0"
-    hapi "^16.1.0"
-    hoek "^4.1.0"
-    inert "^4.1.0"
+    hapi "^16.1.1"
+    hoek "^4.1.1"
+    inert "^4.2.0"
     isemail "^2.2.1"
-    joi "^10.2.2"
-    js-yaml "^3.8.2"
+    joi "^10.4.1"
+    js-yaml "^3.8.3"
     jsonwebtoken "^7.3.0"
     lodash "^4.17.4"
-    minio "^3.1.2"
-    mongoose "^4.8.6"
+    minio "^3.1.3"
+    mongoose "^4.9.4"
     mongoose-fill "^1.6.0"
     nodemon "^1.11.0"
     nunjucks "^3.0.0"
-    ratelimiter "^3.0.2"
-    raven "^1.1.4"
-    redis "^2.6.5"
+    ratelimiter "^3.0.3"
+    raven "^1.2.1"
+    redis "^2.7.1"
     table-master "^1.0.3"
     vision "^4.1.1"
 
@@ -210,11 +211,11 @@ bcryptjs@^2.4.3:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
 
-bell@^8.5.0:
-  version "8.5.0"
-  resolved "https://registry.yarnpkg.com/bell/-/bell-8.5.0.tgz#059da3db877d84db73e2e64dff5ca25fdb5fe242"
+bell@^8.6.0:
+  version "8.6.0"
+  resolved "https://npm.cloud.aut.ac.ir/bell/-/bell-8.6.0.tgz#a9e69dc1b6f863dc0d1c322dcebaf85e8f912727"
   dependencies:
-    boom "4.x.x"
+    boom "4.2.x"
     cryptiles "3.x.x"
     hoek "4.x.x"
     joi "10.x.x"
@@ -242,6 +243,10 @@ bluebird@2.10.2:
   version "2.10.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.10.2.tgz#024a5517295308857f14f91f1106fc3b555f446b"
 
+bluebird@^3.3.4:
+  version "3.5.0"
+  resolved "https://npm.cloud.aut.ac.ir/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
+
 boom@2.x.x:
   version "2.10.1"
   resolved "https://registry.yarnpkg.com/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
@@ -254,9 +259,15 @@ boom@3.X.X, boom@3.x.x:
   dependencies:
     hoek "4.x.x"
 
-boom@4.x.x, boom@^4.2.0:
+boom@4.2.x, boom@4.x.x:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/boom/-/boom-4.2.0.tgz#c1a74174b11fbba223f6162d4fd8851a1b82a536"
+  dependencies:
+    hoek "4.x.x"
+
+boom@^4.3.1:
+  version "4.3.1"
+  resolved "https://npm.cloud.aut.ac.ir/boom/-/boom-4.3.1.tgz#4f8a3005cb4a7e3889f749030fd25b96e01d2e31"
   dependencies:
     hoek "4.x.x"
 
@@ -296,6 +307,35 @@ bunyan@^1.8.3:
     mv "~2"
     safe-json-stringify "~1"
 
+cachegoose@^3.0.2:
+  version "3.0.2"
+  resolved "https://npm.cloud.aut.ac.ir/cachegoose/-/cachegoose-3.0.2.tgz#0ac4e571fba61450bed87b09fdd75c43d79e3b92"
+  dependencies:
+    cacheman "^2.0.5"
+    cacheman-redis "^1.0.1"
+    jsosort "0.0.0"
+    sha1 "^1.1.0"
+
+cacheman-memory@^1.0.2:
+  version "1.0.2"
+  resolved "https://npm.cloud.aut.ac.ir/cacheman-memory/-/cacheman-memory-1.0.2.tgz#38c79b80f012b103bfaa8346d6ed74730a7ede9c"
+  dependencies:
+    lru-cache "~2.7.x"
+
+cacheman-redis@^1.0.1:
+  version "1.1.2"
+  resolved "https://npm.cloud.aut.ac.ir/cacheman-redis/-/cacheman-redis-1.1.2.tgz#d54454dd492803ff3382ad929fcb8693ea394cb6"
+  dependencies:
+    parse-redis-url "0.0.2"
+    redis ">= 2.4.x"
+
+cacheman@^2.0.5:
+  version "2.2.1"
+  resolved "https://npm.cloud.aut.ac.ir/cacheman/-/cacheman-2.2.1.tgz#3510c0def12429d61b780128ff18f9d284bb02b8"
+  dependencies:
+    cacheman-memory "^1.0.2"
+    ms "^0.7.1"
+
 call@4.x.x:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/call/-/call-4.0.0.tgz#cd29381a98046a132db26e2628e70bd8321a1ddf"
@@ -321,19 +361,19 @@ catbox-memory@2.x.x, catbox-memory@^2.0.4:
   dependencies:
     hoek "4.x.x"
 
-catbox-mongodb@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/catbox-mongodb/-/catbox-mongodb-3.0.0.tgz#091be6fd46f5cefd38daaaee3d3c0575bd961c44"
+catbox-mongodb@^3.0.1:
+  version "3.0.1"
+  resolved "https://npm.cloud.aut.ac.ir/catbox-mongodb/-/catbox-mongodb-3.0.1.tgz#d4be38f79e47f3c1840cfa19e442af9b86bec3f5"
   dependencies:
     hoek "4.x.x"
     mongodb "2.x.x"
 
-catbox-redis@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/catbox-redis/-/catbox-redis-2.0.2.tgz#1721116f48494a9cc873b07c6ea25fa7e1898ab1"
+catbox-redis@^3.0.1:
+  version "3.0.1"
+  resolved "https://npm.cloud.aut.ac.ir/catbox-redis/-/catbox-redis-3.0.1.tgz#0d2f0d7f0c62f8081f70853bf4663be91ca5ffd1"
   dependencies:
     hoek "4.x.x"
-    redis "2.x.x"
+    ioredis "2.x.x"
 
 catbox@7.x.x, catbox@^7.1.3:
   version "7.1.3"
@@ -359,6 +399,10 @@ chalk@^1.0.0, chalk@^1.1.1, chalk@^1.1.3:
     has-ansi "^2.0.0"
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
+
+"charenc@>= 0.0.1":
+  version "0.0.2"
+  resolved "https://npm.cloud.aut.ac.ir/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
 
 chokidar@^1.4.3, chokidar@^1.6.0, chokidar@^1.6.1:
   version "1.6.1"
@@ -390,6 +434,10 @@ cliui@^3.0.3:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wrap-ansi "^2.0.0"
+
+cluster-key-slot@^1.0.6:
+  version "1.0.8"
+  resolved "https://npm.cloud.aut.ac.ir/cluster-key-slot/-/cluster-key-slot-1.0.8.tgz#7654556085a65330932a2e8b5976f8e2d0b3e414"
 
 code-point-at@^1.0.0:
   version "1.1.0"
@@ -465,6 +513,10 @@ crumb@^6.0.3:
     hoek "4.x.x"
     joi "8.x.x"
 
+"crypt@>= 0.0.1":
+  version "0.0.2"
+  resolved "https://npm.cloud.aut.ac.ir/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
+
 cryptiles@2.x.x:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
@@ -489,7 +541,7 @@ debug@2.2.0, debug@~2.2.0:
   dependencies:
     ms "0.7.1"
 
-debug@^2.2.0:
+debug@^2.2.0, debug@^2.4.5:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.1.tgz#79855090ba2c4e3115cc7d8769491d58f0491351"
   dependencies:
@@ -639,13 +691,13 @@ fast-safe-stringify@1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-1.0.9.tgz#27c915a4be3dd50e501826193a14dd0899dbad08"
 
-fast-safe-stringify@1.1.0, fast-safe-stringify@^1.0.9:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-1.1.0.tgz#4ca98c502e00c387ca1b0e7184e955718bf512e8"
-
-fast-safe-stringify@1.1.3:
+fast-safe-stringify@1.1.3, fast-safe-stringify@1.1.x:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-1.1.3.tgz#f23370808fe5ab243fa1fdee2e9ab3041c8cb884"
+
+fast-safe-stringify@^1.0.9:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-1.1.0.tgz#4ca98c502e00c387ca1b0e7184e955718bf512e8"
 
 filename-regex@^2.0.0:
   version "2.0.0"
@@ -661,11 +713,15 @@ fill-range@^2.1.0:
     repeat-element "^1.1.2"
     repeat-string "^1.5.2"
 
-follow-redirects@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.0.0.tgz#8e34298cbd2e176f254effec75a1c78cc849fd37"
+flexbuffer@0.0.6:
+  version "0.0.6"
+  resolved "https://npm.cloud.aut.ac.ir/flexbuffer/-/flexbuffer-0.0.6.tgz#039fdf23f8823e440c38f3277e6fef1174215b30"
+
+follow-redirects@^1.2.3:
+  version "1.2.3"
+  resolved "https://npm.cloud.aut.ac.ir/follow-redirects/-/follow-redirects-1.2.3.tgz#01abaeca85e3609837d9fcda3167a7e42fdaca21"
   dependencies:
-    debug "^2.2.0"
+    debug "^2.4.5"
 
 for-in@^0.1.5:
   version "0.1.6"
@@ -814,11 +870,11 @@ good-influx@^2.1.0:
     hoek "4.x.x"
     wreck "7.x.x"
 
-good-squeeze@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/good-squeeze/-/good-squeeze-5.0.1.tgz#2bf53c28a77c072b18a64691f6e862cd68ea0891"
+good-squeeze@^5.0.2:
+  version "5.0.2"
+  resolved "https://npm.cloud.aut.ac.ir/good-squeeze/-/good-squeeze-5.0.2.tgz#a8e58242b4a0b32cdbdf317b60e73a19a7f0879b"
   dependencies:
-    fast-safe-stringify "1.1.0"
+    fast-safe-stringify "1.1.x"
     hoek "4.x.x"
 
 good-udp@4.x.x:
@@ -878,9 +934,9 @@ handlebars@^4.0.6:
   optionalDependencies:
     uglify-js "^2.6"
 
-hapi@^16.1.0:
-  version "16.1.0"
-  resolved "https://registry.yarnpkg.com/hapi/-/hapi-16.1.0.tgz#419dd86347588821eb5a0a5f493bce019802d33b"
+hapi@^16.1.1:
+  version "16.1.1"
+  resolved "https://npm.cloud.aut.ac.ir/hapi/-/hapi-16.1.1.tgz#0466db0703ba15cd00f07175ccf394d9cb56b1e0"
   dependencies:
     accept "2.x.x"
     ammo "2.x.x"
@@ -941,13 +997,17 @@ hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
-hoek@4.X.X, hoek@4.x.x, hoek@^4.1.0:
+hoek@4.X.X, hoek@4.x.x:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.1.0.tgz#4a4557460f69842ed463aa00628cc26d2683afa7"
 
-hooks-fixed@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/hooks-fixed/-/hooks-fixed-1.2.0.tgz#0d2772d4d7d685ff9244724a9f0b5b2559aac96b"
+hoek@^4.1.1:
+  version "4.1.1"
+  resolved "https://npm.cloud.aut.ac.ir/hoek/-/hoek-4.1.1.tgz#9cc573ffba2b7b408fb5e9c2a13796be94cddce9"
+
+hooks-fixed@2.0.0:
+  version "2.0.0"
+  resolved "https://npm.cloud.aut.ac.ir/hooks-fixed/-/hooks-fixed-2.0.0.tgz#a01d894d52ac7f6599bbb1f63dfc9c411df70cba"
 
 http-signature@~1.1.0:
   version "1.1.1"
@@ -965,9 +1025,9 @@ imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
 
-inert@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/inert/-/inert-4.1.0.tgz#e68df9fb0b87d8ad688e3428daaf35d623b64f5d"
+inert@^4.2.0:
+  version "4.2.0"
+  resolved "https://npm.cloud.aut.ac.ir/inert/-/inert-4.2.0.tgz#6aa5da8ce19982eb72aabef4bdda64fd6750b005"
   dependencies:
     ammo "2.x.x"
     boom "4.x.x"
@@ -998,6 +1058,19 @@ ini@~1.3.0:
 invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
+
+ioredis@2.x.x:
+  version "2.5.0"
+  resolved "https://npm.cloud.aut.ac.ir/ioredis/-/ioredis-2.5.0.tgz#fb6fdf0a1a7e0974614c67b6e5e11308a8cf95b9"
+  dependencies:
+    bluebird "^3.3.4"
+    cluster-key-slot "^1.0.6"
+    debug "^2.2.0"
+    double-ended-queue "^2.1.0-0"
+    flexbuffer "0.0.6"
+    lodash "^4.8.2"
+    redis-commands "^1.2.0"
+    redis-parser "^1.3.0"
 
 ip@^1.1.5:
   version "1.1.5"
@@ -1140,7 +1213,7 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-joi@10.x.x, joi@^10.2.2:
+joi@10.x.x:
   version "10.2.2"
   resolved "https://registry.yarnpkg.com/joi/-/joi-10.2.2.tgz#dc5a792b7b4c6fffa562242a95b55d9d3f077e24"
   dependencies:
@@ -1168,6 +1241,15 @@ joi@9.X.X:
     moment "2.x.x"
     topo "2.x.x"
 
+joi@^10.4.1:
+  version "10.4.1"
+  resolved "https://npm.cloud.aut.ac.ir/joi/-/joi-10.4.1.tgz#a2fca1f0d603d1b843f2c1e086b52461f6be1f36"
+  dependencies:
+    hoek "4.x.x"
+    isemail "2.x.x"
+    items "2.x.x"
+    topo "2.x.x"
+
 joi@^6.10.1:
   version "6.10.1"
   resolved "https://registry.yarnpkg.com/joi/-/joi-6.10.1.tgz#4d50c318079122000fe5f16af1ff8e1917b77e06"
@@ -1177,9 +1259,9 @@ joi@^6.10.1:
     moment "2.x.x"
     topo "1.x.x"
 
-js-yaml@^3.8.2:
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.2.tgz#02d3e2c0f6beab20248d412c352203827d786721"
+js-yaml@^3.8.3:
+  version "3.8.3"
+  resolved "https://npm.cloud.aut.ac.ir/js-yaml/-/js-yaml-3.8.3.tgz#33a05ec481c850c8875929166fe1beb61c728766"
   dependencies:
     argparse "^1.0.7"
     esprima "^3.1.1"
@@ -1217,6 +1299,10 @@ jsonwebtoken@^7.3.0:
     lodash.once "^4.0.0"
     ms "^0.7.1"
     xtend "^4.0.1"
+
+jsosort@0.0.0:
+  version "0.0.0"
+  resolved "https://npm.cloud.aut.ac.ir/jsosort/-/jsosort-0.0.0.tgz#5f5516a2af63bb648e4e525f514e49ade0f899fe"
 
 jsprim@^1.2.2:
   version "1.3.1"
@@ -1365,7 +1451,7 @@ lodash@^3.10.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.14.2, lodash@^4.17.4:
+lodash@^4.0.0, lodash@^4.14.0, lodash@^4.14.2, lodash@^4.17.4, lodash@^4.8.2:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -1383,6 +1469,10 @@ lru-cache@4.0.x:
   dependencies:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
+
+lru-cache@~2.7.x:
+  version "2.7.3"
+  resolved "https://npm.cloud.aut.ac.ir/lru-cache/-/lru-cache-2.7.3.tgz#6d4524e8b955f95d4f5b58851ce21dd72fb4e952"
 
 lsmod@1.0.0:
   version "1.0.0"
@@ -1441,9 +1531,9 @@ minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
-minio@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/minio/-/minio-3.1.2.tgz#55575821b8d35973b7143cbd26150764b4bdc3c0"
+minio@^3.1.3:
+  version "3.1.3"
+  resolved "https://npm.cloud.aut.ac.ir/minio/-/minio-3.1.3.tgz#e03743626258d89a2b7314d55a0cd8b7ebe1bd6e"
   dependencies:
     async "^1.5.0"
     block-stream2 "^1.0.0"
@@ -1454,7 +1544,7 @@ minio@^3.1.2:
     mime-types "^2.1.14"
     mkdirp "^0.5.1"
     moment "^2.10.3"
-    source-map-support "^0.2.10"
+    source-map-support "^0.4.12"
     through2 "^0.6.5"
     xml "^1.0.0"
     xml2js "^0.4.15"
@@ -1487,7 +1577,22 @@ mongodb-core@2.1.8:
     bson "~1.0.4"
     require_optional "~1.0.0"
 
-mongodb@2.2.24, mongodb@2.x.x:
+mongodb-core@2.1.9:
+  version "2.1.9"
+  resolved "https://npm.cloud.aut.ac.ir/mongodb-core/-/mongodb-core-2.1.9.tgz#85aa71ee4fb716196e06b787557bf139f801daf5"
+  dependencies:
+    bson "~1.0.4"
+    require_optional "~1.0.0"
+
+mongodb@2.2.25:
+  version "2.2.25"
+  resolved "https://npm.cloud.aut.ac.ir/mongodb/-/mongodb-2.2.25.tgz#d3b25dad00eda2bdfcbc996210ba082ac686a6b6"
+  dependencies:
+    es6-promise "3.2.1"
+    mongodb-core "2.1.9"
+    readable-stream "2.1.5"
+
+mongodb@2.x.x:
   version "2.2.24"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.24.tgz#80f40d6ec5bdec0ddecf0f9ce0144e794c46449a"
   dependencies:
@@ -1501,18 +1606,18 @@ mongoose-fill@^1.6.0:
   dependencies:
     async "^1.4.2"
 
-mongoose@^4.8.6:
-  version "4.8.6"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.8.6.tgz#f1b376b243fe86f54d5d5cddc7b990aade858f0d"
+mongoose@^4.9.4:
+  version "4.9.5"
+  resolved "https://npm.cloud.aut.ac.ir/mongoose/-/mongoose-4.9.5.tgz#856b856700032748dd68122cb0371f8980442975"
   dependencies:
     async "2.1.4"
     bson "~1.0.4"
-    hooks-fixed "1.2.0"
+    hooks-fixed "2.0.0"
     kareem "1.2.1"
-    mongodb "2.2.24"
+    mongodb "2.2.25"
     mpath "0.2.1"
     mpromise "0.5.5"
-    mquery "2.2.3"
+    mquery "2.3.0"
     ms "0.7.2"
     muri "1.2.1"
     regexp-clone "0.0.1"
@@ -1526,9 +1631,9 @@ mpromise@0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/mpromise/-/mpromise-0.5.5.tgz#f5b24259d763acc2257b0a0c8c6d866fd51732e6"
 
-mquery@2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/mquery/-/mquery-2.2.3.tgz#a4703b64fb6734fce51d784a4df095cabf1a8f57"
+mquery@2.3.0:
+  version "2.3.0"
+  resolved "https://npm.cloud.aut.ac.ir/mquery/-/mquery-2.3.0.tgz#3d1717ad8958d0c99e42ea2461a109f3e5f3e458"
   dependencies:
     bluebird "2.10.2"
     debug "2.2.0"
@@ -1726,6 +1831,10 @@ parse-glob@^3.0.4:
     is-extglob "^1.0.0"
     is-glob "^2.0.0"
 
+parse-redis-url@0.0.2:
+  version "0.0.2"
+  resolved "https://npm.cloud.aut.ac.ir/parse-redis-url/-/parse-redis-url-0.0.2.tgz#13c92a0abbe6f2512006a8c49de6cb7b8dd4b277"
+
 path-is-absolute@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
@@ -1820,13 +1929,13 @@ randomatic@^1.1.3:
     is-number "^2.0.2"
     kind-of "^3.0.2"
 
-ratelimiter@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/ratelimiter/-/ratelimiter-3.0.2.tgz#714f2bb3a03144edcb1bf9634eaa611b455bc3f3"
+ratelimiter@^3.0.3:
+  version "3.0.3"
+  resolved "https://npm.cloud.aut.ac.ir/ratelimiter/-/ratelimiter-3.0.3.tgz#6dbca58b05422f2a08e224d4ba3a0cfb86c30966"
 
-raven@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/raven/-/raven-1.1.4.tgz#5f65e310153b3e15313598edfd9300d21b5515b5"
+raven@^1.2.1:
+  version "1.2.1"
+  resolved "https://npm.cloud.aut.ac.ir/raven/-/raven-1.2.1.tgz#949c134db028a190b7bbf8f790aae541b7c020bd"
   dependencies:
     cookie "0.3.1"
     json-stringify-safe "5.0.1"
@@ -1896,17 +2005,21 @@ redis-commands@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/redis-commands/-/redis-commands-1.3.1.tgz#81d826f45fa9c8b2011f4cd7a0fe597d241d442b"
 
-redis-parser@^2.0.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/redis-parser/-/redis-parser-2.4.0.tgz#018ea743077aae944d0b798b2fd12587320bf3c9"
+redis-parser@^1.3.0:
+  version "1.3.0"
+  resolved "https://npm.cloud.aut.ac.ir/redis-parser/-/redis-parser-1.3.0.tgz#806ebe7bbfb7d34e4d7c1e9ef282efcfad04126a"
 
-redis@2.x.x, redis@^2.6.5:
-  version "2.6.5"
-  resolved "https://registry.yarnpkg.com/redis/-/redis-2.6.5.tgz#87c1eff4a489f94b70871f3d08b6988f23a95687"
+redis-parser@^2.5.0:
+  version "2.6.0"
+  resolved "https://npm.cloud.aut.ac.ir/redis-parser/-/redis-parser-2.6.0.tgz#52ed09dacac108f1a631c07e9b69941e7a19504b"
+
+"redis@>= 2.4.x", redis@^2.7.1:
+  version "2.7.1"
+  resolved "https://npm.cloud.aut.ac.ir/redis/-/redis-2.7.1.tgz#7d56f7875b98b20410b71539f1d878ed58ebf46a"
   dependencies:
     double-ended-queue "^2.1.0-0"
     redis-commands "^1.2.0"
-    redis-parser "^2.0.0"
+    redis-parser "^2.5.0"
 
 regex-cache@^0.4.2:
   version "0.4.3"
@@ -2023,6 +2136,13 @@ set-immediate-shim@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/set-immediate-shim/-/set-immediate-shim-1.0.1.tgz#4b2b1b27eb808a9f8dcc481a58e5e56f599f3f61"
 
+sha1@^1.1.0:
+  version "1.1.1"
+  resolved "https://npm.cloud.aut.ac.ir/sha1/-/sha1-1.1.1.tgz#addaa7a93168f393f19eb2b15091618e2700f848"
+  dependencies:
+    charenc ">= 0.0.1"
+    crypt ">= 0.0.1"
+
 shot@3.x.x:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/shot/-/shot-3.4.0.tgz#e7125ee72575ae5218349e933636808d790d4b92"
@@ -2052,17 +2172,11 @@ sntp@1.x.x:
   dependencies:
     hoek "2.x.x"
 
-source-map-support@^0.2.10:
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.2.10.tgz#ea5a3900a1c1cb25096a0ae8cc5c2b4b10ded3dc"
+source-map-support@^0.4.12:
+  version "0.4.14"
+  resolved "https://npm.cloud.aut.ac.ir/source-map-support/-/source-map-support-0.4.14.tgz#9d4463772598b86271b4f523f6c1f4e02a7d6aef"
   dependencies:
-    source-map "0.1.32"
-
-source-map@0.1.32:
-  version "0.1.32"
-  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.1.32.tgz#c8b6c167797ba4740a8ea33252162ff08591b266"
-  dependencies:
-    amdefine ">=0.0.4"
+    source-map "^0.5.6"
 
 source-map@^0.4.4:
   version "0.4.4"
@@ -2070,7 +2184,7 @@ source-map@^0.4.4:
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@~0.5.1:
+source-map@^0.5.6, source-map@~0.5.1:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
 

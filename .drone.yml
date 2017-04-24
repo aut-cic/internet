@@ -1,12 +1,18 @@
 pipeline:
-  docker:
-    image: plugins/docker:1.12
-    mirror: ${REGISTRY_MIRROR}
-    registry: ${DOCKER_REGISTRY}
-    repo: ${DOCKER_REGISTRY}/${DRONE_REPO_NAME}
-    username: ${REGISTRY_USER}
-    password: ${REGISTRY_PASSWORD}
-    email: ${DRONE_COMMIT_AUTHOR_EMAIL}
-    tags: latest
-    volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
+
+  build:
+    image: banian/node
+    commands:
+        - NODE_ENV=production yarn
+
+  publish:
+    image: plugins/docker
+    mirror: http://mirror.docker.cloud.aut.ac.ir
+    registry: registry.docker.cloud.aut.ac.ir
+    repo: registry.docker.cloud.aut.ac.ir/internet/internet
+    secrets: [ docker_username, docker_password ]
+    tag: latest
+    squash: true
+    when:
+      branch: master
+      event: push
