@@ -1,6 +1,5 @@
-const BaseUser = require('bak/lib/auth/user');
+const BaseUser = require('bak/lib/auth/provider/user');
 const {Schema} = require('mongoose');
-const {bcrypt_hash} = require('bak/lib/helpers/security');
 
 class User extends BaseUser {
 

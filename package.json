@@ -6,9 +6,9 @@
     "dev": "node node_modules/nodemon/bin/nodemon --ignore resources/static --preserve-symlinks app"
   },
   "dependencies": {
-    "bak": "^0.6.0",
+    "bak": "^0.8.0",
     "chokidar": "^1.6.1",
-    "handlebars": "^4.0.6",
+    "handlebars": "^4.0.8",
     "ip": "^1.1.5",
     "ldapjs": "^1.0.1",
     "moment-jalaali": "^0.6.1",
