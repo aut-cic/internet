@@ -13,7 +13,7 @@
 
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/rtl.css" rel="stylesheet">
-    <link href="/static/css/app.css" rel="stylesheet">
+    <link href="/static/css/app.css?2" rel="stylesheet">
     {% block styles %} {% endblock %}
 
 </head>
@@ -32,28 +32,7 @@
         {% block content %} {% endblock %}
     </div>
 
-    <style>
-        .floatBtn {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 40px;
-            right: 40px;
-            background-color: #06C;
-            color: #FFF !important;
-            border-radius: 50px;
-            text-align: center;
-            box-shadow: 2px 2px 3px #999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .floatBtn i {
-            font-size: 30px !important;
-        }
-    </style>
-    <a href="#" class="floatBtn">
+    <a href="https://support.aut.ac.ir" class="floatBtn" target="_blank">
         <i class="material-icons">help_outline</i>
     </a>
 </div>
