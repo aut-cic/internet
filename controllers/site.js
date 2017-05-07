@@ -6,6 +6,7 @@ const {user_usage, user_logout} = require('../lib/acct');
 const {lookupIP, updateDB} = require('../lib/ip');
 const auth_secret = Config.get('auth.secret');
 const {stats} = require('../lib/cache');
+const MESSAGES = require('../lib/messages');
 
 module.exports = class SiteController extends Controller {
 
@@ -31,7 +32,7 @@ module.exports = class SiteController extends Controller {
 
         const status = await this._usage(request);
 
-        const external = request.ip.indexOf('192') !== 0 && request.ip.indexOf('172') !== 0;
+        const external = false;//request.ip.indexOf('192') !== 0 && request.ip.indexOf('172') !== 0;
 
         if (status || request.user) {
             return reply.redirect('/status');
@@ -40,7 +41,10 @@ module.exports = class SiteController extends Controller {
         reply.view(request.query.next ? 'index' : 'old', {
             dst,
             error,
-            external
+            external,
+            MESSAGES: MESSAGES[request.query.lang || 'fa'],
+            dir: request.query.lang === 'en' ? 'ltr' : 'rtl',
+            otherLang: {}
         });
     }
 
