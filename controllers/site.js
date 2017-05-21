@@ -5,8 +5,8 @@ const {jwt_sign} = require('bak/lib/helpers/security');
 const {user_usage, user_logout} = require('../lib/acct');
 const {lookupIP, updateDB} = require('../lib/ip');
 const auth_secret = Config.get('auth.secret');
-const {stats} = require('../lib/cache');
 const MESSAGES = require('../lib/messages');
+const Announcement = require('../models/announcement');
 
 module.exports = class SiteController extends Controller {
 
@@ -34,6 +34,8 @@ module.exports = class SiteController extends Controller {
 
         const external = false;//request.ip.indexOf('192') !== 0 && request.ip.indexOf('172') !== 0;
 
+        const announcements = await Announcement.find({visible: {$ne: false}, login: true});
+
         if (status || request.user) {
             return reply.redirect('/status');
         }
@@ -42,14 +44,11 @@ module.exports = class SiteController extends Controller {
             dst,
             error,
             external,
+            announcements,
             MESSAGES: MESSAGES[request.query.lang || 'fa'],
             dir: request.query.lang === 'en' ? 'ltr' : 'rtl',
             otherLang: {}
         });
-    }
-
-    async help(request, reply) {
-        reply.view('help');
     }
 
     _usage(request) {
@@ -75,15 +74,35 @@ module.exports = class SiteController extends Controller {
 
         const location = lookupIP(request.ip);
 
+        const announcements = await Announcement.find({visible: {$ne: false}, status: true});
+
+        // History
+        const history = {
+            labels: [],
+            data: [],
+            colors: []
+        };
+        status.usageHistory.forEach(({date, usage, effective}) => {
+            history.labels.push(date);
+            history.data.push(usage);
+            history.colors.push(effective ? 'rgba(54, 162, 235, 0.2)' : 'rgba(255, 99, 132, 0.2)');
+        });
+
         reply.view('status', {
             username: request.user ? request.user.username : status.username,
             group: request.user ? request.user.group : status.group,
             auth: !!request.user,
             ip: request.ip,
             location: location ? location.description : '-',
+            announcements,
             status,
             logout,
             dst,
+            history: {
+                labels: JSON.stringify(history.labels),
+                data: JSON.stringify(history.data),
+                colors: JSON.stringify(history.colors)
+            },
             rand: Math.floor(Math.random() * 1000)
         });
     }

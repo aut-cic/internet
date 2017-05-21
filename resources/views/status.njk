@@ -52,22 +52,22 @@
                 {% endif %}
 
                 {# Usage notice #}
-                <div class="alert alert-warning alert-dismissable">
-                    <span>شما روزانه تا میزان</span>
-                    <strong>{{ status.packages[0].total }}</strong>
-                    <span> با سرعت نامحدود می توانید از اینترنت استفاده کنید، مادامی که حجم هفتگی یا ماهیانه شما به پایان نرسیده باشد.</span>
-                    <br>
-                    <span> از ساعت 1 شب تا 7 صبح حجم مصرفی شما با ضریب </span>
-                    <strong>0.1</strong>
-                    <span> محاسبه می گردد.</span>
-                </div>
+                {#                <div class="alert alert-warning alert-dismissable">#}
+                {#                    <span>شما روزانه تا میزان</span>#}
+                {#                    <strong>{{ status.packages[0].total }}</strong>#}
+                {#                    <span> با سرعت نامحدود می توانید از اینترنت استفاده کنید، مادامی که حجم هفتگی یا ماهیانه شما به پایان نرسیده باشد.</span>#}
+                {#                    <br>#}
+                {#                    <span> از ساعت 1 شب تا 7 صبح حجم مصرفی شما با ضریب </span>#}
+                {#                    <strong>0.1</strong>#}
+                {#                    <span> محاسبه می گردد.</span>#}
+                {#                </div>#}
 
-                {# Heleper notice #}
-                <div class="alert alert-success">
-                    <strong>توجه:</strong>
-                    <strong>هیچ محدودیت بر روی حجم مصرفی وجود ندارد</strong>
-                    <span> اما سرعت شما با توجه به میزان مصرف مطابق جدول زیر تغییر می کند.</span>
-                </div>
+                {# Announcements #}
+                {% for accouncement in announcements %}
+                    <div class="alert alert-{{ accouncement.type }}">
+                        {{ accouncement.message | safe }}
+                    </div>
+                {% endfor %}
 
                 {# Free notice #}
                 {% if status.active_type == 'free' %}
@@ -99,23 +99,37 @@
 
                                     <div class="text-muted">
                                         {{ package.usage }}
-                                        {% if(package.active) %}
-                                        {% endif %}
+                                        <br><span>از</span>
+                                        {{ package.total }}
                                     </div>
                                 </div>
                                 <div class="card-footer text-center card-{{ package.color2 }}">
                                     <h5>{{ package.title2 }}</h5>
-                                    <span>{{ package.title }} تا {{ package.total }}</span>
+                                    <span>{{ package.title }}</span>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
 
+                {# Usage History #}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mt-5">
+                            <div class="card-header">
+                                <span>مصرف 30 روز اخیر شما</span>
+                            </div>
+                            <div class="card-block">
+                                <canvas id="usageChart" width="100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {# Sessions #}
                 <div class="row">
                     <div class="col-12 hidden-xs-down">
-                        <div class="card mt-5 hidden-md-down2">
+                        <div class="card mt-5">
                             <div class="card-header">
                                 <span>دستگاه های فعال</span>
                             </div>
@@ -190,11 +204,67 @@
 {% endblock %}
 
 {% block scripts %}
-{#    <script>#}
-{#        window.onload = function () {#}
-{#            setInterval(function () {#}
-{#                window.location.reload();#}
-{#            }, 1000 * 60);#}
-{#        }#}
-{#    </script>#}
+    {#    <script>#}
+    {#        window.onload = function () {#}
+    {#            setInterval(function () {#}
+    {#                window.location.reload();#}
+    {#            }, 1000 * 60);#}
+    {#        }#}
+    {#    </script>#}
+    <script src="/static/js/chart.bundle.min.js"></script>
+    {#    {{ status.usageHistory }}#}
+
+    <script>
+        const units = ['کیلوبایت', 'مگابایت', 'گیگابایت', 'ترابایت', 'PiB', 'EiB', 'ZiB', 'YiB'];
+        function humanFileSize(bytes, si) {
+            const thresh = 1024;
+            if (isNaN(bytes)) {
+                return '∞';
+            }
+            if (Math.abs(bytes) < thresh) {
+                return '0 مگابایت';
+            }
+            let u = -1;
+            do {
+                bytes /= thresh;
+                ++u;
+            } while (Math.abs(bytes) >= thresh && u < units.length - 1);
+
+            if (u < 2 || ((bytes * 10) % 10) === 0)
+                return bytes.toFixed(0) + ' ' + units[u];
+            return bytes.toFixed(1) + ' ' + units[u];
+        }
+
+        new Chart(document.getElementById("usageChart"), {
+            type: 'line',
+            data: {
+                labels: {{ history.labels | safe }},
+                datasets: [{
+                    label: 'میزان مصرف',
+                    data: {{ history.data | safe }},
+                    pointBackgroundColor: {{ history.colors | safe }},
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        stacked: true,
+                        ticks: {
+                            callback: function (label, index, labels) {
+                                return humanFileSize(label)
+                            }
+                        },
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            callback: function (label, index, labels) {
+                                return new Date(label).toLocaleDateString('fa')
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
 {% endblock %}

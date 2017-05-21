@@ -86,31 +86,14 @@
                     </div>
                 </div>
             </div>
-
-            {#<div class="col-sm-12 col-md-8 hidden-sm-down">#}
-
-            {#<div class="alert alert-warning" role="alert">توجه داشته باشید که آدرس سایت حتما با <a#}
-            {#href="https://internet.aut.ac.ir">https://internet.aut.ac.ir</a> شروع شده باشد.#}
-            {#</div>#}
-            {#<div class="alert alert-success" role="alert">در صورتی که نام کاربری ندارید حتما در اسرع وقت به#}
-            {#انفورماتیک#}
-            {#دانشگاه مراجعه نمایید.#}
-            {#</div>#}
-            {#<div class="alert alert-info" role="alert">در صورتی که مشکلی در ورود و یا نوع کاربری خود دارید از طریق#}
-            {#<a#}
-            {#href="mailto://support@aut.ac.ir">support@aut.ac.ir</a> ما را مطلع سازید.#}
-            {#</div>#}
-            {#<div class="alert alert-warning" role="alert">هدف از این سامانه بالا بردن سرعت اینترنت بیشتر کاربران#}
-            {#است.#}
-            {#</div>#}
-            {#<div class="alert alert-danger" role="alert">توجه داشته باشید ورود بدون شناسه کاربری به زودی حذف خواهد#}
-            {#شد.#}
-            {#</div>#}
-            {#<div class="alert alert-info" role="alert">برای خروج از حساب کاربری خود از لینک <a#}
-            {#href="https://internet.aut.ac.ir/">https://internet.aut.ac.ir</a> استفاده کنید.#}
-            {#</div>#}
-            {#</div>#}
-
+            <div class="col-sm-12 col-md-6 align-items-center">
+                {# Announcements #}
+                {% for accouncement in announcements %}
+                    <div class="alert alert-{{ accouncement.type }}">
+                        {{ accouncement.message | safe }}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

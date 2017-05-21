@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "node --preserve-symlinks app",
-    "dev": "node node_modules/nodemon/bin/nodemon --ignore resources/static --preserve-symlinks app"
+    "dev": "node node_modules/nodemon/bin/nodemon --watch *.js --watch *.njk --ignore resources/static --preserve-symlinks app"
   },
   "dependencies": {
     "bak": "^0.8.0",
