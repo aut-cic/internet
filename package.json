@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "start": "node --preserve-symlinks app",
-    "dev": "node node_modules/nodemon/bin/nodemon --watch *.js --watch *.njk --ignore resources/static --preserve-symlinks app"
+    "dev": "nodemon --ignore resources/static app",
+    "sass": "node-sass",
+    "styles": "cd resources/static/css && node-sass bootstrap.scss --output-style compressed --output ."
   },
   "dependencies": {
     "bak": "^0.8.0",
@@ -11,10 +13,14 @@
     "handlebars": "^4.0.8",
     "ip": "^1.1.5",
     "ldapjs": "^1.0.1",
-    "moment-jalaali": "^0.6.1",
-    "nodemon": "^1.11.0",
+    "moment-jalaali": "^0.7.0",
     "nunjucks": "^3.0.0",
     "ua-parser-js": "^0.7.12",
     "vision": "^4.1.1"
+  },
+  "devDependencies": {
+    "bootstrap": "next",
+    "node-sass": "^4.5.3",
+    "nodemon": "^1.11.0"
   }
 }

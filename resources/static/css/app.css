@@ -2,24 +2,36 @@
 @import url(../fonts/glyphicons/glyphicons.css);
 @import url(../fonts/material-design-icons/material-design-icons.css);
 
+body, html {
+    background-color: #F3EFF5;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: initial;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    image-rendering: crisp-edges;
+    -webkit-font-smoothing: antialiased;
+}
+
+
 .body, body, button, input, optgroup, select, textarea {
     font-family: "farsi", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body, .app {
-
     min-height: 100%;
     height: 100%;
-
     direction: rtl;
-    background-color: #F3EFF5;
 }
 
 .app {
     display: flex;
     flex-direction: column;
-    /*background-size: cover;*/
-    /*background: url(/static/img/bg_test3.jpg) no-repeat fixed center center;*/
 }
 
 .app-container {
@@ -170,26 +182,38 @@ input:-webkit-autofill:active {
     color: white;
 }
 
-.navbar-inverse {
-    background-color: #303F9F !important;
+.navbar {
+    background-color: #06C !important;
+    box-shadow: 0px 1px 5px rgba(0,0,0,.5); 
+    padding: 0.5rem 0.5rem !important;
 }
 
-/* Pricing */
-/*
- * Developer: Alireza Eskandarpour Shoferi
- * Designer: Wouter de Bres (dribbble.com/wdeb)
- *
- * Distributed under the terms of the MIT license
- * http://opensource.org/licenses/MIT
- */
+.nav-btn {
+    border: 1px solid white;
+    border-radius: 1000px;
+    padding: 10px 5px !important;
+    color: white !important;
+    transition: all .5s;
+}
+
+.nav-btn:hover {
+    background: rgba(0,0,0, .2);
+}
 
 .package {
-    border: 3px solid #e8e8e8;
-    border-radius: 7px;
+    /* border: 3px solid #e8e8e8; */
+    /* border-radius: 7px; */
+    border: 0;
+    box-shadow: 2px 3px 6px 0px grey;
+    background: #616161;
+}
+
+.package h5 {
+    color:white !important ;
 }
 
 .package.active {
-    border-color: #aabbaa;
+    /* border-color: grey; */
 }
 
 /* Triangle */
@@ -198,7 +222,7 @@ input:-webkit-autofill:active {
     height: 0;
     border-style: solid;
     border-width: 64px 64px 0 0;
-    border-color: #aabbaa transparent transparent transparent;
+    border-color: #607D8B transparent transparent transparent;
     position: absolute;
     left: 0;
     top: 0;
@@ -206,13 +230,7 @@ input:-webkit-autofill:active {
 }
 
 .package:not(.active) .card-footer {
-    /*background-color: #aaaaaa;*/
-    box-shadow: inset 0px 0px 400px 110px rgba(255,255,255, .1);
-    -webkit-filter: blur(.5px);
-    -moz-filter: blur(.5px);
-    -o-filter: blur(.5px);
-    -ms-filter: blur(.5px);
-    filter: blur(.5px);
+    box-shadow: inset 0px 0px 400px 210px rgba(255,255,255, .1);
 }
 
 .package.active::after {
@@ -226,22 +244,37 @@ input:-webkit-autofill:active {
     font-size: 1.4rem;
 }
 
-.floatBtn {
+.float-btn-container {
     position: fixed;
-    width: 60px;
-    height: 60px;
     bottom: 40px;
     right: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.float-btn {
+    width: 4rem;
+    height: 4rem;
     background-color: #06C;
     color: #FFF !important;
-    border-radius: 50px;
+    border-radius: 5000px;
     text-align: center;
-    box-shadow: 2px 2px 3px #999;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, .5);
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 1rem;
 }
 
-.floatBtn i {
+.float-btn i {
     font-size: 30px !important;
+}
+
+.list-group-item-dark {
+    background: #616161;
+    color: white;
+}
+.list-group {
+    box-shadow: 2px 3px 6px 0px grey;
+    background: transparent;
 }

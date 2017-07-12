@@ -1,81 +1,39 @@
-/* http://codepen.io/Sambego/pen/zKLar */
-
-.gauge-c {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.gauge {
+.gauge-container {
+    direction: ltr;
     display: block;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.mask {
-    position: relative;
-    overflow: hidden;
-    display: block;
-    width: 12.5rem;
-    height: 6.25rem;
-    margin: 1.25rem;
+.gauge-container>.gauge>.dial {
+    stroke: #eee;
+    stroke-width: 20;
+    fill: rgba(0, 0, 0, 0);
 }
 
-.semi-circle {
-    position: relative;
-    display: block;
-    width: 12.5rem;
-    height: 6.25rem;
-    border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+.gauge-container>.gauge>.value {
+    stroke: rgb(47, 227, 255);
+    stroke-width: 40;
+    fill: rgba(0, 0, 0, 0);
 }
 
-.success .semi-circle{
-    background: #1abc9c;
+.gauge-container>.gauge>.value-text {
+    fill: #eee;
 }
 
-.warning .semi-circle{
-    background: #f1c40f;
+.gauge-container.success>.gauge>.value {
+    stroke: #4CAF50;
 }
 
-.danger .semi-circle{
-    background: #c0392b;
+.gauge-container.warning>.gauge>.value {
+    stroke: #ff9800;
 }
 
-.semi-circle::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    z-index: 2;
-    display: block;
-    width: 8.75rem;
-    height: 4.375rem;
-    margin-left: -4.375rem;
-    background: #fff;
-    border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+.gauge-container.danger>.gauge>.value {
+    stroke: #9C27B0;
 }
 
-.semi-circle--mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 12.5rem;
-    height: 12.5rem;
-    background: transparent;
-    transform: rotate(120deg) translate3d(0, 0, 0);
-    transform-origin: center center;
-    backface-visibility: hidden;
-    transition: all .3s ease-in-out;
-}
-
-.semi-circle--mask::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0%;
-    z-index: 2;
-    display: block;
-    width: 12.625rem;
-    height: 6.375rem;
-    margin: -1px 0 0 -1px;
-    background: #f2f2f2;
-    border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
-}

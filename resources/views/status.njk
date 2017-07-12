@@ -11,28 +11,29 @@
                 </div>
 
                 {% if(username) %}
-                    <div class="list-group-item">
+                    <div class="list-group-item list-group-item-dark">
                         <span {{ rand }}>نام کاربری: </span>
                         <strong> {{ username }} </strong>
                     </div>
                 {% endif %}
 
-                <div class="list-group-item">
+                <div class="list-group-item list-group-item-dark">
                     <span>گروه کاربری: </span>
                     <strong> {{ group }} </strong>
                 </div>
 
-                <div class="list-group-item">
+                <div class="list-group-item list-group-item-dark">
                     <span>آی پی شما: </span>
                     <strong> {{ ip }}</strong>
                 </div>
 
-                <div class="list-group-item">
+                <div class="list-group-item list-group-item-dark">
                     <span>مکان: </span>
                     <strong> {{ location }}</strong>
                 </div>
-
-                <a href="/status/logout/{{ status.current_session.id }}" class="list-group-item list-group-item-danger">
+            </div>
+            <div class="text-center mt-3">
+                <a href="/status/logout/{{ status.current_session.id }}" class="btn btn-danger">
                     <span>خروج از اینترنت</span>
                 </a>
             </div>
@@ -80,28 +81,10 @@
                 {# Packages #}
                 <div class="row">
                     {% for package in status.packages %}
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card package mb-2 {% if(package.active) %} active {% endif %}">
+                        <div class="col-12 col-md-3">
+                            <div class="card package mb-2 {% if(package.active) %} active {% else %} hidden-sm-down {% endif %}">
                                 <div class="card-block text-center">
-                                    {# Guage component #}
-                                    <div class="gauge-c">
-                                        <div class="gauge {{ package.color }}">
-                                            <div class="mask">
-                                                <div class="semi-circle"></div>
-                                                <div class="semi-circle--mask" style="
-                                                        -webkit-transform: rotate({{ package.degree }}deg);
-                                                        -moz-transform: rotate({{ package.degree }}deg);
-                                                        transform: rotate({{ package.degree }}deg);
-                                                        "></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="text-muted">
-                                        {{ package.usage }}
-                                        <br><span>از</span>
-                                        {{ package.total }}
-                                    </div>
+                                    <div id="package-{{ package.type }}" class="gauge-container {{ package.color }}"></div>
                                 </div>
                                 <div class="card-footer text-center card-{{ package.color2 }}">
                                     <h5>{{ package.title2 }}</h5>
@@ -112,19 +95,6 @@
                     {% endfor %}
                 </div>
 
-                {# Usage History #}
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card mt-5">
-                            <div class="card-header">
-                                <span>مصرف 30 روز اخیر شما</span>
-                            </div>
-                            <div class="card-block">
-                                <canvas id="usageChart" width="100%"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 {# Sessions #}
                 <div class="row">
@@ -166,7 +136,23 @@
                             </table>
                         </div>
                     </div>
+                
                 </div>
+
+                {# Usage History #}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mt-5">
+                            <div class="card-header">
+                                <span>مصرف 30 روز اخیر شما</span>
+                            </div>
+                            <div class="card-block">
+                                <canvas id="usageChart" width="100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             {% else %}
                 <div class="row text-muted">
                     <div class="col-md-6 col-md-offset-5">
@@ -195,12 +181,10 @@
 {% endblock %}
 
 {% block styles %}
-    <link href="/static/css/gauge.css" rel="stylesheet">
-
     {% if(dst) %}
         <meta http-equiv="refresh" content="30; url={{ dst }}">
     {% endif %}
-
+    <link href="/static/css/gauge.css?3" rel="stylesheet">
 {% endblock %}
 
 {% block scripts %}
@@ -211,12 +195,15 @@
     {#            }, 1000 * 60);#}
     {#        }#}
     {#    </script>#}
-    <script src="/static/js/chart.bundle.min.js"></script>
+    <script src="/static/js/chart.bundle.min.js?1"></script>
     {#    {{ status.usageHistory }}#}
+
+    <script src="/static/js/gauge.min.js?1"></script>
 
     <script>
         const units = ['کیلوبایت', 'مگابایت', 'گیگابایت', 'ترابایت', 'PiB', 'EiB', 'ZiB', 'YiB'];
-        function humanFileSize(bytes, si) {
+
+        function humanFileSize(bytes) {
             const thresh = 1024;
             if (isNaN(bytes)) {
                 return '∞';
@@ -234,9 +221,25 @@
                 return bytes.toFixed(0) + ' ' + units[u];
             return bytes.toFixed(1) + ' ' + units[u];
         }
+    </script>
 
+    <script>
+        {% for package in status.packages %}
+        var {{ package.type }} = Gauge(document.getElementById("package-{{ package.type }}"), {
+            max: 100,
+            label: function(a)  {
+                return '{{ package.usage}} / {{ package.total }}'
+            },
+            value: 0,
+        });
+        {{package.type}}.setValueAnimated({{ package.percent }}, 1);
+        {% endfor %}
+
+    </script>
+
+    <script>
         new Chart(document.getElementById("usageChart"), {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: {{ history.labels | safe }},
                 datasets: [{

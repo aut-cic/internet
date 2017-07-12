@@ -9,7 +9,7 @@ const AuthPlugin = require('bak/lib/auth');
 const RatelimitPlugin = require('bak/lib/ratelimit');
 
 // LDAP Server
-require('./ldap');
+// require('./ldap');
 
 // App
 const UserModel = require('./models/user');
@@ -26,7 +26,7 @@ init({
         {register: AuthPlugin, options: Object.assign({user_model: UserModel}, Config.get('auth'))},
 
         // View
-        {register: ViewPlugin, options: {staticCache: 300 * 60 * 1000}},
+        {register: ViewPlugin, options: {staticCache: 1 /* 300 * 60 * 1000 */}},
 
         // Rate Limiter
         // {register: RatelimitPlugin, options: {driver: 'memory'}},

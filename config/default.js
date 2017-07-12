@@ -2,7 +2,7 @@ module.exports = {
 
     mongo: {
         connections: {
-            default: {uri: 'localhost/ldap'},
+            default: { uri: 'mongodb://localhost/internet'},
         }
     },
 
