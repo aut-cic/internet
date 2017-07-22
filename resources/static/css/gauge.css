@@ -9,6 +9,10 @@
     user-select: none;
 }
 
+.gauge {
+    width: 100%;    
+}
+
 .gauge-container>.gauge>.dial {
     stroke: #eee;
     stroke-width: 20;

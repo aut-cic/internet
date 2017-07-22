@@ -200,6 +200,36 @@ input:-webkit-autofill:active {
     background: rgba(0,0,0, .2);
 }
 
+.nav-btn.shake {
+    animation: shake .7s ease-in-out;    
+}
+
+@keyframes shake {
+    0% {
+      transform: rotate(-5deg);
+    }
+  
+    20% {
+      transform: rotate(0);
+    }
+  
+    40% {
+      transform: rotate(5deg);
+    }
+  
+    60% {
+      transform: rotate(0);
+    }
+  
+    80% {
+      transform: rotate(5deg);
+    }
+  
+    100% {
+      transform: rotate(0);
+    }
+  }
+
 .package {
     /* border: 3px solid #e8e8e8; */
     /* border-radius: 7px; */
