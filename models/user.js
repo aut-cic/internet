@@ -1,10 +1,10 @@
-const BaseUser = require('bak/lib/auth/provider/user');
-const {Schema} = require('mongoose');
+const Auth = require('@bakjs/auth')
+const {Schema} = require('@bakjs/mongo')
 
-class User extends BaseUser {
+class User extends Auth.User {
 
     static get $visible() {
-        return ['_id', 'name', 'email', 'username', 'group'];
+        return ['_id', 'name', 'email', 'username', 'group']
     }
 
     static get $schema() {
@@ -12,9 +12,9 @@ class User extends BaseUser {
             group: {type: String},
             id: {type: String}
 
-        }, BaseUser.$schema);
-    };
+        }, Auth.User.$schema)
+    }
 
 }
 
-module.exports = User.$model;
+module.exports = User.$model

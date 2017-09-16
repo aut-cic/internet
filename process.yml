@@ -1,0 +1,5 @@
+apps:
+- name: internet
+  script: "node_modules/.bin/bak"
+  args: "start"
+  exec_mode  : "cluster"

@@ -1,7 +1,6 @@
-const Controller = require('bak/lib/controller');
+const { Controller } = require('bak');
 const auth = require('../lib/auth');
 const Config = require('config');
-const {jwt_sign} = require('bak/lib/helpers/security');
 const {user_usage, user_logout} = require('../lib/acct');
 const {lookupIP, updateDB} = require('../lib/ip');
 const auth_secret = Config.get('auth.secret');
@@ -13,7 +12,7 @@ module.exports = class SiteController extends Controller {
     constructor() {
         super({
             default: {
-                auth: {mode: 'try'},
+                // auth: {mode: 'try'},
                 plugins: {
                     ratelimit: {
                         limit: 5,

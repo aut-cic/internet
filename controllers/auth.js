@@ -1,11 +1,12 @@
-const Controller = require('bak/lib/controller');
+const { Controller } = require('bak');
 const auth = require('../lib/auth');
+const { Utils } = require('bak');
 
-const Config = require('config');
-const {jwt_sign, jwt_decode} = require('bak/lib/helpers/security');
 
-const auth_secret = Config.get('auth.secret');
+const Config = require('config')
+const {jwt_sign, jwt_decode} = Utils.security
 
+const auth_secret = Config.get('auth.secret')
 
 module.exports = class AuthController extends Controller {
 

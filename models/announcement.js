@@ -1,6 +1,4 @@
-const {Model} = require('bak');
-const {Schema} = require('mongoose');
-const {bcrypt_hash} = require('bak/lib/helpers/security');
+const {Schema, Model} = require('@bakjs/mongo')
 
 class Announcement extends Model {
 

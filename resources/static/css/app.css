@@ -4,16 +4,12 @@
 
 body, html {
     background-color: #F3EFF5;
-    background-size: cover;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: initial;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    
     image-rendering: crisp-edges;
     -webkit-font-smoothing: antialiased;
 }
@@ -307,4 +303,12 @@ input:-webkit-autofill:active {
 .list-group {
     box-shadow: 2px 3px 6px 0px grey;
     background: transparent;
+}
+
+.card {
+    border: none;
+}
+
+.input-group-addon:first-child {
+    border: none;
 }

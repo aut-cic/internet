@@ -6,3 +6,4 @@ data
 config/local.*
 .nuxt
 build
+.yarn_mirror
