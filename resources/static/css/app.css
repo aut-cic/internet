@@ -184,7 +184,6 @@ input:-webkit-autofill:active {
 }
 
 .nav-btn {
-    border: 1px solid white;
     border-radius: 1000px;
     padding: 10px 5px !important;
     color: white !important;
