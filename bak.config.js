@@ -18,7 +18,7 @@ module.exports = {
 
     auth: {
         user_model: require('./models/user')
-    }
+    },
 
     nunjucks: {
         staticCache: 300 * 60 * 1000 
