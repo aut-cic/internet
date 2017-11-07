@@ -1,4 +1,4 @@
-@import url(../fonts/farsifont/farsi.css);
+@import url(../fonts/farsi/iransans.css);
 @import url(../fonts/glyphicons/glyphicons.css);
 @import url(../fonts/material-design-icons/material-design-icons.css);
 
@@ -21,7 +21,7 @@ body, html {
 }
 
 .body, body, button, input, optgroup, select, textarea {
-    font-family: "farsi", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "IRANSans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .app {

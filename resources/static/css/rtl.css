@@ -1415,7 +1415,11 @@ th {
 }
 
 .modal-footer {
-    text-align: left;
+    justify-content: flex-start;
+}
+
+.modal-footer>:not(:first-child) {
+    margin-right: .25rem;
 }
 
 .popover {

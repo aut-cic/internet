@@ -50,7 +50,7 @@
                                                tabindex="1"
                                                onchange="fixLoginForm()"
                                                data-placement="top" data-trigger="manual"
-                                               data-content="لطفا شناسه کاربری معتبر وارد کنید.">
+                                               data-content="لطفا شناسه کاربری معتبر وارد کنید." required>
                                     </div>
                                 </div>
                                 <div class="form-group required">
@@ -64,6 +64,7 @@
                                     </label>
                                     <input dir="ltr" type="password" name="password" class="form-control"
                                            tabindex="2"
+                                           required
                                            placeholder="{{ MESSAGES.PASSWORD }}">
                                 </div>
                                 <input type="hidden" name="dst" value="{{ dst }}">
