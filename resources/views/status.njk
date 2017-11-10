@@ -188,6 +188,11 @@
 {% endblock %}
 
 {% block scripts %}
+
+{% if (group !== 'Faculty' || group !== 'FacultyRetd' ) %}
+{% include "./includes/modal.njk" %}
+{% endif %}
+
     {#    <script>#}
     {#        window.onload = function () {#}
     {#            setInterval(function () {#}
