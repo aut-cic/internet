@@ -189,7 +189,7 @@
 
 {% block scripts %}
 
-{% if (group !== 'Faculty' || group !== 'FacultyRetd' ) %}
+{% if (group.indexOf('Faculty') === -1 ) %}
 {% include "./includes/modal.njk" %}
 {% endif %}
 
