@@ -49,7 +49,7 @@ function joinChannel() {
 }
 
 $(document).ready(function() {
-    if (alreadyJoined() || joinModalCount() >= 3) {
+    if (alreadyJoined() || joinModalCount() >= 1) {
         sendEvent('release')
         return
     }
