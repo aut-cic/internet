@@ -260,17 +260,29 @@
                         ticks: {
                             callback: function (label, index, labels) {
                                 return humanFileSize(label)
-                            }
+                            },
+                            fontFamily: "IRANSans"
+                            
                         },
                     }],
                     xAxes: [{
                         ticks: {
                             callback: function (label, index, labels) {
                                 return new Date(label).toLocaleDateString('fa')
-                            }
-                        }
+                            },
+                            fontFamily: "IRANSans"
+                        },
+                        barPercentage: 1.0,
+                        categoryPercentage: 1.0
                     }]
-                }
+                },
+                tooltips: {
+      		        callbacks: {
+        		        label: function(tooltipItem, data) {
+          		            return humanFileSize(tooltipItem.yLabel);
+        		        }
+      	            },
+    	        },
             }
         });
     </script>
