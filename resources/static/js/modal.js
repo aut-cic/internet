@@ -45,7 +45,8 @@ function sendEvent(action) {
 function joinChannel() {
     setCookie('joined', 'true')
     sendEvent('joined')
-    window.location = "tg://join?invite=AAAAAELOIjyeP5FUrzUs5A"
+    window.location = "https://www.instagram.com/p/BcAH1R1jwmJ/?taken-by=aut_ir"
+	//window.location = "tg://join?invite=AAAAAELOIjyeP5FUrzUs5A"
 }
 
 $(document).ready(function() {
