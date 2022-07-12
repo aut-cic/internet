@@ -1,9 +1,6 @@
 const { Controller } = require('bak');
-const auth = require('../lib/auth');
-const Config = require('config');
-const {user_usage, user_logout} = require('../lib/acct');
-const {lookupIP, updateDB} = require('../lib/ip');
-const auth_secret = Config.get('auth.secret');
+const { user_usage, user_logout } = require('../lib/acct');
+const { lookupIP, updateDB } = require('../lib/ip');
 const MESSAGES = require('../lib/messages');
 const Announcement = require('../models/announcement');
 
@@ -31,9 +28,9 @@ module.exports = class SiteController extends Controller {
 
         const status = await this._usage(request);
 
-        const external = false;//request.ip.indexOf('192') !== 0 && request.ip.indexOf('172') !== 0;
+        const external = false; //request.ip.indexOf('192') !== 0 && request.ip.indexOf('172') !== 0;
 
-        const announcements = await Announcement.find({visible: {$ne: false}, login: true});
+        const announcements = await Announcement.find({ visible: { $ne: false }, login: true });
 
         if (status || request.user) {
             return reply.redirect('/status');
@@ -61,10 +58,10 @@ module.exports = class SiteController extends Controller {
     async status(request, reply) {
         const status = await this._usage(request);
 
-        let {logout, dst} = request.query;
+        let { logout, dst } = request.query;
 
         if (!status) {
-            return reply.redirect('/').unstate('token', {isSecure: false});
+            return reply.redirect('/').unstate('token', { isSecure: false });
         }
 
         if (dst && (dst.indexOf('internet.aut.ac.ir') !== -1 || dst.indexOf('login.aut.ac.ir') !== -1)) {
@@ -73,18 +70,18 @@ module.exports = class SiteController extends Controller {
 
         const location = lookupIP(request.ip);
 
-        const announcements = await Announcement.find({visible: {$ne: false}, status: true});
+        const announcements = await Announcement.find({ visible: { $ne: false }, status: true });
 
         // History
         const history = {
             labels: [],
-            data: [],
-            colors: []
+            discount: [],
+            usage: []
         };
-        status.usageHistory.forEach(({date, usage, effective}) => {
+        status.usageHistory.forEach(({ date, usage, discount }) => {
             history.labels.push(date);
-            history.data.push(usage);
-            history.colors.push(effective ? 'rgba(54, 162, 235, 0.2)' : 'rgba(255, 99, 132, 0.2)');
+            history.discount.push(discount);
+            history.usage.push(usage);
         });
 
         reply.view('status', {
@@ -99,14 +96,14 @@ module.exports = class SiteController extends Controller {
             dst,
             history: {
                 labels: JSON.stringify(history.labels),
-                data: JSON.stringify(history.data),
-                colors: JSON.stringify(history.colors)
+                usage: JSON.stringify(history.usage),
+                discount: JSON.stringify(history.discount)
             },
             rand: Math.floor(Math.random() * 1000)
         });
     }
 
-    async ipInfo_lookup_$$ip(request, reply, {ip}) {
+    async ipInfo_lookup_$$ip(request, reply, { ip }) {
         reply(lookupIP(ip || request.ip));
     }
 
@@ -115,12 +112,12 @@ module.exports = class SiteController extends Controller {
         reply(subenets);
     }
 
-    async status_logout_$$id(request, reply, {id}) {
+    async status_logout_$$id(request, reply, { id }) {
 
         const status = await this._usage(request);
 
         if (!status) {
-            return reply.redirect('/').unstate('token', {isSecure: false});
+            return reply.redirect('/').unstate('token', { isSecure: false });
         }
 
         let session = status.current_session;
@@ -144,7 +141,7 @@ module.exports = class SiteController extends Controller {
             await request.user.logout(request.session);
         }
 
-        return reply.redirect('/').unstate('token', {isSecure: false});
+        return reply.redirect('/').unstate('token', { isSecure: false });
     }
 
 

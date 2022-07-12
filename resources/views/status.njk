@@ -249,9 +249,14 @@
             data: {
                 labels: {{ history.labels | safe }},
                 datasets: [{
-                    label: 'میزان مصرف',
-                    data: {{ history.data | safe }},
-                    pointBackgroundColor: {{ history.colors | safe }},
+                    label: 'میزان مصرف ثبت شده',
+                    data: {{ history.usage | safe }},
+                    backgroundColor: "rgba(252,25,72,0.8)",
+                },
+                {
+                    label: 'میزان مصرف تخفیف خورده',
+                    backgroundColor:"rgba(54,162,235,0.8)",
+                    data: {{ history.discount | safe }},
                 }]
             },
             options: {
@@ -278,10 +283,18 @@
                     }]
                 },
                 tooltips: {
+                    mode: 'index',
+					intersect: false,
+                    bodyFontFamily: "IRANSans",
+                    footerFontFamily: "IRANSans",
       		        callbacks: {
         		        label: function(tooltipItem, data) {
           		            return humanFileSize(tooltipItem.yLabel);
-        		        }
+        		        },
+                        footer: function(tooltipItems, data) {
+                            
+          		            return humanFileSize(tooltipItems[0].yLabel+tooltipItems[1].yLabel);
+                        },
       	            },
     	        },
             }
