@@ -1,20 +1,20 @@
-const Auth = require('@bakjs/auth')
-const {Schema} = require('@bakjs/mongo')
+import Auth from "@bakjs/auth";
+import { Schema } from "@bakjs/mongo";
 
 class User extends Auth.User {
+  static get $visible() {
+    return ["_id", "name", "email", "username", "group"];
+  }
 
-    static get $visible() {
-        return ['_id', 'name', 'email', 'username', 'group']
-    }
-
-    static get $schema() {
-        return Object.assign({
-            group: {type: String},
-            id: {type: String}
-
-        }, Auth.User.$schema)
-    }
-
+  static get $schema() {
+    return Object.assign(
+      {
+        group: { type: String },
+        id: { type: String },
+      },
+      Auth.User.$schema
+    );
+  }
 }
 
-module.exports = User.$model
+module.exports = User.$model;
