@@ -1,108 +1,86 @@
 {% extends "includes/layout.html" %}
 
 {% block styles %}
-    <style> body { background-image: url(/static/img/login.jpg) } </style>
+<style> body { background-image: url(/static/img/login.jpg) } </style>
 {% endblock %}
 
 {% block content %}
-    <div class="login-page">
-        <div class="justify-content-center align-items-center mt-5 col-12">
-        <div class="row justify-content-center">
-            <div class="col-sm-12 col-md-4">
-                <div class="card">
+<div class="login-page">
+  <div class="justify-content-center align-items-center mt-5 col-12">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-4">
+        <div class="card">
+          <div class="card-header card-inverse card-primary text-center">
+            {{ messages.internet_login }}
+          </div>
+          <div class="card-block">
+            {% if error %}
+            <div class="alert-dismissable alert alert-danger">
+              {{ error }}
+            </div>
+            {% endif %}
 
-                    <div class="card-header card-inverse card-primary text-center">
-                        {{ MESSAGES.INTERNET_LOGIN }}
-                    </div>
-                    <div class="card-block">
-                        {% if error %}
-                            <div class="alert-dismissable alert alert-danger">
-                                {{ error }}
-                            </div>
-                        {% endif %}
-
-                        {% if(external) %}
-                            <p class="text-muted">
-                                <span>ورود به سیستم فقط برای کاربران داخل دانشگاه امکان پذیر است.</span>
-                                <span>لطفا بررسی فرمایید نرم افزار عبور از تحریم استفاده نشده باشد.</span>
-                            </p>
-                        {% else %}
-                            <form method="post"
-                                  action="https://login.aut.ac.ir/login"
-                                  class="form"
-                                  name="login"
-                                  onsubmit="fixLoginForm()"
-                                  dir="{{ dir }}"
-                            >
-                                <div class="form-group required">
-                                    <label>
-                                        {{ MESSAGES.EMAIL }}
-                                        <small>
-                                            <a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.add&amp;l=1">
-                                                <span>({{ MESSAGES.NO_ID }})</span>
-                                            </a>
-                                        </small>
-                                    </label>
-                                    <div class="input-group" dir="rtl">
-                                        <span class="input-group-addon">aut.ac.ir@</span>
-                                        <input name="username" dir="ltr" type="text" class="form-control"
-                                               placeholder="{{ MESSAGES.EMAIL }}"
-                                               tabindex="1"
-                                               onchange="fixLoginForm()"
-                                               data-placement="top" data-trigger="manual"
-                                               data-content="لطفا شناسه کاربری معتبر وارد کنید." required>
-                                    </div>
-                                </div>
-                                <div class="form-group required">
-                                    <label>
-                                        {{ MESSAGES.PASSWORD }}
-                                        <small>
-                                            <a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw&amp;l=1">
-                                                <span>({{ MESSAGES.FORGOT_PASSWORD }})</span>
-                                            </a>
-                                        </small>
-                                    </label>
-                                    <input dir="ltr" type="password" name="password" class="form-control"
-                                           tabindex="2"
-                                           required
-                                           placeholder="{{ MESSAGES.PASSWORD }}">
-                                </div>
-                                <input type="hidden" name="dst" value="{{ dst }}">
-                                <input type="hidden" name="popup" value="false">
-                                <input type="hidden" id="cookie" name="erase-cookie" value="false">
-                                <button type="submit" class="btn btn-success btn-lg btn-block" tabindex="3">
-                                    <span>{{ MESSAGES.LOGIN }}</span>
-                                </button>
-                                {#                                <button type="button" class="btn btn-default btn-block" data-toggle="modal"#}
-                                {#                                        data-target="#myModal">ورود بدون شناسه(سرعت پایین)#}
-                                {#                                </button>#}
-{#                                <button class="btn btn-default btn-block" onclick="guestLogin()" tabindex="4">#}
-{#                                    <span>{{ MESSAGES.GUEST_LOGIN }}</span>#}
-{#                                </button>#}
-                            </form>
-                        {% endif %}
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw.change&amp;l=1">
-                            {{ MESSAGES.CHANGE_PASSWORD }}
-                        </a>
-                        <a href="/?lang={{ MESSAGES._OTHER_LANG_KEY }}">
-                            {{ MESSAGES.OTHER_LANG }}
-                        </a>
-                    </div>
+            {% if(external) %}
+            <p class="text-muted">
+            <span>ورود به سیستم فقط برای کاربران داخل دانشگاه امکان پذیر است.</span>
+            <span>لطفا بررسی فرمایید نرم افزار عبور از تحریم استفاده نشده باشد.</span>
+            </p>
+            {% else %}
+            <form method="post"
+              action="https://login.aut.ac.ir/login"
+              class="form"
+              name="login"
+              onsubmit="fixLoginForm()"
+              >
+              <div class="form-group required">
+                <label>
+                  {{ messages.email }}
+                  <small>
+                    <a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.add&amp;l=1">
+                      <span>({{ messages.no_id }})</span>
+                    </a>
+                  </small>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-addon">aut.ac.ir@</span>
+                  <input name="username" dir="ltr" type="text" class="form-control"
+                  placeholder="{{ messages.email }}"
+                  tabindex="1"
+                  onchange="fixLoginForm()"
+                  data-placement="top" data-trigger="manual"
+                  data-content="لطفا شناسه کاربری معتبر وارد کنید." required>
                 </div>
-            </div>
+              </div>
+              <div class="form-group required">
+                <label>
+                  {{ messages.password }}
+                  <small>
+                    <a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw&amp;l=1">
+                      <span>({{ messages.forgot_password }})</span>
+                    </a>
+                  </small>
+                </label>
+                <input dir="ltr" type="password" name="password" class="form-control"
+                tabindex="2"
+                required
+                placeholder="{{ messages.password }}">
+              </div>
+              <input type="hidden" name="dst" value="{{ dst }}">
+              <input type="hidden" name="popup" value="false">
+              <input type="hidden" id="cookie" name="erase-cookie" value="false">
+              <button type="submit" class="btn btn-success btn-lg btn-block" tabindex="3">
+                <span>{{ messages.login }}</span>
+              </button>
+            </form>
+            {% endif %}
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <a href="https://sepehr.aut.ac.ir/cic/admin/?f=p1&amp;s=ad.pw.change&amp;l=1">
+              {{ messages.change_password }}
+            </a>
+          </div>
         </div>
-        <div class="row justify-content-center mt-2">
-            <div class="col-sm-12 col-md-4 align-items-center hidden-xs-down">
-                {# Announcements #}
-                {% for accouncement in announcements %}
-                    <div class="alert alert-{{ accouncement.type }}">
-                        {{ accouncement.message | safe }}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        </div>
+      </div>
     </div>
-{% endblock %}
+  </div>
+  {% endblock %}
