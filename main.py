@@ -6,6 +6,7 @@ from rich import pretty
 from rich.console import Console
 
 import internet.conf
+import internet.http.main
 
 if __name__ == '__main__':
     console = Console()
@@ -13,3 +14,6 @@ if __name__ == '__main__':
 
     cfg = internet.conf.load()
     pretty.pprint(cfg)
+
+    app = internet.http.main.app()
+    app.run(host="0.0.0.0", port=8080)
