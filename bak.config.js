@@ -1,24 +1,9 @@
-// LDAP Server
-// require('./ldap');
-
 export default {
   // Routes
-  routes: [
-    // './controllers/auth',
-    "./controllers/site",
-  ],
+  routes: ["./controllers/site"],
 
   // Plugins
-  registrations: [
-    "@bakjs/mongo",
-    "@bakjs/logging",
-    // '@bakjs/auth',
-    "@bakjs/nunjucks",
-  ],
-
-  auth: {
-    user_model: require("./models/user"),
-  },
+  registrations: ["@bakjs/nunjucks"],
 
   nunjucks: {
     staticCache: 300 * 60 * 1000,

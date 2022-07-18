@@ -1,6 +1,4 @@
-/* jshint indent: 1 */
-
-export default function (sequelize, _DataTypes) {
+module.exports = function (sequelize, _DataTypes) {
   return sequelize.define(
     "radacct",
     {
@@ -211,4 +209,4 @@ export default function (sequelize, _DataTypes) {
       tableName: "radacct",
     }
   );
-}
+};
