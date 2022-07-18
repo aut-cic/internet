@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description" content="" />
+    <link rel="icon" href="/static/favicon.ico" />
+
+    <title>سامانه اینترنت امیرکبیر</title>
+
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+    <link href="/static/css/rtl.css?2" rel="stylesheet" />
+    <link href="/static/css/app.css?4" rel="stylesheet" />
+    {% block styles %} {% endblock %}
+  </head>
+  <body>
+    <div class="app">
+      {% include "./includes/nav.html" %}
+
+      <div class="app-container container-fluid" style="width: 100%">
+        {% block content %} {% endblock %}
+      </div>
+    </div>
+
+    {% include "./includes/scripts.html" %} {% block scripts %} {% endblock %}
+  </body>
+</html>
