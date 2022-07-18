@@ -8,17 +8,13 @@
     "styles": "cd resources/static/css && node-sass bootstrap.scss --output-style compressed --output ."
   },
   "dependencies": {
-    "@bakjs/auth": "^0.1.7",
-    "@bakjs/logging": "^0.3.1",
-    "@bakjs/mongo": "^4.6.0",
     "@bakjs/nunjucks": "^3.0.1",
-    "@bakjs/ratelimit": "^0.1.4",
+    "axios": "^0.27.2",
     "bak": "^5.0.1",
     "chokidar": "^3.5.3",
     "config": "^3.3.7",
     "handlebars": "^4.0.8",
     "ip": "^1.1.5",
-    "ldapjs": "^1.0.1",
     "moment-jalaali": "^0.7.2",
     "mysql2": "^1.7.0",
     "nunjucks": "^3.0.1",

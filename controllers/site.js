@@ -1,13 +1,12 @@
-const { Controller } = require("bak");
+import { Controller } from "bak";
 const { user_usage } = require("../lib/acct");
 const { lookupIP, updateDB } = require("../lib/ip");
 const MESSAGES = require("../lib/messages");
 
-module.exports = class SiteController extends Controller {
+export default class SiteController extends Controller {
   constructor() {
     super({
       default: {
-        // auth: {mode: 'try'},
         plugins: {
           ratelimit: {
             limit: 5,
@@ -31,7 +30,7 @@ module.exports = class SiteController extends Controller {
       return reply.redirect("/status");
     }
 
-    reply.view(request.query.next ? "index" : "old", {
+    reply.view("index", {
       dst,
       error,
       external,
@@ -111,4 +110,4 @@ module.exports = class SiteController extends Controller {
     const subenets = updateDB();
     reply(subenets);
   }
-};
+}
