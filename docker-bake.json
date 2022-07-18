@@ -1,0 +1,14 @@
+{
+  "group": {
+    "default": {
+      "targets": ["internet"]
+    }
+  },
+
+  "target": {
+    "internet": {
+      "dockerfile": "Dockerfile",
+      "tags": ["ghcr.io/aut-cic/internet"]
+    }
+  }
+}
