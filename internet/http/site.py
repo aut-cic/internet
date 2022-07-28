@@ -24,6 +24,6 @@ class SiteHandler:
 
     def register(self) -> sanic.Blueprint:
         bp = sanic.Blueprint("site", url_prefix="/")
-        bp.add_route(self.index, "/", methods=["GET"])
+        bp.add_route(self.index, "/", methods=["GET"], name="login")
 
         return bp
