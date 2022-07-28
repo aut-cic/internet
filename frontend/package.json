@@ -1,0 +1,24 @@
+{
+  "name": "internet",
+  "version": "1.0.0",
+  "description": " AUT internet controller frontend and backend",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Parham Alvani",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "bootstrap": "^5.2.0",
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.1",
+    "vazirmatn": "^33.0.3",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1"
+  }
+}
