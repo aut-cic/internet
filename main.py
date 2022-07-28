@@ -4,6 +4,7 @@ runs internet server
 
 from rich import pretty
 from rich.console import Console
+from sqlalchemy import create_engine
 
 import internet.conf
 import internet.http.main
@@ -15,5 +16,11 @@ if __name__ == "__main__":
     cfg = internet.conf.load()
     pretty.pprint(cfg)
 
-    app = internet.http.main.app(cfg.login_url)
+    engine = create_engine(
+        f"mysql+pymysql://{cfg.database.username}:{cfg.database.password}@{cfg.database.host}:{cfg.database.port}/{cfg.database.database}",
+        echo=True,
+        future=True,
+    )
+
+    app = internet.http.main.app(cfg.login_url, engine)
     app.run(host="0.0.0.0", port=8080, debug=False)

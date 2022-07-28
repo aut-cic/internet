@@ -9,6 +9,7 @@ rich = "*"
 dynaconf = "*"
 jinja2 = "*"
 sqlalchemy = {extras = ["mypy"], version = "*"}
+pymysql = "*"
 
 [dev-packages]
 pytest = "*"
