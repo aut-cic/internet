@@ -16,4 +16,4 @@ if __name__ == "__main__":
     pretty.pprint(cfg)
 
     app = internet.http.main.app(cfg.login_url)
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080, debug=False)
