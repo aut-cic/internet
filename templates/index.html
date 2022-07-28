@@ -1,19 +1,20 @@
 {% extends "includes/layout.html" %}
 
-{% block styles %}
-<style> body { background-image: url(/static/img/login.jpg) } </style>
-{% endblock %}
-
 {% block content %}
+<style> body { background-image: url(/public/images/login.jpg) } </style>
+
 <div class="login-page">
   <div class="justify-content-center align-items-center mt-5 col-12">
     <div class="row justify-content-center">
       <div class="col-sm-12 col-md-4">
         <div class="card">
+
           <div class="card-header card-inverse card-primary text-center">
             {{ messages.internet_login }}
           </div>
-          <div class="card-block">
+
+          <div class="card-body">
+
             {% if error %}
             <div class="alert-dismissable alert alert-danger">
               {{ error }}
@@ -21,10 +22,12 @@
             {% endif %}
 
             {% if(external) %}
+
             <p class="text-muted">
             <span>ورود به سیستم فقط برای کاربران داخل دانشگاه امکان پذیر است.</span>
             <span>لطفا بررسی فرمایید نرم افزار عبور از تحریم استفاده نشده باشد.</span>
             </p>
+
             {% else %}
             <form method="post"
               action="https://login.aut.ac.ir/login"
@@ -32,7 +35,8 @@
               name="login"
               onsubmit="fixLoginForm()"
               >
-              <div class="form-group required">
+
+              <div class="mb-3">
                 <label>
                   {{ messages.email }}
                   <small>
@@ -41,8 +45,8 @@
                     </a>
                   </small>
                 </label>
-                <div class="input-group">
-                  <span class="input-group-addon">aut.ac.ir@</span>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">aut.ac.ir@</span>
                   <input name="username" dir="ltr" type="text" class="form-control"
                   placeholder="{{ messages.email }}"
                   tabindex="1"
@@ -51,7 +55,8 @@
                   data-content="لطفا شناسه کاربری معتبر وارد کنید." required>
                 </div>
               </div>
-              <div class="form-group required">
+
+              <div class="mb-3">
                 <label>
                   {{ messages.password }}
                   <small>
