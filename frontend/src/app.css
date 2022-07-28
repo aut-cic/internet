@@ -168,10 +168,6 @@ input:-webkit-autofill:active {
   border-color: transparent !important;
 }
 
-.package.active {
-  /*box-shadow: 7px 7px 20px #888888;*/
-}
-
 .package .card-footer {
   color: white;
 }
@@ -204,10 +200,6 @@ input:-webkit-autofill:active {
 
 .package h5 {
   color: white !important ;
-}
-
-.package.active {
-  /* border-color: grey; */
 }
 
 /* Triangle */
