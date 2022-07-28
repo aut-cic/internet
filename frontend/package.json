@@ -12,6 +12,8 @@
   "dependencies": {
     "bootstrap": "^5.2.0",
     "css-loader": "^6.7.1",
+    "justgage": "^1.5.1",
+    "raphael": "^2.3.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.3.1",
     "vazirmatn": "^33.0.3",

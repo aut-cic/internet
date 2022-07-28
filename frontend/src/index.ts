@@ -3,6 +3,9 @@ import "bootstrap/dist/css/bootstrap.rtl.min.css";
 
 import "vazirmatn/Vazirmatn-font-face.css";
 
+import "raphael/raphael.min.js";
+import "justgage/justgage.js";
+
 import "./app.css";
 import "./login.ts";
 
