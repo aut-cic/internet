@@ -10,3 +10,12 @@
 ## Introduction
 
 This service with the help of a MicroTik switch and Radius server meter students internet connections.
+
+## How to run
+
+```sh
+cd frontend && npm run build
+pipenv install
+pipenv shell
+python3 main.py
+```
