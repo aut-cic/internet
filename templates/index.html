@@ -32,7 +32,6 @@
             <form method="post"
               action="{{ login_url }}"
               name="login"
-              onsubmit="fixLoginForm()"
               >
 
               <div class="mb-3">
@@ -49,7 +48,6 @@
                   <input name="username" dir="ltr" type="text" class="form-control"
                   placeholder="{{ messages.email }}"
                   tabindex="1"
-                  onchange="fixLoginForm()"
                   data-placement="top" data-trigger="manual"
                   data-content="لطفا شناسه کاربری معتبر وارد کنید." required>
                 </div>
