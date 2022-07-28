@@ -8,6 +8,7 @@ sanic = {extras = ["ext"], version = "*"}
 rich = "*"
 dynaconf = "*"
 jinja2 = "*"
+sqlalchemy = {extras = ["mypy"], version = "*"}
 
 [dev-packages]
 pytest = "*"
