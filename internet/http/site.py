@@ -10,11 +10,14 @@ class SiteHandler:
     @staticmethod
     async def index(request: sanic.Request) -> sanic.HTTPResponse:
         login_url = typing.cast(str, request.app.ctx.login_url)
+        dst = request.get_args().get("dst", "")
+
         return await render(
             "index.html",
             context={
                 "messages": MESSAGES,
                 "login_url": login_url,
+                "dst": dst,
             },
             status=200,
         )
