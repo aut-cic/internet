@@ -3,8 +3,8 @@ name: ci
 on: push
 
 jobs:
-  test:
-    name: test
+  test-python:
+    name: test python
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,10 +15,21 @@ jobs:
       - run: pipenv install --dev -v
       - run: pipenv run pytest
       - run: pipenv run mypy .
+
+  test-node:
+    name: test node
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: cd frontend
+      - run: npm install
+      - run: npm run build
   docker:
     runs-on: ubuntu-latest
     needs:
-      - test
+      - test-python
+      - test-node
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - uses: actions/checkout@v3
