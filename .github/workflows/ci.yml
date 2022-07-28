@@ -19,10 +19,12 @@ jobs:
   test-node:
     name: test node
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: cd frontend
       - run: npm install
       - run: npm run build
   docker:
