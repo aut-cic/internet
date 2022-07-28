@@ -13,8 +13,15 @@ class Sesssion:
 
 @dataclasses.dataclass
 class Usage:
+    daily: int = 0
+    weekly: int = 0
+    monthly: int = 0
+
+
+@dataclasses.dataclass
+class Report:
     packages: dict[str, int]
     groupname: str
-    usage: dict[str, int]
+    usage: Usage
     username: str
     sessions: list[Sesssion]

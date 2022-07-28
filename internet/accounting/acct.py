@@ -1,12 +1,16 @@
+from datetime import datetime, timedelta
 from typing import Any
 
+from sanic_ext.utils.typing import typing
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from ..model.radacct import RadiusAccount
+from ..model.raddaily import RadiusDaily
+from .usage import Usage
 
 
-class Usage:
+class AccountingService:
     def __init__(self, session: Session):
         self.session = session
 
@@ -21,6 +25,35 @@ class Usage:
             "usagehistory": [],
             "username": "",
         }
+
+        usage_history = []
+        usage: Usage = Usage()
+        statement = select(RadiusDaily).where(
+            RadiusDaily.username == username
+            and RadiusDaily.create_date > datetime.now() + timedelta(days=-30)
+        )
+        for row in self.session.scalars(statement):
+            usage_history.append(
+                {
+                    "discount": row.usage_original - row.usage_discount,
+                    "usage": row.usage_discount,
+                    "created_date": row.create_date,
+                }
+            )
+
+            usage.daily += (
+                row.usage_discount
+                if row.create_date > datetime.now() + timedelta(days=-24)
+                else 0
+            )
+            usage.weekly += (
+                row.usage_discount
+                if row.create_date > datetime.now() + timedelta(days=-7)
+                else 0
+            )
+            usage += row.usage_discount
+
+        usage_history.reverse()
 
         return response
 
