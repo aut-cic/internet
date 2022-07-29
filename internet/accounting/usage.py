@@ -9,10 +9,10 @@ __units = [
     "مگابایت",
     "گیگابایت",
     "ترابایت",
-    "PiB",
-    "EiB",
-    "ZiB",
-    "YiB",
+    "پتا بایت",
+    #    "EiB",
+    #    "ZiB",
+    #    "YiB",
 ]
 
 
@@ -28,7 +28,7 @@ def bytes_to_str(bytes: float) -> str:
     if math.fabs(bytes) < threshold:
         return "-"
 
-    units_index = 0
+    units_index = -1
 
     while math.fabs(bytes) >= threshold and units_index < len(__units):
         bytes /= threshold
