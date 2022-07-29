@@ -1,5 +1,58 @@
 import dataclasses
 import datetime
+import enum
+import math
+
+# http://stackoverflow.com/questions/10420352
+__units = [
+    "کیلوبایت",
+    "مگابایت",
+    "گیگابایت",
+    "ترابایت",
+    "PiB",
+    "EiB",
+    "ZiB",
+    "YiB",
+]
+
+
+def bytes_to_str(bytes: float) -> str:
+    """
+    convert bytes into human readable format with unit.
+    """
+    threshold = 1024
+
+    if math.isnan(bytes):
+        return "∞"
+
+    if math.fabs(bytes) < threshold:
+        return "-"
+
+    units_index = 0
+
+    while math.fabs(bytes) >= threshold and units_index < len(__units):
+        bytes /= threshold
+        units_index += 1
+
+    if units_index < 2 or ((bytes * 10) % 10) == 0:
+        return f"{bytes:.0f} {__units[units_index]}"
+
+    return f"{bytes:.1f} {__units[units_index]}"
+
+
+class UsageType(enum.Enum):
+    """
+    different types of usage which has their
+    specific field in reports.
+    """
+
+    DAILY = 1
+    WEEKLY = 2
+    MONTHLY = 3
+    FREE = 4
+
+    def __str__(self) -> str:
+        return self.name.lower()
 
 
 @dataclasses.dataclass
@@ -66,16 +119,16 @@ class Report:
     username: str
     sessions: list[Session]
 
-    def get_active_type(self) -> str:
+    def get_active_type(self) -> UsageType:
         """
         user active package is specify by group name prefix.
         """
         match self.groupname.split("-")[1]:
             case "H1":
-                return "weekly"
+                return UsageType.WEEKLY
             case "H2":
-                return "monthly"
+                return UsageType.MONTHLY
             case "H3":
-                return "free"
+                return UsageType.FREE
             case _:
-                return "daily"
+                return UsageType.DAILY
