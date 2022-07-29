@@ -80,6 +80,8 @@ class AccountingService:
                     id=row.account_unique_id,
                     time=row.account_start_time,
                     usage=row.account_input_octets + row.account_output_octets,
+                    # location information must calculate
+                    # based on ip address.
                     location="-",
                     is_current=False,
                 )

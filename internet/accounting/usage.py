@@ -76,7 +76,7 @@ class Session:
     ip: str
     id: str
     time: datetime.datetime
-    usage: str
+    usage: int
     location: str
     is_current: bool
 

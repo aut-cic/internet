@@ -34,6 +34,11 @@ def account_usage():
     for usage_type in UsageType:
         pretty.pprint(StatusHandler.to_frontend_package(report, usage_type))
 
+    for session in report.sessions:
+        pretty.pprint(
+            StatusHandler.to_frontend_session(session, "172.25.125.2")
+        )
+
 
 if __name__ == "__main__":
     console = Console()

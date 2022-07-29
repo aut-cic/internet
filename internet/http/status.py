@@ -1,6 +1,7 @@
 import math
 import typing
 
+import jdatetime
 import sanic
 import sqlalchemy.future
 from sanic.log import logger
@@ -9,7 +10,9 @@ from sanic_ext import render
 from sqlalchemy.orm import Session
 
 from ..accounting.acct import AccountingService
-from ..accounting.usage import Report, UsageType, bytes_to_str
+from ..accounting.usage import Report
+from ..accounting.usage import Session as IESession
+from ..accounting.usage import UsageType, bytes_to_str
 
 
 class StatusHandler:
@@ -33,6 +36,27 @@ class StatusHandler:
         UsageType.MONTHLY: "سرعت 2M",
         UsageType.FREE: "سرعت کم",
     }
+
+    @staticmethod
+    def to_frontend_session(session: IESession, ip: str) -> typing.Any:
+        """
+        covert session from report into a frontend session which contains
+        the required information for status html page.
+        """
+        session.is_current = session.ip == ip
+
+        return {
+            "ip": session.ip,
+            "time": jdatetime.date.fromgregorian(
+                datetime=session.time, locale="fa_IR"
+            ).strftime("%H:%M:%S - %D"),
+            "usage": "-"
+            if session.usage < 1000
+            else bytes_to_str(session.usage),
+            "id": session.id,
+            "location": session.location,
+            "is_current": session.is_current,
+        }
 
     @staticmethod
     def to_frontend_package(report: Report, type: UsageType) -> typing.Any:
@@ -140,6 +164,13 @@ class StatusHandler:
                     StatusHandler.to_frontend_package(report, usage_type)
                 )
 
+            sessions = []
+            current_session = {}
+            for session in report.sessions:
+                sessions.append(StatusHandler.to_frontend_session(session, ip))
+                if session.is_current is True:
+                    current_session = sessions[-1]
+
             return await render(
                 "status.html",
                 context={
@@ -147,6 +178,8 @@ class StatusHandler:
                     "group": report.groupname.split("-")[0],
                     "username": report.username,
                     "active_type": str(report.get_active_type()),
+                    "sessions": sessions,
+                    "current_session": current_session,
                 },
                 status=200,
             )

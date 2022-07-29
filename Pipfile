@@ -10,6 +10,7 @@ dynaconf = "*"
 jinja2 = "*"
 sqlalchemy = {extras = ["mypy"], version = "*"}
 pymysql = "*"
+jdatetime = "*"
 
 [dev-packages]
 pytest = "*"
