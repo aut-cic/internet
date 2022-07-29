@@ -98,7 +98,8 @@ class AccountingService:
             group_name = row.group_name
             # gather packages for the group
             statement = select(RadiusPackages).where(
-                RadiusPackages.group_name == group_name.split("-")[0]
+                RadiusPackages.group_name
+                == group_name.split("-", maxsplit=1)[0]
             )
             row = self.session.scalars(statement).first()
             if row is not None:

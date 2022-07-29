@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 from ..accounting.acct import AccountingService
 from ..accounting.usage import Report
 from ..accounting.usage import Session as IESession
-from ..accounting.usage import UsageType, bytes_to_str
+from ..accounting.usage import UsageRecord, UsageType, bytes_to_str
 
 
 class StatusHandler:
@@ -36,6 +36,28 @@ class StatusHandler:
         UsageType.MONTHLY: "سرعت 2M",
         UsageType.FREE: "سرعت کم",
     }
+
+    @staticmethod
+    def to_frontend_usage_history(
+        usage_history: list[UsageRecord],
+    ) -> list[typing.Any]:
+        """
+        covert usage history from report into frontend usage history
+        which contains the required information for status html page.
+        """
+        result = []
+        for record in usage_history:
+            result.append(
+                {
+                    "date": record.created_date,
+                    "usageHuman": bytes_to_str(record.usage),
+                    "usage": record.usage,
+                    "discountHuman": bytes_to_str(record.discount),
+                    "discount": record.discount,
+                }
+            )
+        result.sort(key=lambda record: record["date"], reverse=True)
+        return result
 
     @staticmethod
     def to_frontend_session(session: IESession, ip: str) -> typing.Any:
@@ -171,15 +193,20 @@ class StatusHandler:
                 if session.is_current is True:
                     current_session = sessions[-1]
 
+            usage_history = StatusHandler.to_frontend_usage_history(
+                report.usage_history
+            )
+
             return await render(
                 "status.html",
                 context={
                     "packages": packages,
-                    "group": report.groupname.split("-")[0],
+                    "group": report.groupname.split("-", maxsplit=1)[0],
                     "username": report.username,
                     "active_type": str(report.get_active_type()),
                     "sessions": sessions,
                     "current_session": current_session,
+                    "usageHistory": usage_history,
                 },
                 status=200,
             )
