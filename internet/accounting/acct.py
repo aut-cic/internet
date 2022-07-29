@@ -4,10 +4,11 @@ from typing import Any
 
 from sanic_ext.utils.typing import typing
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, session
 
 from ..model.radacct import RadiusAccount
 from ..model.raddaily import RadiusDaily
+from .usage import Session as IESession
 from .usage import Usage
 
 
@@ -59,10 +60,28 @@ class AccountingService:
 
         usage_history.reverse()
 
+        sessions: list[IESession] = []
+        statement = select(RadiusAccount).where(
+            RadiusAccount.username == username
+            and RadiusAccount.account_stop_time is None
+        )
+        for row in self.session.scalars(statement):
+            sessions.append(
+                IESession(
+                    ip=row.framedipaddress,
+                    id=row.account_unique_id,
+                    time=row.account_start_time,
+                    usage=row.account_input_octets + row.account_output_octets,
+                    location="-",
+                    is_current=False,
+                )
+            )
+
         return {
             **response,
             "usagehistory": usage_history,
             "usage": usage,
+            "sessions": sessions,
         }
 
     def ip_to_username(self, ip: str) -> str | None:

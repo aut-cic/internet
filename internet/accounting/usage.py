@@ -1,10 +1,11 @@
 import dataclasses
+import datetime
 
 
 @dataclasses.dataclass
-class Sesssion:
+class Session:
     ip: str
-    time: str
+    time: datetime.datetime
     usage: str
     id: str
     location: str
@@ -24,4 +25,4 @@ class Report:
     groupname: str
     usage: Usage
     username: str
-    sessions: list[Sesssion]
+    sessions: list[Session]
