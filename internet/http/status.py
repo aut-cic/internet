@@ -52,7 +52,7 @@ class StatusHandler:
                 {
                     "date": jdatetime.date.fromgregorian(
                         date=record.created_date, locale="fa_IR"
-                    ).strftime("%D"),
+                    ).strftime("%d/%m/%Y"),
                     "usageHuman": bytes_to_str(record.usage),
                     "usage": record.usage,
                     "discountHuman": bytes_to_str(record.discount),
@@ -74,7 +74,7 @@ class StatusHandler:
             "ip": session.ip,
             "time": jdatetime.datetime.fromgregorian(
                 datetime=session.time, locale="fa_IR"
-            ).strftime("%H:%M:%S - %D"),
+            ).strftime("%H:%M:%S - %d/%m/%Y"),
             "usage": "-"
             if session.usage < 1000
             else bytes_to_str(session.usage),
