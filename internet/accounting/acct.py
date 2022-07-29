@@ -10,29 +10,18 @@ from ..model.radacct import RadiusAccount
 from ..model.raddaily import RadiusDaily
 from ..model.radpackages import RadiusPackages
 from ..model.radusergroup import RadiusUserGroup
-from .usage import Package
+from .usage import Package, Report
 from .usage import Session as IESession
-from .usage import Usage
+from .usage import Usage, UsageRecord
 
 
 class AccountingService:
     def __init__(self, session: Session):
         self.session = session
 
-    def user_usage(self, username: str) -> Any:
-        response = {
-            "resetConfig": {"daily": 0, "monthly": 0, "weekly": 0},
-            "speeds": {"monthly": "1M/2M"},
-            "groupname": "",
-            "package": {"daily": 0, "monthly": 0, "weekly": 0, "free": 0},
-            "usage": {"daily": 0, "monthly": 0, "weekly": 0},
-            "sessions": [],
-            "usagehistory": [],
-            "username": "",
-        }
-
+    def user_usage(self, username: str) -> Report:
         # usage and usage_history from radius daily table
-        usage_history = []
+        usage_history: list[UsageRecord] = []
         usage: Usage = Usage()
         statement = (
             select(RadiusDaily)
@@ -44,11 +33,11 @@ class AccountingService:
         )
         for row in self.session.scalars(statement):
             usage_history.append(
-                {
-                    "discount": row.usage_original - row.usage_discount,
-                    "usage": row.usage_discount,
-                    "created_date": row.create_date,
-                }
+                UsageRecord(
+                    discount=row.usage_original - row.usage_discount,
+                    usage=row.usage_discount,
+                    created_date=row.create_date,
+                )
             )
 
             usage.daily += (
@@ -107,14 +96,14 @@ class AccountingService:
                     monthly_volume=row.monthly_volume,
                 )
 
-        return {
-            **response,
-            "usagehistory": usage_history,
-            "usage": usage,
-            "sessions": sessions,
-            "groupname": group_name,
-            "package": package,
-        }
+        return Report(
+            username=username,
+            usage_history=usage_history,
+            usage=usage,
+            sessions=sessions,
+            groupname=group_name,
+            package=package,
+        )
 
     def ip_to_username(self, ip: str) -> str | None:
         """

@@ -3,11 +3,18 @@ import datetime
 
 
 @dataclasses.dataclass
+class UsageRecord:
+    discount: int
+    usage: int
+    created_date: datetime.date
+
+
+@dataclasses.dataclass
 class Session:
     ip: str
+    id: str
     time: datetime.datetime
     usage: str
-    id: str
     location: str
     is_current: bool
 
@@ -28,6 +35,7 @@ class Package:
 
 @dataclasses.dataclass
 class Report:
+    usage_history: list[UsageRecord]
     package: Package
     groupname: str
     usage: Usage
