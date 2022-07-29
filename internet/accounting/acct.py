@@ -8,7 +8,9 @@ from sqlalchemy.orm import Session
 
 from ..model.radacct import RadiusAccount
 from ..model.raddaily import RadiusDaily
+from ..model.radpackages import RadiusPackages
 from ..model.radusergroup import RadiusUserGroup
+from .usage import Package
 from .usage import Session as IESession
 from .usage import Usage
 
@@ -86,12 +88,24 @@ class AccountingService:
 
         # user's groupname
         group_name = ""
+        package: Package = Package()
         statement = select(RadiusUserGroup).where(
             RadiusUserGroup.username == username
         )
         row = self.session.scalars(statement).first()
         if row is not None:
             group_name = row.group_name
+            # gather packages for the group
+            statement = select(RadiusPackages).where(
+                RadiusPackages.group_name == group_name
+            )
+            row = self.session.scalars(statement).first()
+            if row is not None:
+                package = Package(
+                    daily_volume=row.daily_volume,
+                    weekly_volume=row.weekly_volume,
+                    monthly_volume=row.monthly_volume,
+                )
 
         return {
             **response,
@@ -99,6 +113,7 @@ class AccountingService:
             "usage": usage,
             "sessions": sessions,
             "groupname": group_name,
+            "package": package,
         }
 
     def ip_to_username(self, ip: str) -> str | None:

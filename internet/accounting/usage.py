@@ -20,8 +20,15 @@ class Usage:
 
 
 @dataclasses.dataclass
+class Package:
+    daily_volume: int = 0
+    weekly_volume: int = 0
+    monthly_volume: int = 0
+
+
+@dataclasses.dataclass
 class Report:
-    packages: dict[str, int]
+    package: Package
     groupname: str
     usage: Usage
     username: str
