@@ -1,4 +1,5 @@
 import math
+import random
 import typing
 
 import jdatetime
@@ -198,16 +199,34 @@ class StatusHandler:
                 report.usage_history
             )
 
+            history = {"labels": [], "discount": [], "usage": []}
+            for record in usage_history:
+                history["labels"].append(record["date"])
+                history["discount"].append(record["discount"])
+                history["usage"].append(record["usage"])
+
             return await render(
                 "status.html",
                 context={
-                    "packages": packages,
-                    "group": report.groupname.split("-", maxsplit=1)[0],
                     "username": report.username,
-                    "active_type": str(report.get_active_type()),
-                    "sessions": sessions,
-                    "current_session": current_session,
-                    "usageHistory": usage_history,
+                    "group": report.groupname.split("-", maxsplit=1)[0],
+                    "ip": request.ip,
+                    "location": current_session["location"],
+                    "announcements": [],
+                    "rand": math.floor(random.random() * 1000),
+                    "auth": False,
+                    "dst": "",
+                    "logout": "",
+                    "status": {
+                        "packages": packages,
+                        "group": report.groupname.split("-", maxsplit=1)[0],
+                        "username": report.username,
+                        "active_type": str(report.get_active_type()),
+                        "sessions": sessions,
+                        "current_session": current_session,
+                        "usageHistory": usage_history,
+                    },
+                    "history": history,
                 },
                 status=200,
             )
