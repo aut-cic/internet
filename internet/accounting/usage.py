@@ -37,6 +37,7 @@ class Usage:
     daily: int = 0
     weekly: int = 0
     monthly: int = 0
+    free: int = 0
 
 
 @dataclasses.dataclass

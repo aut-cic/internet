@@ -63,6 +63,7 @@ class AccountingService:
             )
             usage.monthly += row.usage_discount
 
+        usage.free = usage.monthly
         usage_history.reverse()
 
         # sessions from radius account table
