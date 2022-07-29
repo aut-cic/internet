@@ -123,10 +123,10 @@ class AccountingService:
         """
         in internet service we only has user ip address because they are only
         using microtik for login and etc.
-        please note that ip 127.0.0.1 is use only for testing purpose so
-        I return my username.
+        please note that ip 127.0.0.1 and 172.25.220.147 (openvpn)
+        is use only for testing purpose so I return my username.
         """
-        if ip == "127.0.0.1":
+        if ip == "127.0.0.1" or "172.25.220.147":
             return "parham.alvani"
 
         statement = (
