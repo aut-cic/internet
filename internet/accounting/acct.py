@@ -16,10 +16,19 @@ from .usage import Usage, UsageRecord
 
 
 class AccountingService:
+    """
+    AccountingService does all accounting things.
+    """
+
     def __init__(self, session: Session):
         self.session = session
 
     def user_usage(self, username: str) -> Report:
+        """
+        aggregate information from free radius database.
+        please note that group name may contain -H1, -H2 and -H3
+        to show that your current usage type.
+        """
         # usage and usage_history from radius daily table
         usage_history: list[UsageRecord] = []
         usage: Usage = Usage()
@@ -86,7 +95,7 @@ class AccountingService:
             group_name = row.group_name
             # gather packages for the group
             statement = select(RadiusPackages).where(
-                RadiusPackages.group_name == group_name
+                RadiusPackages.group_name == group_name.split("-")[0]
             )
             row = self.session.scalars(statement).first()
             if row is not None:
@@ -94,6 +103,7 @@ class AccountingService:
                     daily_volume=row.daily_volume,
                     weekly_volume=row.weekly_volume,
                     monthly_volume=row.monthly_volume,
+                    free_volume=4 * row.monthly_volume,
                 )
 
         return Report(

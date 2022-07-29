@@ -49,6 +49,7 @@ class Package:
     daily_volume: int = 0
     weekly_volume: int = 0
     monthly_volume: int = 0
+    free_volume: int = 0
 
 
 @dataclasses.dataclass
@@ -63,3 +64,17 @@ class Report:
     usage: Usage
     username: str
     sessions: list[Session]
+
+    def get_active_type(self) -> str:
+        """
+        user active package is specify by group name prefix.
+        """
+        match self.groupname.split("-")[1]:
+            case "H1":
+                return "weekly"
+            case "H2":
+                return "monthly"
+            case "H3":
+                return "free"
+            case _:
+                return "daily"

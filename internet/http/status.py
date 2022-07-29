@@ -28,7 +28,7 @@ class StatusHandler:
             if username is None:
                 return redirect(app.url_for("site.login"))
 
-            usage.user_usage(username)
+            report = usage.user_usage(username)
 
             return await render(
                 "status.html",
