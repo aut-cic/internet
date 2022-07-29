@@ -123,12 +123,12 @@ class Report:
         """
         user active package is specify by group name prefix.
         """
-        match self.groupname.split("-")[1]:
-            case "H1":
+        match self.groupname.split("-"):
+            case [_, "H1"]:
                 return UsageType.WEEKLY
-            case "H2":
+            case [_, "H2"]:
                 return UsageType.MONTHLY
-            case "H3":
+            case [_, "H3"]:
                 return UsageType.FREE
             case _:
                 return UsageType.DAILY
