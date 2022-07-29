@@ -4,10 +4,11 @@ from typing import Any
 
 from sanic_ext.utils.typing import typing
 from sqlalchemy import select
-from sqlalchemy.orm import Session, session
+from sqlalchemy.orm import Session
 
 from ..model.radacct import RadiusAccount
 from ..model.raddaily import RadiusDaily
+from ..model.radusergroup import RadiusUserGroup
 from .usage import Session as IESession
 from .usage import Usage
 
@@ -83,11 +84,21 @@ class AccountingService:
                 )
             )
 
+        # user's groupname
+        group_name = ""
+        statement = select(RadiusUserGroup).where(
+            RadiusUserGroup.username == username
+        )
+        row = self.session.scalars(statement).first()
+        if row is not None:
+            group_name = row.group_name
+
         return {
             **response,
             "usagehistory": usage_history,
             "usage": usage,
             "sessions": sessions,
+            "groupname": group_name,
         }
 
     def ip_to_username(self, ip: str) -> str | None:
