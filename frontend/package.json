@@ -11,7 +11,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "bootstrap": "^5.2.0",
-    "chartjs": "^0.3.24",
+    "chart.js": "^3.8.2",
     "css-loader": "^6.7.1",
     "gaugeJS": "^1.3.7",
     "justgage": "^1.5.1",

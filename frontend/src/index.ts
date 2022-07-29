@@ -5,8 +5,9 @@ import "vazirmatn/Vazirmatn-font-face.css";
 
 import "raphael/raphael.min.js";
 import "justgage/justgage.js";
-import "chartjs/chart.js";
-import "gaugeJS/dist/gauge.min.js";
+
+import "chart.js/dist/chart.min.js";
+import "gaugeJS/dist/gauge.min.js ";
 
 import "./app.css";
 import "./login.ts";
