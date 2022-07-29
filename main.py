@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     engine = create_engine(
         f"mysql+pymysql://{cfg.database.username}:{cfg.database.password}@{cfg.database.host}:{cfg.database.port}/{cfg.database.database}",
-        echo=True,
+        echo=False,
         future=True,
     )
 
