@@ -194,16 +194,18 @@ class StatusHandler:
 
             sessions = []
             current_session = None
-            for session in report.sessions:
-                sessions.append(StatusHandler.to_frontend_session(session, ip))
-                if session.is_current is True:
+            for ie_session in report.sessions:
+                sessions.append(
+                    StatusHandler.to_frontend_session(ie_session, ip)
+                )
+                if ie_session.is_current is True:
                     current_session = sessions[-1]
 
             usage_history = StatusHandler.to_frontend_usage_history(
                 report.usage_history
             )
 
-            history = {"labels": [], "discount": [], "usage": []}
+            history: typing.Any = {"labels": [], "discount": [], "usage": []}
             for record in usage_history:
                 history["labels"].append(record["date"])
                 history["discount"].append(record["discount"])
