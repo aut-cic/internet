@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="text-center mt-3">
-                <a href="{{ url_for(site.logout, sid=current_session.id }}"
+                <a href="{{ url_for(site.logout, sid=current_session.id) }}"
                    class="btn btn-danger">
                     <span>خروج از اینترنت</span>
                 </a>
@@ -69,7 +69,7 @@
                                             <td>
                                                 {% if session.ip != ip %}
                                                     <a class="btn btn-sm btn-danger"
-                                                       href="{{ url_for(site.logout, sid=session.id }}">x</a>
+                                                       href="{{ url_for(site.logout, sid=session.id) }}">x</a>
                                                 {% else %}
                                                     <span>دستگاه فعلی</span>
                                                 {% endif %}
