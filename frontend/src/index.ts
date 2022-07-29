@@ -7,7 +7,7 @@ import "raphael/raphael.min.js";
 import "justgage/justgage.js";
 
 import "chart.js/dist/chart.min.js";
-import "gaugeJS/dist/gauge.min.js ";
+import "gaugeJS/dist/gauge.min.js";
 
 import "./app.css";
 import "./login.ts";
