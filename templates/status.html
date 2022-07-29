@@ -91,35 +91,28 @@
                     </div>
                 </div>
             </div>
-        {% else %}
-            <div class="row text-muted">
-                <div class="col-md-6 col-md-offset-5">
-                    <h4>کاربر میهمان</h4>
-                </div>
-            </div>
-        {% endif %}
-    </div>
-</div>
-{# Redirect Message #}
-{% if(dst) %}
-    <div class="fixed-bottom text-center">
-        <div class="alert alert-warning"
-             style="border-radius: 0; margin: 0; opacity: 1">
-            {#
-        <div style="display: inline-block" class="loader ml-2"></div>
-        #}
-            <span>شما با موفقیت وارد شدید و پس از ۳۰ ثانیه به</span>
-            <a href="{{ dst }}"> تارنمای مورد نظر </a>
-            <span> هدایت می شوید.</span>
-            <a href="/status" class="btn btn-sm btn-primary">ماندن در این صفحه</a>
-            {#
-        <a href="{{ dst }}" class="btn btn-sm btn-primary">هدایت به تارنمای مورد نظر</a
-        >#}
         </div>
     </div>
-{% endblock content %}
-{% block scripts %}
-    <script>
+    {# Redirect Message #}
+    {% if(dst) %}
+        <div class="fixed-bottom text-center">
+            <div class="alert alert-warning"
+                 style="border-radius: 0; margin: 0; opacity: 1">
+                {#
+        <div style="display: inline-block" class="loader ml-2"></div>
+        #}
+                <span>شما با موفقیت وارد شدید و پس از ۳۰ ثانیه به</span>
+                <a href="{{ dst }}"> تارنمای مورد نظر </a>
+                <span> هدایت می شوید.</span>
+                <a href="/status" class="btn btn-sm btn-primary">ماندن در این صفحه</a>
+                {#
+        <a href="{{ dst }}" class="btn btn-sm btn-primary">هدایت به تارنمای مورد نظر</a
+        >#}
+            </div>
+        </div>
+    {% endblock content %}
+    {% block scripts %}
+        <script>
     const units = [
           "کیلوبایت",
           "مگابایت",
@@ -147,8 +140,8 @@
             return bytes.toFixed(0) + " " + units[u];
           return bytes.toFixed(1) + " " + units[u];
         }
-    </script>
-    <script>
+        </script>
+        <script>
     {% for package in status.packages %}
       var {{ package.type }} = Gauge(document.getElementById("package-{{ package.type }}"), {
             max: 100,
@@ -159,8 +152,8 @@
           });
     {{package.type}}.setValueAnimated({{ package.percent }}, 1);
   {% endfor %}
-    </script>
-    <script>
+        </script>
+        <script>
     new Chart(document.getElementById("usageChart"), {
           type: 'bar',
           data: {
@@ -213,5 +206,5 @@
                     },
               }
         });
-    </script>
-{% endblock scripts %}
+        </script>
+    {% endblock scripts %}
