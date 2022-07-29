@@ -55,7 +55,7 @@ class AccountingService:
                 > (datetime.now() + timedelta(days=-7)).date()
                 else 0
             )
-            usage += row.usage_discount
+            usage.monthly += row.usage_discount
 
         usage_history.reverse()
 
