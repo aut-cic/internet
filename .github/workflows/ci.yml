@@ -15,7 +15,7 @@ jobs:
       - run: pipenv install --dev -v
       - run: pipenv run pytest
       - run: pipenv run mypy .
-      - run: pipenv run djlint templates
+      - run: pipenv run djlint --profile jinja templates
 
   test-node:
     name: test node
