@@ -130,11 +130,11 @@ class AccountingService:
             return "parham.alvani"
 
         statement = (
-            select(RadiusAccount.username)
+            select(RadiusAccount)
             .where(RadiusAccount.framedipaddress == ip)
             .where(RadiusAccount.account_stop_time is None)
         )
-        row = self.session.execute(statement).first()
+        row = self.session.scalars(statement).first()
         if row is None:
             return None
-        return row.RadiusAccount.username
+        return row.username
