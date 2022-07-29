@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import Any
 
@@ -30,7 +31,8 @@ class AccountingService:
         usage: Usage = Usage()
         statement = select(RadiusDaily).where(
             RadiusDaily.username == username
-            and RadiusDaily.create_date > datetime.now() + timedelta(days=-30)
+            and RadiusDaily.create_date
+            > (datetime.now() + timedelta(days=-30)).date()
         )
         for row in self.session.scalars(statement):
             usage_history.append(
