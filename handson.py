@@ -31,7 +31,8 @@ def account_usage():
         report = usage.user_usage("parham.alvani")
         pretty.pprint(report)
 
-    pretty.pprint(StatusHandler.to_frontend_package(report, UsageType.DAILY))
+    for usage_type in UsageType:
+        pretty.pprint(StatusHandler.to_frontend_package(report, usage_type))
 
 
 if __name__ == "__main__":
