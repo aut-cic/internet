@@ -168,7 +168,8 @@ class StatusHandler:
         ip = request.ip
         logger.info(f"request from {ip}")
 
-        if ip.startswith(("192", "172")) is False:
+        # please note that "127.0.0.*" is only for testing purposes.
+        if ip.startswith(("192", "172", "127.0.0")) is False:
             return redirect(app.url_for("site.login"))
 
         with Session(engine) as session:
