@@ -165,7 +165,7 @@
             id: "package-{{ package.type }}",
             max: 100,
             label: '{{ package.usage}} / {{ package.total }}',
-            value: {{ package.percent }},
+            value: "{{ package.percent }}%",
           });
   {% endfor %}
     </script>
