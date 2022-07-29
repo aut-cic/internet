@@ -15,6 +15,8 @@ from ..accounting.usage import Report
 from ..accounting.usage import Session as IESession
 from ..accounting.usage import UsageRecord, UsageType, bytes_to_str
 
+jdatetime.set_locale("fa_IR")
+
 
 class StatusHandler:
     titles: dict[UsageType, str] = {
@@ -51,7 +53,7 @@ class StatusHandler:
             result.append(
                 {
                     "date": jdatetime.date.fromgregorian(
-                        date=record.created_date, locale="fa_IR"
+                        date=record.created_date,
                     ).strftime("%d/%m/%Y"),
                     "usageHuman": bytes_to_str(record.usage),
                     "usage": record.usage,
@@ -73,7 +75,7 @@ class StatusHandler:
         return {
             "ip": session.ip,
             "time": jdatetime.datetime.fromgregorian(
-                datetime=session.time, locale="fa_IR"
+                datetime=session.time,
             ).strftime("%H:%M:%S - %d/%m/%Y"),
             "usage": "-"
             if session.usage < 1000
