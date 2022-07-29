@@ -59,7 +59,11 @@ class AccountingService:
 
         usage_history.reverse()
 
-        return response
+        return {
+            **response,
+            "usagehistory": usage_history,
+            "usage": usage,
+        }
 
     def ip_to_username(self, ip: str) -> str | None:
         """
