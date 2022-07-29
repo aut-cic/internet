@@ -15,6 +15,7 @@ jdatetime = "*"
 [dev-packages]
 pytest = "*"
 mypy = "*"
+djlint = "*"
 
 [requires]
 python_version = "3.10"
