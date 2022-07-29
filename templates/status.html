@@ -110,9 +110,10 @@
         >#}
             </div>
         </div>
-    {% endblock content %}
-    {% block scripts %}
-        <script>
+    {% endif %}
+{% endblock content %}
+{% block scripts %}
+    <script>
     const units = [
           "کیلوبایت",
           "مگابایت",
@@ -140,8 +141,8 @@
             return bytes.toFixed(0) + " " + units[u];
           return bytes.toFixed(1) + " " + units[u];
         }
-        </script>
-        <script>
+    </script>
+    <script>
     {% for package in status.packages %}
       var {{ package.type }} = Gauge(document.getElementById("package-{{ package.type }}"), {
             max: 100,
@@ -152,8 +153,8 @@
           });
     {{package.type}}.setValueAnimated({{ package.percent }}, 1);
   {% endfor %}
-        </script>
-        <script>
+    </script>
+    <script>
     new Chart(document.getElementById("usageChart"), {
           type: 'bar',
           data: {
@@ -206,5 +207,5 @@
                     },
               }
         });
-        </script>
-    {% endblock scripts %}
+    </script>
+{% endblock scripts %}
