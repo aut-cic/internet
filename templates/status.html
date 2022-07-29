@@ -26,8 +26,7 @@
                 </div>
             </div>
             <div class="text-center mt-3">
-                <a href="/logout/{{current_session.id}}"
-                   class="btn btn-danger">
+                <a href="/logout/{{ current_session.id }}" class="btn btn-danger">
                     <span>خروج از اینترنت</span>
                 </a>
             </div>
@@ -67,8 +66,7 @@
                                         <td>{{ session.time }}</td>
                                         <td>
                                             {% if session.ip != ip %}
-                                                <a class="btn btn-sm btn-danger"
-                                                   href="/logout/{{ session.id }}">x</a>
+                                                <a class="btn btn-sm btn-danger" href="/logout/{{ session.id }}">x</a>
                                             {% else %}
                                                 <span>دستگاه فعلی</span>
                                             {% endif %}
