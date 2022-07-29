@@ -4,6 +4,8 @@ machine. set environment manually and this script will test
 database connection etc. for you.
 """
 
+from rich import pretty
+from rich.console import Console
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
@@ -23,8 +25,12 @@ def account_usage():
 
     with Session(engine) as session:
         usage = AccountingService(session)
-        usage.user_usage("parham.alvani")
+        res = usage.user_usage("parham.alvani")
+        pretty.pprint(res)
 
 
 if __name__ == "__main__":
+    console = Console()
+    pretty.install()
+
     account_usage()
