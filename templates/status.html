@@ -144,11 +144,10 @@
     </script>
     <script>
     {% for package in status.packages %}
-      var {{ package.type }} = Gauge(document.getElementById("package-{{ package.type }}"), {
+      var {{ package.type }} = JustGage({
+            id: "package-{{ package.type }}",
             max: 100,
-            label: function(a)  {
-                  return '{{ package.usage}} / {{ package.total }}'
-                },
+            label: '{{ package.usage}} / {{ package.total }}',
             value: 0,
           });
     {{package.type}}.setValueAnimated({{ package.percent }}, 1);
