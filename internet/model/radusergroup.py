@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Date, DateTime, Integer, String
 
+from . import Base
 
-class RadiusUserGroup:
+
+class RadiusUserGroup(Base):
     __tablename__ = "radusergroup"
 
     username = Column(String)

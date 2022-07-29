@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Date, Integer, String
 
+from . import Base
 
-class RadiusPackages:
+
+class RadiusPackages(Base):
     __tablename__ = "radpackages"
 
     id = Column("id", Integer, primary_key=True)

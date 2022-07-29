@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from sanic_ext.utils.typing import typing
-from sqlalchemy import create_engine, select
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from ..model.radacct import RadiusAccount
@@ -70,16 +70,3 @@ class AccountingService:
         if row is None:
             return None
         return row.RadiusAccount.username
-
-
-# for hands-on testing on production environment with radius database.
-if __name__ == "__main__":
-    engine = create_engine(
-        "mysql+pymysql://root:root@127.0.0.1/db",
-        echo=True,
-        future=True,
-    )
-
-    with Session(engine) as session:
-        usage = AccountingService(session)
-        usage.user_usage("parham.alvani")

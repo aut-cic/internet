@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Date, DateTime, Integer, String
 
+from . import Base
 
-class RadiusAccount:
+
+class RadiusAccount(Base):
     __tablename__ = "radacct"
 
     radius_account_id = Column("radacctid", Integer, primary_key=True)
