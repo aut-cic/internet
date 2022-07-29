@@ -189,7 +189,7 @@ class StatusHandler:
                 )
 
             sessions = []
-            current_session = {}
+            current_session = None
             for session in report.sessions:
                 sessions.append(StatusHandler.to_frontend_session(session, ip))
                 if session.is_current is True:
@@ -211,7 +211,9 @@ class StatusHandler:
                     "username": report.username,
                     "group": report.groupname.split("-", maxsplit=1)[0],
                     "ip": request.ip,
-                    "location": current_session["location"],
+                    "location": current_session["location"]
+                    if current_session is not None
+                    else "-",
                     "announcements": [],
                     "rand": math.floor(random.random() * 1000),
                     "auth": False,
