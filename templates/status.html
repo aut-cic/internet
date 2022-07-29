@@ -202,22 +202,25 @@
          },
          options: {
              scales: {
-                 yAxes: [{
+                 y: {
                      stacked: true,
                      ticks: {
                          callback: function (label, index, labels) {
                              return humanFileSize(label)
                          },
-                         fontFamily: "Vazirmatn"
-
                      },
-                 }],
-                 xAxes: [{
+                     font: {
+                         family: "Vazirmatn"
+                     },
+                 },
+                 x: {
                      ticks: {
                          callback: function (label, index, labels) {
                              return new Date(label).toLocaleDateString('fa')
                          },
-                         fontFamily: "Vazirmatn"
+                     },
+                     font: {
+                         family: "Vazirmatn"
                      },
                      barPercentage: 1.0,
                      categoryPercentage: 1.0
@@ -225,13 +228,13 @@
              },
              tooltips: {
                  mode: 'index',
-  intersect: false,
+                 intersect: false,
                  bodyFontFamily: "Vazirmatn",
                  footerFontFamily: "Vazirmatn",
-   		        callbacks: {
-     		        label: function(tooltipItem, data) {
+   		           callbacks: {
+     		            label: function(tooltipItem, data) {
        		            return humanFileSize(tooltipItem.yLabel);
-     		        },
+     		             },
                      footer: function(tooltipItems, data) {
 
        		            return humanFileSize(tooltipItems[0].yLabel+tooltipItems[1].yLabel);
