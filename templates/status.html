@@ -196,11 +196,12 @@
              },
              {
                  label: 'میزان مصرف تخفیف خورده',
-                 backgroundColor:"rgba(54,162,235,0.8)",
                  data: {{ history.discount | safe }},
+                 backgroundColor:"rgba(54,162,235,0.8)",
              }]
          },
          options: {
+             responsive: true,
              scales: {
                  y: {
                      stacked: true,
@@ -214,16 +215,10 @@
                      },
                  },
                  x: {
-                     ticks: {
-                         callback: function (label, index, labels) {
-                             return new Date(label).toLocaleDateString('fa')
-                         },
-                     },
+                     stacked: true,
                      font: {
                          family: "Vazirmatn"
                      },
-                     barPercentage: 1.0,
-                     categoryPercentage: 1.0
                  }
              },
              tooltips: {
@@ -236,7 +231,6 @@
        		            return humanFileSize(tooltipItem.yLabel);
      		             },
                      footer: function(tooltipItems, data) {
-
        		            return humanFileSize(tooltipItems[0].yLabel+tooltipItems[1].yLabel);
                      },
    	            },
