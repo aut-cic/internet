@@ -144,13 +144,12 @@
     </script>
     <script>
     {% for package in status.packages %}
-      var {{ package.type }} = JustGage({
+      var {{ package.type }} = new JustGage({
             id: "package-{{ package.type }}",
             max: 100,
             label: '{{ package.usage}} / {{ package.total }}',
-            value: 0,
+            value: {{ package.percent }},
           });
-    {{package.type}}.setValueAnimated({{ package.percent }}, 1);
   {% endfor %}
     </script>
     <script>
