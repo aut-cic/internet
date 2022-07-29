@@ -265,10 +265,6 @@ input:-webkit-autofill:active {
   background: transparent;
 }
 
-.card {
-  border: none;
-}
-
 .input-group-addon:first-child {
   border: none;
 }
