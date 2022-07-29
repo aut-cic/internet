@@ -28,12 +28,16 @@ class AccountingService:
             "username": "",
         }
 
+        # usage and usage_history from radius daily table
         usage_history = []
         usage: Usage = Usage()
-        statement = select(RadiusDaily).where(
-            RadiusDaily.username == username
-            and RadiusDaily.create_date
-            > (datetime.now() + timedelta(days=-30)).date()
+        statement = (
+            select(RadiusDaily)
+            .where(RadiusDaily.username == username)
+            .where(
+                RadiusDaily.create_date
+                > (datetime.now() + timedelta(days=-30)).date()
+            )
         )
         for row in self.session.scalars(statement):
             usage_history.append(
@@ -60,10 +64,12 @@ class AccountingService:
 
         usage_history.reverse()
 
+        # sessions from radius account table
         sessions: list[IESession] = []
-        statement = select(RadiusAccount).where(
-            RadiusAccount.username == username
-            and RadiusAccount.account_stop_time is None
+        statement = (
+            select(RadiusAccount)
+            .where(RadiusAccount.username == username)
+            .where(RadiusAccount.account_stop_time is None)
         )
         for row in self.session.scalars(statement):
             sessions.append(
@@ -89,9 +95,10 @@ class AccountingService:
         in internet service we only has user ip address because they are only
         using microtik for login and etc.
         """
-        statement = select(RadiusAccount.username).where(
-            RadiusAccount.framedipaddress == ip
-            and RadiusAccount.account_stop_time is None
+        statement = (
+            select(RadiusAccount.username)
+            .where(RadiusAccount.framedipaddress == ip)
+            .where(RadiusAccount.account_stop_time is None)
         )
         row = self.session.execute(statement).first()
         if row is None:
