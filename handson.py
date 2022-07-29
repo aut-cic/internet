@@ -10,6 +10,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 from internet.accounting.acct import AccountingService
+from internet.accounting.usage import Report, UsageType
+from internet.http.status import StatusHandler
 
 
 def account_usage():
@@ -23,10 +25,13 @@ def account_usage():
         future=True,
     )
 
+    report: Report
     with Session(engine) as session:
         usage = AccountingService(session)
-        res = usage.user_usage("parham.alvani")
-        pretty.pprint(res)
+        report = usage.user_usage("parham.alvani")
+        pretty.pprint(report)
+
+    pretty.pprint(StatusHandler.to_frontend_package(report, UsageType.DAILY))
 
 
 if __name__ == "__main__":
