@@ -47,47 +47,7 @@
       <span> {{ logout }} </span>
       <span> ارسال شد.</span>
     </div>
-    {% endif %} {# Usage notice #} {#
-    <div class="alert alert-warning alert-dismissable">
-      #} {# <span>شما روزانه تا میزان</span>#} {#
-      <strong>{{ status.packages[0].total }}</strong>#} {#
-      <span>
-        با سرعت نامحدود می توانید از اینترنت استفاده کنید، مادامی که حجم هفتگی
-        یا ماهیانه شما به پایان نرسیده باشد.</span
-      >#} {# <br />#} {#
-      <span> از ساعت 1 شب تا 7 صبح حجم مصرفی شما با ضریب </span>#} {#
-      <strong>0.1</strong>#} {# <span> محاسبه می گردد.</span>#} {#
-    </div>
-    #} {# Announcements #} {% for accouncement in announcements %}
-    <div class="alert alert-{{ accouncement.type }}">
-      {{ accouncement.message | safe }}
-    </div>
-    {% endfor %} {# Free notice #} {% if status.active_type == 'free' %}
-    <div class="alert alert-danger alert-dismissable">
-      <span>مصرف شما از حد مجاز بیشتر شده است.</span>
-      <span> از این پس با سرعت پایین می توانید از اینترنت استفاده کنید.</span>
-    </div>
-    {% endif %} {# Packages #}
-    <div class="row">
-      {% for package in status.packages %}
-      <div class="col-12 col-md-3">
-        <div
-          class="card package mb-2 {% if(package.active) %} active {% else %} hidden-sm-down {% endif %}"
-        >
-          <div class="card-block text-center">
-            <div
-              id="package-{{ package.type }}"
-              class="gauge-container {{ package.color }}"
-            ></div>
-          </div>
-          <div class="card-footer text-center card-{{ package.color2 }}">
-            <h5>{{ package.title2 }}</h5>
-            <span>{{ package.title }}</span>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
+    {% endif %}
 
     {# Sessions #}
     <div class="row">
@@ -157,7 +117,8 @@
   </div>
 </div>
 
-{# Redirect Message #} {% if(dst) %}
+{# Redirect Message #}
+{% if(dst) %}
 <div class="fixed-bottom text-center">
   <div
     class="alert alert-warning"
@@ -176,27 +137,9 @@
     >#}
   </div>
 </div>
-{% endif %} {% endblock %} {% block styles %} {% if(dst) %}
-<meta http-equiv="refresh" content="30; url={{ dst }}" />
 {% endif %}
-<link href="/static/css/gauge.css?4" rel="stylesheet" />
-{% endblock %} {% block scripts %} {# Show Modal #} {# {% if
-(group.indexOf('Faculty') === -1 ) %} {% include "./includes/modal.njk" %} {%
-endif %} #} {#
-<script>
-  #}
-      {#        window.onload = function () {#}
-      {#            setInterval(function () {#}
-      {#                window.location.reload();#}
-      {#            }, 1000 * 60);#}
-      {#        }#}
-      {#
-</script>
-#}
-<script src="/static/js/chart.bundle.min.js?1"></script>
-{# {{ status.usageHistory }}#}
 
-<script src="/static/js/gauge.min.js?1"></script>
+{% endblock %}
 
 <script>
   const units = [
@@ -265,7 +208,7 @@ endif %} #} {#
                          callback: function (label, index, labels) {
                              return humanFileSize(label)
                          },
-                         fontFamily: "IRANSans"
+                         fontFamily: "Vazirmatn"
 
                      },
                  }],
@@ -274,7 +217,7 @@ endif %} #} {#
                          callback: function (label, index, labels) {
                              return new Date(label).toLocaleDateString('fa')
                          },
-                         fontFamily: "IRANSans"
+                         fontFamily: "Vazirmatn"
                      },
                      barPercentage: 1.0,
                      categoryPercentage: 1.0
@@ -283,8 +226,8 @@ endif %} #} {#
              tooltips: {
                  mode: 'index',
   intersect: false,
-                 bodyFontFamily: "IRANSans",
-                 footerFontFamily: "IRANSans",
+                 bodyFontFamily: "Vazirmatn",
+                 footerFontFamily: "Vazirmatn",
    		        callbacks: {
      		        label: function(tooltipItem, data) {
        		            return humanFileSize(tooltipItem.yLabel);
