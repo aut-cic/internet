@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="text-center mt-3">
-                <a href="{{ url_for('site.logout, sid=current_session.id) }}"
+                <a href="/logout/{{current_session.id}}"
                    class="btn btn-danger">
                     <span>خروج از اینترنت</span>
                 </a>
@@ -68,7 +68,7 @@
                                         <td>
                                             {% if session.ip != ip %}
                                                 <a class="btn btn-sm btn-danger"
-                                                   href="{{ url_for('site.logout', sid=session.id) }}">x</a>
+                                                   href="/logout/{{ session.id }}">x</a>
                                             {% else %}
                                                 <span>دستگاه فعلی</span>
                                             {% endif %}
@@ -113,7 +113,7 @@
             <span>شما با موفقیت وارد شدید و پس از ۳۰ ثانیه به</span>
             <a href="{{ dst }}"> تارنمای مورد نظر </a>
             <span> هدایت می شوید.</span>
-            <a href="{{ url_for('status.status') }}" class="btn btn-sm btn-primary">ماندن در این صفحه</a>
+            <a href="/status" class="btn btn-sm btn-primary">ماندن در این صفحه</a>
             {#
         <a href="{{ dst }}" class="btn btn-sm btn-primary">هدایت به تارنمای مورد نظر</a
         >#}
