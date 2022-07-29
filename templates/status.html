@@ -40,6 +40,23 @@
                     <span>ارسال شد.</span>
                 </div>
             {% endif %}
+            {# Packages #}
+            <div class="row">
+                {% for package in status.packages %}
+                    <div class="col-12 col-md-3">
+                        <div class="card package mb-2 {% if(package.active) %} active {% else %} hidden-sm-down {% endif %}">
+                            <div class="card-block text-center">
+                                <div id="package-{{ package.type }}"
+                                     class="gauge-container {{ package.color }}"></div>
+                            </div>
+                            <div class="card-footer text-center card-{{ package.color2 }}">
+                                <h5>{{ package.title2 }}</h5>
+                                <span>{{ package.title }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
             {# Sessions #}
             <div class="row">
                 <div class="col-12 hidden-xs-down">
