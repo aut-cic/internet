@@ -1,242 +1,220 @@
 {% extends "includes/layout.html" %}
-
 {% block content %}
-<div class="pt-4 row">
-  <div class="col-md-3 col-sm-12 mb-3">
-    <div class="list-group">
-      <div class="list-group-item active">
-        <span>سامانه اینترنت</span>
-      </div>
-
-      {% if(username) %}
-      <div class="list-group-item list-group-item-dark">
-        <span {{ rand }}>نام کاربری: </span>
-        <strong> {{ username }} </strong>
-      </div>
-      {% endif %}
-
-      <div class="list-group-item list-group-item-dark">
-        <span>گروه کاربری: </span>
-        <strong> {{ group }} </strong>
-      </div>
-
-      <div class="list-group-item list-group-item-dark">
-        <span>آی پی شما: </span>
-        <strong> {{ ip }}</strong>
-      </div>
-
-      <div class="list-group-item list-group-item-dark">
-        <span>مکان: </span>
-        <strong> {{ location }}</strong>
-      </div>
-    </div>
-    <div class="text-center mt-3">
-      <a
-        href="/status/logout/{{ status.current_session.id }}"
-        class="btn btn-danger"
-      >
-        <span>خروج از اینترنت</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="col-md-9 col-sm-12">
-    {% if(username != 'guest') %} {# Logout Message #} {% if logout %}
-    <div class="alert alert-info alert-dismissable">
-      <span>درخواست قطع اتصال </span>
-      <span> {{ logout }} </span>
-      <span> ارسال شد.</span>
-    </div>
-    {% endif %}
-
-    {# Sessions #}
-    <div class="row">
-      <div class="col-12 hidden-xs-down">
-        <div class="card mt-5">
-          <div class="card-header">
-            <span>دستگاه های فعال</span>
-          </div>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>آی پی</th>
-                <th>مکان</th>
-                <th>میزان مصرف</th>
-                <th>زمان ورود به سامانه</th>
-                <th>قطع اتصال</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for session in status.sessions %}
-              <tr>
-                <td>{{ session.ip }}</td>
-                <td>{{ session.location }}</td>
-                <td>{{ session.usage }}</td>
-                <td>{{ session.time }}</td>
-                <td>
-                  {% if session.ip != ip %}
-                  <a
-                    class="btn btn-sm btn-danger"
-                    href="/status/logout/{{ session.id }}"
-                  >
-                    x
-                  </a>
-                  {% else %}
-                  <span>دستگاه فعلی</span>
-                  {% endif %}
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+    <div class="pt-4 row">
+        <div class="col-md-3 col-sm-12 mb-3">
+            <div class="list-group">
+                <div class="list-group-item active">
+                    <span>سامانه اینترنت</span>
+                </div>
+                {% if(username) %}
+                    <div class="list-group-item list-group-item-dark">
+                        <span {{ rand }}>نام کاربری: </span>
+                        <strong>{{ username }}</strong>
+                    </div>
+                {% endif %}
+                <div class="list-group-item list-group-item-dark">
+                    <span>گروه کاربری:</span>
+                    <strong>{{ group }}</strong>
+                </div>
+                <div class="list-group-item list-group-item-dark">
+                    <span>آی پی شما:</span>
+                    <strong>{{ ip }}</strong>
+                </div>
+                <div class="list-group-item list-group-item-dark">
+                    <span>مکان:</span>
+                    <strong>{{ location }}</strong>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="/status/logout/{{ status.current_session.id }}"
+                   class="btn btn-danger">
+                    <span>خروج از اینترنت</span>
+                </a>
+            </div>
         </div>
-      </div>
-    </div>
-
-    {# Usage History #}
-    <div class="row">
-      <div class="col-12">
-        <div class="card mt-5">
-          <div class="card-header">
-            <span>مصرف 30 روز اخیر شما</span>
-          </div>
-          <div class="card-block">
-            <canvas id="usageChart" width="100%"></canvas>
-          </div>
+        <div class="col-md-9 col-sm-12">
+            {% if(username != 'guest') %}
+                {# Logout Message #}
+                {% if logout %}
+                    <div class="alert alert-info alert-dismissable">
+                        <span>درخواست قطع اتصال</span>
+                        <span>{{ logout }}</span>
+                        <span>ارسال شد.</span>
+                    </div>
+                {% endif %}
+                {# Sessions #}
+                <div class="row">
+                    <div class="col-12 hidden-xs-down">
+                        <div class="card mt-5">
+                            <div class="card-header">
+                                <span>دستگاه های فعال</span>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>آی پی</th>
+                                        <th>مکان</th>
+                                        <th>میزان مصرف</th>
+                                        <th>زمان ورود به سامانه</th>
+                                        <th>قطع اتصال</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for session in status.sessions %}
+                                        <tr>
+                                            <td>{{ session.ip }}</td>
+                                            <td>{{ session.location }}</td>
+                                            <td>{{ session.usage }}</td>
+                                            <td>{{ session.time }}</td>
+                                            <td>
+                                                {% if session.ip != ip %}
+                                                    <a class="btn btn-sm btn-danger" href="/status/logout/{{ session.id }}">x</a>
+                                                {% else %}
+                                                    <span>دستگاه فعلی</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {# Usage History #}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mt-5">
+                            <div class="card-header">
+                                <span>مصرف 30 روز اخیر شما</span>
+                            </div>
+                            <div class="card-block">
+                                <canvas id="usageChart" width="100%"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row text-muted">
+                    <div class="col-md-6 col-md-offset-5">
+                        <h4>کاربر میهمان</h4>
+                    </div>
+                </div>
+            {% endif %}
         </div>
-      </div>
     </div>
-
-    {% else %}
-    <div class="row text-muted">
-      <div class="col-md-6 col-md-offset-5">
-        <h4>کاربر میهمان</h4>
-      </div>
-    </div>
+    {# Redirect Message #}
+    {% if(dst) %}
+        <div class="fixed-bottom text-center">
+            <div class="alert alert-warning"
+                 style="border-radius: 0; margin: 0; opacity: 1">
+                {#
+        <div style="display: inline-block" class="loader ml-2"></div>
+        #}
+                <span>شما با موفقیت وارد شدید و پس از ۳۰ ثانیه به</span>
+                <a href="{{ dst }}"> تارنمای مورد نظر </a>
+                <span> هدایت می شوید.</span>
+                <a href="/status" class="btn btn-sm btn-primary">ماندن در این صفحه</a>
+                {#
+        <a href="{{ dst }}" class="btn btn-sm btn-primary">هدایت به تارنمای مورد نظر</a
+        >#}
+            </div>
+        </div>
     {% endif %}
-  </div>
-</div>
-
-{# Redirect Message #}
-{% if(dst) %}
-<div class="fixed-bottom text-center">
-  <div
-    class="alert alert-warning"
-    style="border-radius: 0; margin: 0; opacity: 1"
-  >
-    {#
-    <div style="display: inline-block" class="loader ml-2"></div>
-    #}
-    <span>شما با موفقیت وارد شدید و پس از ۳۰ ثانیه به</span>
-    <a href="{{ dst }}"> تارنمای مورد نظر </a>
-    <span> هدایت می شوید.</span>
-    <a href="/status" class="btn btn-sm btn-primary">ماندن در این صفحه</a>
-    {#
-    <a href="{{ dst }}" class="btn btn-sm btn-primary"
-      >هدایت به تارنمای مورد نظر</a
-    >#}
-  </div>
-</div>
-{% endif %}
-{% endblock %}
-
+{% endblock content %}
 {% block scripts %}
-<script>
-  const units = [
-    "کیلوبایت",
-    "مگابایت",
-    "گیگابایت",
-    "ترابایت",
-    "PiB",
-    "EiB",
-    "ZiB",
-    "YiB",
-  ];
-  function humanFileSize(bytes) {
-    const thresh = 1024;
-    if (isNaN(bytes)) {
-      return "∞";
-    }
-    if (Math.abs(bytes) < thresh) {
-      return "0 مگابایت";
-    }
-    let u = -1;
-    do {
-      bytes /= thresh;
-      ++u;
-    } while (Math.abs(bytes) >= thresh && u < units.length - 1);
-    if (u < 2 || (bytes * 10) % 10 === 0)
-      return bytes.toFixed(0) + " " + units[u];
-    return bytes.toFixed(1) + " " + units[u];
-  }
-</script>
-
-<script>
-  {% for package in status.packages %}
-  var {{ package.type }} = Gauge(document.getElementById("package-{{ package.type }}"), {
-      max: 100,
-      label: function(a)  {
-          return '{{ package.usage}} / {{ package.total }}'
-      },
-      value: 0,
-  });
-  {{package.type}}.setValueAnimated({{ package.percent }}, 1);
+    <script>
+    const units = [
+          "کیلوبایت",
+          "مگابایت",
+          "گیگابایت",
+          "ترابایت",
+          "PiB",
+          "EiB",
+          "ZiB",
+          "YiB",
+        ];
+    function humanFileSize(bytes) {
+          const thresh = 1024;
+          if (isNaN(bytes)) {
+                return "∞";
+              }
+          if (Math.abs(bytes) < thresh) {
+                return "0 مگابایت";
+              }
+          let u = -1;
+          do {
+                bytes /= thresh;
+                ++u;
+              } while (Math.abs(bytes) >= thresh && u < units.length - 1);
+          if (u < 2 || (bytes * 10) % 10 === 0)
+            return bytes.toFixed(0) + " " + units[u];
+          return bytes.toFixed(1) + " " + units[u];
+        }
+    </script>
+    <script>
+    {% for package in status.packages %}
+      var {{ package.type }} = Gauge(document.getElementById("package-{{ package.type }}"), {
+            max: 100,
+            label: function(a)  {
+                  return '{{ package.usage}} / {{ package.total }}'
+                },
+            value: 0,
+          });
+    {{package.type}}.setValueAnimated({{ package.percent }}, 1);
   {% endfor %}
-</script>
-
-<script>
-     new Chart(document.getElementById("usageChart"), {
-         type: 'bar',
-         data: {
-             labels: {{ history.labels | safe }},
-             datasets: [{
-                 label: 'میزان مصرف ثبت شده',
-                 data: {{ history.usage | safe }},
-                 backgroundColor: "rgba(252,25,72,0.8)",
-             },
-             {
-                 label: 'میزان مصرف تخفیف خورده',
-                 data: {{ history.discount | safe }},
-                 backgroundColor:"rgba(54,162,235,0.8)",
-             }]
-         },
-         options: {
-             responsive: true,
-             scales: {
-                 y: {
-                     stacked: true,
-                     ticks: {
-                         callback: function (label, index, labels) {
-                             return humanFileSize(label)
-                         },
-                     },
-                     font: {
-                         family: "Vazirmatn"
-                     },
-                 },
-                 x: {
-                     stacked: true,
-                     font: {
-                         family: "Vazirmatn"
-                     },
-                 }
-             },
-             tooltips: {
-                 mode: 'index',
-                 intersect: false,
-                 bodyFontFamily: "Vazirmatn",
-                 footerFontFamily: "Vazirmatn",
-   		           callbacks: {
-     		            label: function(tooltipItem, data) {
-       		            return humanFileSize(tooltipItem.yLabel);
-     		             },
-                     footer: function(tooltipItems, data) {
-       		            return humanFileSize(tooltipItems[0].yLabel+tooltipItems[1].yLabel);
-                     },
-   	            },
-          },
-         }
-     });
-</script>
-
-{% endblock %}
+    </script>
+    <script>
+    new Chart(document.getElementById("usageChart"), {
+          type: 'bar',
+          data: {
+                labels: {{ history.labels | safe }},
+                datasets: [{
+                      label: 'میزان مصرف ثبت شده',
+                      data: {{ history.usage | safe }},
+                      backgroundColor: "rgba(252,25,72,0.8)",
+                    },
+                      {
+                            label: 'میزان مصرف تخفیف خورده',
+                            data: {{ history.discount | safe }},
+                            backgroundColor:"rgba(54,162,235,0.8)",
+                          }]
+              },
+          options: {
+                responsive: true,
+                scales: {
+                      y: {
+                            stacked: true,
+                            ticks: {
+                                  callback: function (label, index, labels) {
+                                        return humanFileSize(label)
+                                      },
+                                },
+                            font: {
+                                  family: "Vazirmatn"
+                                },
+                          },
+                      x: {
+                            stacked: true,
+                            font: {
+                                  family: "Vazirmatn"
+                                },
+                          }
+                    },
+                tooltips: {
+                      mode: 'index',
+                      intersect: false,
+                      bodyFontFamily: "Vazirmatn",
+                      footerFontFamily: "Vazirmatn",
+                      callbacks: {
+                            label: function(tooltipItem, data) {
+                                  return humanFileSize(tooltipItem.yLabel);
+                                },
+                            footer: function(tooltipItems, data) {
+                                  return humanFileSize(tooltipItems[0].yLabel+tooltipItems[1].yLabel);
+                                },
+                          },
+                    },
+              }
+        });
+    </script>
+{% endblock scripts %}
