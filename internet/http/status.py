@@ -50,7 +50,9 @@ class StatusHandler:
         for record in usage_history:
             result.append(
                 {
-                    "date": record.created_date,
+                    "date": jdatetime.date.fromgregorian(
+                        date=record.created_date, locale="fa_IR"
+                    ).strftime("%D"),
                     "usageHuman": bytes_to_str(record.usage),
                     "usage": record.usage,
                     "discountHuman": bytes_to_str(record.discount),
@@ -70,7 +72,7 @@ class StatusHandler:
 
         return {
             "ip": session.ip,
-            "time": jdatetime.date.fromgregorian(
+            "time": jdatetime.datetime.fromgregorian(
                 datetime=session.time, locale="fa_IR"
             ).strftime("%H:%M:%S - %D"),
             "usage": "-"
