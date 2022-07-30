@@ -8,6 +8,7 @@ from sqlalchemy import create_engine
 
 import internet.conf
 import internet.http.main
+import internet.subnets
 
 if __name__ == "__main__":
     console = Console()
@@ -15,6 +16,8 @@ if __name__ == "__main__":
 
     cfg = internet.conf.load()
     pretty.pprint(cfg)
+
+    pretty.pprint(list(internet.subnets.list()))
 
     engine = create_engine(
         f"mysql+pymysql://{cfg.database.username}:{cfg.database.password}@{cfg.database.host}:{cfg.database.port}/{cfg.database.database}",
