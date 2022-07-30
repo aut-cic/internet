@@ -14,6 +14,22 @@ from internet.accounting.usage import Report, UsageType
 from internet.http.status import StatusHandler
 
 
+def ip_to_username_with_taheri():
+    """
+    convert mr.taheri machine ip address into username
+    """
+    engine = create_engine(
+        "mysql+pymysql://root:root@127.0.0.1/db",
+        echo=True,
+        future=True,
+    )
+
+    with Session(engine) as session:
+        usage = AccountingService(session)
+        username = usage.ip_to_username("172.25.22.10")
+        pretty.pprint(username)
+
+
 def account_usage():
     """
     for hands-on testing on production environment with radius database.
