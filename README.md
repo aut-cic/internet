@@ -9,7 +9,9 @@
 
 ## Introduction
 
-This service with the help of a MicroTik switch and Radius server meter students internet connections.
+This service with the help of a MicroTik switch and Radius server meters students internet connections.
+login page which is served by this server fowards credentials to the microtik server and then uses
+Radius information based on request ip address to find out about internet usage status.
 
 ## How to run
 
