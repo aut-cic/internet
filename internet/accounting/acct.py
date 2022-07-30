@@ -52,7 +52,7 @@ class AccountingService:
             usage.daily += (
                 row.usage_discount
                 if row.create_date
-                > (datetime.now() + timedelta(days=-24)).date()
+                > (datetime.now() + timedelta(days=-1)).date()
                 else 0
             )
             usage.weekly += (
