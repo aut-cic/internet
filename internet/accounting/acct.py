@@ -71,7 +71,7 @@ class AccountingService:
         statement = (
             select(RadiusAccount)
             .where(RadiusAccount.username == username)
-            .where(RadiusAccount.account_stop_time is None)
+            .where(RadiusAccount.account_stop_time == None)
         )
         for row in self.session.scalars(statement):
             sessions.append(
@@ -132,7 +132,7 @@ class AccountingService:
         statement = (
             select(RadiusAccount)
             .where(RadiusAccount.framedipaddress == ip)
-            .where(RadiusAccount.account_stop_time is None)
+            .where(RadiusAccount.account_stop_time == None)
         )
         row = self.session.scalars(statement).first()
         if row is None:
