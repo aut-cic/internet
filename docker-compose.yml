@@ -1,0 +1,16 @@
+---
+services:
+  radius-db:
+    image: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./migrations/radacct.sql:/docker-entrypoint-initdb.d/radacct.sql
+      - ./migrations/raddaily.sql:/docker-entrypoint-initdb.d/raddaily.sql
+      - ./migrations/radpackages.sql:/docker-entrypoint-initdb.d/radpackages.sql
+      - ./migrations/radusergroup.sql:/docker-entrypoint-initdb.d/radusergroup.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: opnsense
+      MYSQL_PASSWORD: opnsense@123
+      MYSQL_DATABASE: radius
