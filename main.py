@@ -25,5 +25,5 @@ if __name__ == "__main__":
         future=True,
     )
 
-    app = internet.http.main.app(cfg.login_url, engine)
+    app = internet.http.main.app(cfg.login_url, cfg.logout_url, engine)
     app.run(host="0.0.0.0", port=8080, debug=False)

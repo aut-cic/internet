@@ -1,5 +1,6 @@
 import typing
 
+import requests
 import sanic
 import sqlalchemy.future
 from sanic.log import logger
@@ -38,7 +39,13 @@ class SiteHandler:
     @staticmethod
     async def logout(request: sanic.Request, sid: str) -> sanic.HTTPResponse:
         app = typing.cast(sanic.Sanic, request.app)
+        logout_url = typing.cast(str, request.app.ctx.logout_url)
         logger.info(f"logout request for {sid}")
+
+        response = requests.get(f"{logout_url}/{sid}")
+        if not response:
+            logger.error(f"logout request for {sid} failed")
+
         return redirect(app.url_for("site.login"))
 
     def register(self) -> sanic.Blueprint:

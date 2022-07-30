@@ -7,9 +7,10 @@ from .site import SiteHandler
 from .status import StatusHandler
 
 
-def app(login_url: str, engine: Engine) -> sanic.Sanic:
+def app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
     app = sanic.Sanic("internet")
     app.ctx.login_url = login_url
+    app.ctx.logout_url = logout_url
     app.ctx.engine = engine
 
     app.blueprint(SiteHandler().register())
