@@ -13,7 +13,7 @@ class Database:
     port: int = 3306
     database: str = "radius"
     username: str = "opnsense"
-    password: str = "opnsense@123"
+    password: str = "opnsense%40123"
 
 
 @dataclasses.dataclass()
@@ -39,7 +39,7 @@ def load() -> Config:
                 "database.username", is_type_of=(str), default="opnsense"
             ),
             Validator(
-                "database.password", is_type_of=(str), default="opnsense@123"
+                "database.password", is_type_of=(str), default="opnsense%40123"
             ),
             Validator(
                 "login_url",
