@@ -20,6 +20,7 @@ class Database:
 class Config:
     database: Database = Database()
     login_url: str = "https://login.aut.ac.ir/login"
+    logout_url: str = "http://172.16.4.5:9090/logout"
 
 
 def load() -> Config:
@@ -46,6 +47,11 @@ def load() -> Config:
                 is_type_of=(str),
                 default="https://login.aut.ac.ir/login",
             ),
+            Validator(
+                "logout_url",
+                is_type_of=(str),
+                default="http://172.16.4.5:9090/logout",
+            ),
         ],
     )
 
@@ -56,5 +62,6 @@ def load() -> Config:
     cfg.database.username = settings["database.username"]
     cfg.database.password = settings["database.password"]
     cfg.login_url = settings["login_url"]
+    cfg.logout_url = settings["logout_url"]
 
     return cfg
