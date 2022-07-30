@@ -10,6 +10,7 @@ from ..model.radacct import RadiusAccount
 from ..model.raddaily import RadiusDaily
 from ..model.radpackages import RadiusPackages
 from ..model.radusergroup import RadiusUserGroup
+from ..subnets import lookup
 from .usage import Package, Report
 from .usage import Session as IESession
 from .usage import Usage, UsageRecord
@@ -82,7 +83,9 @@ class AccountingService:
                     usage=row.account_input_octets + row.account_output_octets,
                     # location information must calculate
                     # based on ip address.
-                    location="-",
+                    location=location
+                    if (location := lookup(row.framedipaddress)) is not None
+                    else "-",
                     is_current=False,
                 )
             )
