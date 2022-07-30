@@ -11,6 +11,7 @@ jinja2 = "*"
 sqlalchemy = {extras = ["mypy"], version = "*"}
 pymysql = "*"
 jdatetime = "*"
+requests = "*"
 
 [dev-packages]
 pytest = "*"
