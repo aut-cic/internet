@@ -181,6 +181,7 @@ class StatusHandler:
             usage = AccountingService(session)
             username = usage.ip_to_username(ip)
             if username is None:
+                logger.info(f"there is no login session with {ip}")
                 return redirect(app.url_for("site.login"))
 
             report = usage.user_usage(username)
