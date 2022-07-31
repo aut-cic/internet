@@ -21,3 +21,9 @@ pipenv install
 pipenv shell
 python3 main.py
 ```
+
+## Screenshots
+
+![s1](./.github/assests/s1.png)
+
+![s2](./.github/assests/s2.png)
