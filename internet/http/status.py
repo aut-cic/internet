@@ -158,9 +158,9 @@ class StatusHandler:
             "percent": percent,
             "degree": math.floor(percent / (100.0 / 180)),
             "title": StatusHandler.titles[type],
-            "title2": StatusHandler.speeds[type],
+            "speed": StatusHandler.speeds[type],
             "color": color,
-            "color2": StatusHandler.colors[type],
+            "cardColor": StatusHandler.colors[type],
             "type": str(type),
             "active": type is report.get_active_type(),
         }
