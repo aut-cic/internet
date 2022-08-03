@@ -189,6 +189,15 @@
               },
           options: {
                 responsive: true,
+                plugins: {
+                  legend: {
+                    labels: {
+                      font: {
+                        family: "'Vazirmatn'"
+                      },
+                    },
+                  },
+                },
                 scales: {
                       y: {
                             stacked: true,
@@ -198,21 +207,21 @@
                                       },
                                 },
                             font: {
-                                  family: "Vazirmatn"
+                                  family: "'Vazirmatn'"
                                 },
                           },
                       x: {
                             stacked: true,
                             font: {
-                                  family: "Vazirmatn"
+                                  family: "'Vazirmatn'"
                                 },
                           }
                     },
                 tooltips: {
                       mode: 'index',
                       intersect: false,
-                      bodyFontFamily: "Vazirmatn",
-                      footerFontFamily: "Vazirmatn",
+                      bodyFontFamily: "'Vazirmatn'",
+                      footerFontFamily: "'Vazirmatn'",
                       callbacks: {
                             label: function(tooltipItem, data) {
                                   return humanFileSize(tooltipItem.yLabel);
