@@ -46,8 +46,8 @@
                     <div class="col-12 col-md-3">
                         <div class="card package mb-2 {% if(package.active) %} active {% else %} hidden-sm-down {% endif %}">
                             <div class="card-block text-center">
-                                <div id="package-{{ package.type }}"
-                                     class="gauge-container {{ package.color }}"></div>
+                                <canvas id="package-{{ package.type }}"
+                                  class="gauge-container {{ package.color }}"></canvas>
                             </div>
                             <div class="card-footer text-center card-{{ package.color2 }}">
                                 <h5>{{ package.title2 }}</h5>
@@ -161,12 +161,14 @@
     </script>
     <script>
     {% for package in status.packages %}
-      var {{ package.type }} = new JustGage({
-            id: "package-{{ package.type }}",
+      let {{ package.type }} = new Gauge(document.getElementById("package-{{ package.type }}"), {
             max: 100,
-            label: '{{ package.usage}} / {{ package.total }}',
-            value: "{{ package.percent }}%",
+            label: function(a)  {
+                return '{{ package.usage}} / {{ package.total }}'
+            },
+            value: 0,
           });
+      {{package.type}}.set({{ package.percent }});
   {% endfor %}
     </script>
     <script>
