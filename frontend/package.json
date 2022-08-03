@@ -11,6 +11,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "bootstrap": "^5.2.0",
+    "bootstrap-icons": "^1.9.1",
     "chart.js": "^3.8.2",
     "css-loader": "^6.7.1",
     "style-loader": "^3.3.1",

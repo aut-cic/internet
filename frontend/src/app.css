@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  font-family: Vazirmatn, sans-serif;
+  font-family: "Vazirmatn FD", sans-serif;
 }
 
 .app {
@@ -220,8 +220,7 @@ input:-webkit-autofill:active {
 }
 
 .package.active::after {
-  font-family: "Glyphicons Halflings";
-  content: "\e013";
+  content: "\F586";
   color: white;
   position: absolute;
   left: 9px;
@@ -290,7 +289,7 @@ input:-webkit-autofill:active {
 
 .gauge-container > .gauge .value-text {
   fill: #ffa500;
-  font-family: Vazirmatn;
+  font-family: "Vazirmatn FD";
   font-weight: bold;
   font-size: 10px;
 }
