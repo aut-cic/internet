@@ -202,26 +202,30 @@
                       y: {
                             stacked: true,
                             ticks: {
-                                  callback: function (label, index, labels) {
-                                        return humanFileSize(label)
-                                      },
-                                },
+                              callback: function (label, index, labels) {
+                                return humanFileSize(label)
+                              },
+                            },
                             font: {
-                                  family: "'Vazirmatn FD'"
-                                },
+                              family: "'Vazirmatn FD'"
+                            },
                           },
                       x: {
                             stacked: true,
                             font: {
-                                  family: "'Vazirmatn FD'"
-                                },
+                              family: "'Vazirmatn FD'"
+                            },
                           }
                     },
                 tooltips: {
                       mode: 'index',
                       intersect: false,
-                      bodyFontFamily: "'Vazirmatn FD'",
-                      footerFontFamily: "'Vazirmatn FD'",
+                      bodyFont: {
+                        family: "'Vazirmatn FD'",
+                      },
+                      footerFont: {
+                        family: "'Vazirmatn FD'",
+                      },
                       callbacks: {
                             label: function(tooltipItem, data) {
                                   return humanFileSize(tooltipItem.yLabel);
