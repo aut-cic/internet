@@ -33,3 +33,5 @@ python3 main.py
 ![s1](./.github/assests/s1.png)
 
 ![s2](./.github/assests/s2.png)
+
+![s3](./.github/assests/s3.png)
