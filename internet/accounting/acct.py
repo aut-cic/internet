@@ -1,8 +1,10 @@
-from dataclasses import dataclass
+'''
+accouting servier source file.
+this service used for accessing free-radius database
+to manage account and usage.
+'''
 from datetime import datetime, timedelta
-from typing import Any
 
-from sanic_ext.utils.typing import typing
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -122,19 +124,19 @@ class AccountingService:
             package=package,
         )
 
-    def ip_to_username(self, ip: str) -> str | None:
+    def ip_to_username(self, ip_address: str) -> str | None:
         """
         in internet service we only has user ip address because they are only
         using microtik for login and etc.
-        please note that ip 127.0.0.1 and 172.25.220.147 (openvpn)
+        please note that ip 172.25.220.147 (openvpn)
         is use only for testing purpose so I return my username.
         """
-        if ip == "127.0.0.1" or ip == "172.25.220.147":
+        if ip_address == "172.25.220.147":
             return "parham.alvani"
 
         statement = (
             select(RadiusAccount)
-            .where(RadiusAccount.framedipaddress == ip)
+            .where(RadiusAccount.framedipaddress == ip_address)
             .where(RadiusAccount.account_stop_time == None)
         )
         row = self.session.scalars(statement).first()
