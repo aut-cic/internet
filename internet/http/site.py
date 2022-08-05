@@ -18,7 +18,8 @@ class SiteHandler:
         login_url = typing.cast(str, request.app.ctx.login_url)
         app = typing.cast(sanic.Sanic, request.app)
         engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
-        dst = request.get_args().get("dst", "")
+        dst = request.args.get("dst", "")
+        lang = request.args.get("lang", "fa")
 
         with Session(engine) as session:
             usage = AccountingService(session)
@@ -29,7 +30,9 @@ class SiteHandler:
         return await render(
             "index.html",
             context={
-                "messages": MESSAGES,
+                "messages": {
+                    key: val[lang] for (key, val) in MESSAGES.items()
+                },
                 "login_url": login_url,
                 "dst": dst,
             },
