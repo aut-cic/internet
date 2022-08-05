@@ -2,6 +2,8 @@
 messages in english and persian to use on jinja templates.
 """
 
+LANGS = ["en", "fa"]
+
 MESSAGES = {
     "internet_login": {"fa": "ورود به اینترنت", "en": "Internet Login"},
     "login": {"fa": "ورود", "en": "Login"},
