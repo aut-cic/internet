@@ -20,12 +20,17 @@ that contains the database migrations and automatically runs by the `docker-comp
 base on his/her record in `radacct` table which is editable from the `migrations` folder. A record contains an IP
 address and a logged-out date and when this logged-out time is `NULL` user consider as logged-in.
 
-```sh
+```bash
+# database up and running based on /migrations
 docker-compose up
+# frontend javascript and css
 cd frontend && npm run build
 pipenv install
+# python pipenv shell
 pipenv shell
 python3 main.py
+# k6 load testing
+k6 run -u 1000 -i 1000 script.js
 ```
 
 ## Screenshots
