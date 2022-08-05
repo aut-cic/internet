@@ -9,6 +9,10 @@ from dynaconf import LazySettings, Validator
 
 @dataclasses.dataclass()
 class Database:
+    """
+    database dataclass configuration which is used in configuration
+    dataclass.
+    """
     host: str = "127.0.0.1"
     port: int = 3306
     database: str = "radius"
@@ -18,6 +22,10 @@ class Database:
 
 @dataclasses.dataclass()
 class Config:
+    """
+    configuration dataclass contains the application
+    configuration.
+    """
     database: Database = Database()
     login_url: str = "https://login.aut.ac.ir/login"
     logout_url: str = "http://172.16.4.5:9090/logout"
