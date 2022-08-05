@@ -106,9 +106,9 @@ VALUES
   -- if you want, you can change the null part into a date to
   -- see the login page.
   (
-    18379211,
+    18379210,
     '805125ee',
-    'a243797fb6968f23c2e271ea4535a3e5',
+    'a243797fb6968f23c2e271ea4535a3e6',
     'parham.alvani',
     '',
     '',
