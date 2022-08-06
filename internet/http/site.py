@@ -27,8 +27,8 @@ class SiteHandler:
         login_url = typing.cast(str, request.app.ctx.login_url)
         app = typing.cast(sanic.Sanic, request.app)
         engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
-        dst = request.args.get("dst", "")
-        lang = request.args.get("lang", "fa")
+        dst: str = request.args.get("dst", "")
+        lang: str = request.args.get("lang", "fa")
 
         if lang not in LANGS:
             lang = "fa"
@@ -42,7 +42,9 @@ class SiteHandler:
         return await render(
             "index.html",
             context={
-                "messages": {key: val[lang] for (key, val) in MESSAGES.items()},
+                "messages": {
+                    key: val[lang] for (key, val) in MESSAGES.items()
+                },
                 "login_url": login_url,
                 "dst": dst,
             },
