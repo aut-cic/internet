@@ -106,40 +106,44 @@ class StatusHandler:
                         report.usage.daily
                         / (report.package.daily_volume * (1024**3))
                     ) * 100
-                    usage = bytes_to_str(report.usage.daily)
+                    usage = bytes_to_str(report.usage.daily, 'en')
                     usage_number = report.usage.daily
                     total = bytes_to_str(
-                        report.package.daily_volume * (1024**3)
+                        report.package.daily_volume * (1024**3),
+                        'en',
                     )
                 case UsageType.WEEKLY:
                     percent = (
                         report.usage.weekly
                         / (report.package.weekly_volume * (1024**3))
                     ) * 100
-                    usage = bytes_to_str(report.usage.weekly)
+                    usage = bytes_to_str(report.usage.weekly, 'en')
                     usage_number = report.usage.weekly
                     total = bytes_to_str(
-                        report.package.weekly_volume * (1024**3)
+                        report.package.weekly_volume * (1024**3),
+                        'en'
                     )
                 case UsageType.MONTHLY:
                     percent = (
                         report.usage.monthly
                         / (report.package.monthly_volume * (1024**3))
                     ) * 100
-                    usage = bytes_to_str(report.usage.monthly)
+                    usage = bytes_to_str(report.usage.monthly, 'en')
                     usage_number = report.usage.monthly
                     total = bytes_to_str(
-                        report.package.monthly_volume * (1024**3)
+                        report.package.monthly_volume * (1024**3),
+                        'en'
                     )
                 case UsageType.FREE:
                     percent = (
                         report.usage.free
                         / (report.package.free_volume * (1024**3))
                     ) * 100
-                    usage = bytes_to_str(report.usage.free)
+                    usage = bytes_to_str(report.usage.free, 'en')
                     usage_number = report.usage.free
                     total = bytes_to_str(
-                        report.package.free_volume * (1024**3)
+                        report.package.free_volume * (1024**3),
+                        'en'
                     )
         except ZeroDivisionError:
             percent = 100

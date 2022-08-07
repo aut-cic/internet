@@ -5,21 +5,22 @@ import math
 
 # http://stackoverflow.com/questions/10420352
 __units = [
-    "کیلوبایت",
-    "مگابایت",
-    "گیگابایت",
-    "ترابایت",
-    "پتا بایت",
+    ["کیلوبایت", 'B'],
+    ["مگابایت", 'KB'],
+    ["گیگابایت", 'MB'],
+    ["ترابایت", 'GB'],
+    ["پتا بایت", 'TB'],
     #    "EiB",
     #    "ZiB",
     #    "YiB",
 ]
 
 
-def bytes_to_str(bytes: float) -> str:
+def bytes_to_str(bytes: float, lang: str = 'fa') -> str:
     """
     convert bytes into human readable format with unit.
     """
+    assert lang in ('fa', 'en')
     threshold = 1024
 
     if math.isnan(bytes):
@@ -35,9 +36,9 @@ def bytes_to_str(bytes: float) -> str:
         units_index += 1
 
     if units_index < 2 or ((bytes * 10) % 10) == 0:
-        return f"{bytes:.0f} {__units[units_index]}"
+        return f"{bytes:.0f} {__units[units_index][0 if lang == 'fa' else 1]}"
 
-    return f"{bytes:.1f} {__units[units_index]}"
+    return f"{bytes:.1f} {__units[units_index][0 if lang == 'fa' else 1]}"
 
 
 class UsageType(enum.Enum):
