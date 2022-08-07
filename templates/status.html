@@ -166,7 +166,7 @@
     {% for package in status.packages %}
       let {{ package.type }} = Gauge(document.getElementById("package-{{ package.type }}"), {
             max: 100,
-            label: function(a)  {
+            label: function()  {
                 return '{{ package.usage}} / {{ package.total }}'
             },
             value: 0,
