@@ -40,6 +40,10 @@
                     <span>ارسال شد.</span>
                 </div>
             {% endif %}
+            {# Announcements #}
+            {% for accouncement in announcements %}
+                <div class="alert alert-{{ accouncement.type }}">{{ accouncement.message | safe }}</div>
+            {% endfor %}
             {# Packages #}
             <div class="row">
                 {% for package in status.packages %}
