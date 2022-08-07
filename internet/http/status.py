@@ -78,9 +78,7 @@ class StatusHandler:
             "time": jdatetime.datetime.fromgregorian(
                 datetime=session.time,
             ).strftime("%H:%M:%S - %d/%m/%Y"),
-            "usage": "-"
-            if session.usage < 1000
-            else bytes_to_str(session.usage),
+            "usage": "-" if session.usage < 1000 else bytes_to_str(session.usage),
             "id": session.id,
             "location": session.location,
             "is_current": session.is_current,
@@ -103,48 +101,41 @@ class StatusHandler:
             match type:
                 case UsageType.DAILY:
                     percent = (
-                        report.usage.daily
-                        / (report.package.daily_volume * (1024**3))
+                        report.usage.daily / (report.package.daily_volume * (1024**3))
                     ) * 100
-                    usage = bytes_to_str(report.usage.daily, 'en')
+                    usage = bytes_to_str(report.usage.daily, "en")
                     usage_number = report.usage.daily
                     total = bytes_to_str(
                         report.package.daily_volume * (1024**3),
-                        'en',
+                        "en",
                     )
                 case UsageType.WEEKLY:
                     percent = (
                         report.usage.weekly
                         / (report.package.weekly_volume * (1024**3))
                     ) * 100
-                    usage = bytes_to_str(report.usage.weekly, 'en')
+                    usage = bytes_to_str(report.usage.weekly, "en")
                     usage_number = report.usage.weekly
                     total = bytes_to_str(
-                        report.package.weekly_volume * (1024**3),
-                        'en'
+                        report.package.weekly_volume * (1024**3), "en"
                     )
                 case UsageType.MONTHLY:
                     percent = (
                         report.usage.monthly
                         / (report.package.monthly_volume * (1024**3))
                     ) * 100
-                    usage = bytes_to_str(report.usage.monthly, 'en')
+                    usage = bytes_to_str(report.usage.monthly, "en")
                     usage_number = report.usage.monthly
                     total = bytes_to_str(
-                        report.package.monthly_volume * (1024**3),
-                        'en'
+                        report.package.monthly_volume * (1024**3), "en"
                     )
                 case UsageType.FREE:
                     percent = (
-                        report.usage.free
-                        / (report.package.free_volume * (1024**3))
+                        report.usage.free / (report.package.free_volume * (1024**3))
                     ) * 100
-                    usage = bytes_to_str(report.usage.free, 'en')
+                    usage = bytes_to_str(report.usage.free, "en")
                     usage_number = report.usage.free
-                    total = bytes_to_str(
-                        report.package.free_volume * (1024**3),
-                        'en'
-                    )
+                    total = bytes_to_str(report.package.free_volume * (1024**3), "en")
         except ZeroDivisionError:
             percent = 100
 
@@ -194,16 +185,12 @@ class StatusHandler:
             packages = []
             # calculate usage per package (daily, weekly, monthly and free)
             for usage_type in UsageType:
-                packages.append(
-                    StatusHandler.to_frontend_package(report, usage_type)
-                )
+                packages.append(StatusHandler.to_frontend_package(report, usage_type))
 
             sessions = []
             current_session = None
             for ie_session in report.sessions:
-                sessions.append(
-                    StatusHandler.to_frontend_session(ie_session, ip)
-                )
+                sessions.append(StatusHandler.to_frontend_session(ie_session, ip))
                 if ie_session.is_current is True:
                     current_session = sessions[-1]
 
@@ -226,8 +213,9 @@ class StatusHandler:
                     "location": current_session["location"]
                     if current_session is not None
                     else "-",
-                    "announcements": [annc for annc in announcements.list()
-                                      if annc.status is True],
+                    "announcements": [
+                        annc for annc in announcements.list() if annc.status is True
+                    ],
                     "rand": math.floor(random.random() * 1000),
                     "auth": False,
                     "dst": "",
