@@ -6,7 +6,7 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-4">
                     <div class="card">
-                        <div class="card-header card-inverse card-primary text-center">{{ messages.internet_login }}</div>
+                        <div class="card-header card-inverse text-bg-primary text-center">{{ messages.internet_login }}</div>
                         <div class="card-body">
                             {% if error %}<div class="alert-dismissable alert alert-danger">{{ error }}</div>{% endif %}
                             <form method="post" action="{{ login_url }}" name="login">
@@ -49,9 +49,11 @@
                                 <input type="hidden" name="dst" value="{{ dst }}" />
                                 <input type="hidden" name="popup" value="false" />
                                 <input type="hidden" id="cookie" name="erase-cookie" value="false" />
-                                <button type="submit" class="btn btn-outline-success btn-lg" tabindex="3">
-                                    <span>{{ messages.login }}</span>
-                                </button>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-success btn-lg" tabindex="3">
+                                        <span>{{ messages.login }}</span>
+                                    </button>
+                                </div>
                             </form>
                         </div>
                         <div class="card-footer text-muted text-center d-flex justify-content-between">
