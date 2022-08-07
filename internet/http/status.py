@@ -14,6 +14,7 @@ from ..accounting.acct import AccountingService
 from ..accounting.usage import Report
 from ..accounting.usage import Session as IESession
 from ..accounting.usage import UsageRecord, UsageType, bytes_to_str
+from ..announcements import announcements
 
 jdatetime.set_locale("fa_IR")
 
@@ -221,7 +222,8 @@ class StatusHandler:
                     "location": current_session["location"]
                     if current_session is not None
                     else "-",
-                    "announcements": [],
+                    "announcements": [annc for annc in announcements.list()
+                                      if annc.status is True],
                     "rand": math.floor(random.random() * 1000),
                     "auth": False,
                     "dst": "",
