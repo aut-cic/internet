@@ -49,6 +49,11 @@
                 {% for package in status.packages %}
                     <div class="col-12 col-md-3">
                         <div class="card package mb-2 {% if(package.active) %} active {% else %} hidden-sm-down {% endif %}">
+                            {% if(package.active) %}
+                                <div class="triangle">
+                                    <i class="bi bi-check-lg"></i>
+                                </div>
+                            {% endif %}
                             <div class="card-block text-center">
                                 <div id="package-{{ package.type }}" class="gauge-container"></div>
                             </div>
