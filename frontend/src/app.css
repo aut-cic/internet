@@ -292,4 +292,5 @@ input:-webkit-autofill:active {
   font-family: "Vazirmatn FD";
   font-weight: bold;
   font-size: 10px;
+  direction: ltr;
 }
