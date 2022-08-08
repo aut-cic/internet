@@ -12,7 +12,7 @@
   "dependencies": {
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",
-    "chart.js": "^3.8.2",
+    "chart.js": "^3.9.1",
     "css-loader": "^6.7.1",
     "style-loader": "^3.3.1",
     "svg-gauge": "^1.0.7",
