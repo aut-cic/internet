@@ -175,7 +175,7 @@ class StatusHandler:
         status gather all the information into a frontend-compatible
         way to serve /status page.
         """
-        app = typing.cast(sanic.Sanic, request.app)
+        app = request.app
         engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
 
         logger.info("request from %s", request.ip)

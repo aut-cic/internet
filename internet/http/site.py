@@ -25,7 +25,7 @@ class SiteHandler:
         login page
         """
         login_url = typing.cast(str, request.app.ctx.login_url)
-        app = typing.cast(sanic.Sanic, request.app)
+        app = request.app
         engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
         dst: str = request.args.get("dst", "")
         lang: str = request.args.get("lang", "fa")
@@ -56,7 +56,7 @@ class SiteHandler:
         """
         logout with sending a request into free-radius
         """
-        app = typing.cast(sanic.Sanic, request.app)
+        app = request.app
         logout_url = typing.cast(str, request.app.ctx.logout_url)
         logger.info("logout request for %s", sid)
 
