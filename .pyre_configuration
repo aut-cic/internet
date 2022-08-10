@@ -1,0 +1,7 @@
+{
+  "site_package_search_strategy": "all",
+  "source_directories": [
+    "."
+  ],
+  "taint_models_path": "/home/parham/.local/share/virtualenvs/internet-uZWJffqN/lib/pyre_check/taint"
+}
