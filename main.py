@@ -27,6 +27,7 @@ if __name__ == "__main__":
         f"{cfg.database.host}:{cfg.database.port}/{cfg.database.database}",
         echo=False,
         future=True,
+        pool_pre_ping=True,
     )
 
     app = internet.http.main.app(cfg.login_url, cfg.logout_url, engine)
