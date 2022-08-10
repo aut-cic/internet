@@ -1,1 +1,1 @@
-from .subnets import list, lookup
+from .subnets import subnets, lookup

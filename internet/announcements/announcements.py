@@ -32,7 +32,7 @@ if len(__announcements) == 0:
             )
 
 
-def list() -> typing.Iterator[Announcement]:
+def announcements() -> typing.Iterator[Announcement]:
     """
     list returns an iterator for all the announcements
     """

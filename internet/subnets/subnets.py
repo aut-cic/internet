@@ -26,7 +26,7 @@ if len(__subnets) == 0:
             )
 
 
-def list() -> typing.Iterator[Subnet]:
+def subnets() -> typing.Iterator[Subnet]:
     return iter(__subnets)
 
 

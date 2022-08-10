@@ -58,11 +58,11 @@ class SiteHandler:
         """
         app = typing.cast(sanic.Sanic, request.app)
         logout_url = typing.cast(str, request.app.ctx.logout_url)
-        logger.info(f"logout request for {sid}")
+        logger.info("logout request for %s", sid)
 
-        response = requests.get(f"{logout_url}/{sid}")
+        response = requests.get("%s/%s", (logout_url, sid))
         if not response:
-            logger.error(f"logout request for {sid} failed")
+            logger.error("logout request for %s failed", sid)
 
         return redirect(app.url_for("site.login"))
 
@@ -72,6 +72,8 @@ class SiteHandler:
         """
         bp = sanic.Blueprint("site", url_prefix="/")
         bp.add_route(self.index, "/", methods=["GET"], name="login")
-        bp.add_route(self.logout, "/logout/<sid:str>", methods=["GET"], name="logout")
+        bp.add_route(
+            self.logout, "/logout/<sid:str>", methods=["GET"], name="logout"
+        )
 
         return bp

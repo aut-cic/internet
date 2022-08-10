@@ -18,12 +18,13 @@ if __name__ == "__main__":
     cfg = internet.conf.load()
     pretty.pprint(cfg)
 
-    pretty.pprint(list(internet.subnets.list()))
+    pretty.pprint(list(internet.subnets.subnets()))
 
-    pretty.pprint(list(internet.announcements.list()))
+    pretty.pprint(list(internet.announcements.announcements()))
 
     engine = create_engine(
-        f"mysql+pymysql://{cfg.database.username}:{cfg.database.password}@{cfg.database.host}:{cfg.database.port}/{cfg.database.database}",
+        f"mysql+pymysql://{cfg.database.username}:{cfg.database.password}@"
+        f"{cfg.database.host}:{cfg.database.port}/{cfg.database.database}",
         echo=False,
         future=True,
     )

@@ -66,12 +66,12 @@ class StatusHandler:
         return result
 
     @staticmethod
-    def to_frontend_session(session: IESession, ip: str) -> typing.Any:
+    def to_frontend_session(session: IESession, current_ip: str) -> typing.Any:
         """
         covert session from report into a frontend session which contains
         the required information for status html page.
         """
-        session.is_current = session.ip == ip
+        session.is_current = session.ip == current_ip
 
         return {
             "ip": session.ip,
@@ -87,7 +87,9 @@ class StatusHandler:
         }
 
     @staticmethod
-    def to_frontend_package(report: Report, type: UsageType) -> typing.Any:
+    def to_frontend_package(
+        report: Report, usage_type: UsageType
+    ) -> typing.Any:
         """
         create package description which is useful for status html package.
         please note that package volumes in GB so we need to convert them into
@@ -100,7 +102,7 @@ class StatusHandler:
         usage_number: int = 0
         total: str = ""
         try:
-            match type:
+            match usage_type:
                 case UsageType.DAILY:
                     percent = (
                         report.usage.daily
@@ -159,31 +161,34 @@ class StatusHandler:
             "total": total,
             "percent": percent,
             "degree": math.floor(percent / (100.0 / 180)),
-            "title": StatusHandler.titles[type],
-            "speed": StatusHandler.speeds[type],
+            "title": StatusHandler.titles[usage_type],
+            "speed": StatusHandler.speeds[usage_type],
             "color": color,
-            "cardColor": StatusHandler.colors[type],
-            "type": str(type),
-            "active": type is report.get_active_type(),
+            "cardColor": StatusHandler.colors[usage_type],
+            "type": str(usage_type),
+            "active": usage_type is report.get_active_type(),
         }
 
     @staticmethod
     async def status(request: sanic.Request) -> sanic.HTTPResponse:
+        """
+        status gather all the information into a frontend-compatible
+        way to serve /status page.
+        """
         app = typing.cast(sanic.Sanic, request.app)
         engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
 
-        ip = request.ip
-        logger.info(f"request from {ip}")
+        logger.info("request from %s", request.ip)
 
         # please note that "127.0.0.*" is only for testing purposes.
-        if ip.startswith(("192", "172", "127.0.0")) is False:
+        if request.ip.startswith(("192", "172", "127.0.0")) is False:
             return redirect(app.url_for("site.login"))
 
         with Session(engine) as session:
             usage = AccountingService(session)
-            username = usage.ip_to_username(ip)
+            username = usage.ip_to_username(request.ip)
             if username is None:
-                logger.info(f"there is no login session with {ip}")
+                logger.info("there is no login session with %s", request.ip)
                 return redirect(app.url_for("site.login"))
 
             report = usage.user_usage(username)
@@ -199,7 +204,7 @@ class StatusHandler:
             current_session = None
             for ie_session in report.sessions:
                 sessions.append(
-                    StatusHandler.to_frontend_session(ie_session, ip)
+                    StatusHandler.to_frontend_session(ie_session, request.ip)
                 )
                 if ie_session.is_current is True:
                     current_session = sessions[-1]
@@ -224,9 +229,7 @@ class StatusHandler:
                     if current_session is not None
                     else "-",
                     "announcements": [
-                        annc
-                        for annc in announcements.list()
-                        if annc.status is True
+                        annc for annc in announcements() if annc.status is True
                     ],
                     "rand": math.floor(random.random() * 1000),
                     "auth": False,
