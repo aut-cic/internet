@@ -15,6 +15,7 @@ jobs:
       - run: pipenv install --dev -v
       - run: pipenv run pytest
       - run: pipenv run pyre
+      - run: pipenv run nypy .
       - run: pipenv run djlint --profile jinja templates -i 'H021,H031,H006,J018'
 
   test-node:
