@@ -3,6 +3,7 @@ from sqlalchemy import Column, Date, Integer, String
 from . import Base
 
 
+# pyre-ignore[11]
 class RadiusDaily(Base):
     __tablename__ = "raddaily"
 

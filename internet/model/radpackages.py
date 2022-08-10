@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String
 from . import Base
 
 
+# pyre-ignore[11]
 class RadiusPackages(Base):
     __tablename__ = "radpackages"
 

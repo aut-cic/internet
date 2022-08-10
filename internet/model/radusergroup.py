@@ -3,6 +3,7 @@ from sqlalchemy import Column, DateTime, Integer, String
 from . import Base
 
 
+# pyre-ignore[11]
 class RadiusUserGroup(Base):
     __tablename__ = "radusergroup"
 
