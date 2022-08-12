@@ -118,24 +118,6 @@
             </div>
         </div>
     </div>
-    {# Redirect Message #}
-    {% if(dst) %}
-        <div class="fixed-bottom text-center">
-            <div class="alert alert-warning"
-                 style="border-radius: 0; margin: 0; opacity: 1">
-                {#
-        <div style="display: inline-block" class="loader ml-2"></div>
-        #}
-                <span>شما با موفقیت وارد شدید و پس از ۳۰ ثانیه به</span>
-                <a href="{{ dst }}"> تارنمای مورد نظر </a>
-                <span> هدایت می شوید.</span>
-                <a href="/status" class="btn btn-sm btn-primary">ماندن در این صفحه</a>
-                {#
-        <a href="{{ dst }}" class="btn btn-sm btn-primary">هدایت به تارنمای مورد نظر</a
-        >#}
-            </div>
-        </div>
-    {% endif %}
 {% endblock content %}
 {% block scripts %}
     <script>
