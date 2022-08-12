@@ -11,4 +11,4 @@ class RadiusUserGroup(Base):
     username = Column(String)
     group_name = Column("groupname", String)
     priority = Column(Integer)
-    update_time = Column(DateTime)
+    # update_time = Column(DateTime)
