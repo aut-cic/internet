@@ -175,22 +175,21 @@ class StatusHandler:
         status gather all the information into a frontend-compatible
         way to serve /status page.
         """
+        user_ip = request.remote_addr or request.ip
         app = request.app
         engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
 
-        logger.info("request from %s", request.remote_addr)
+        logger.info("request from %s", user_ip)
 
         # please note that "127.0.0.*" is only for testing purposes.
-        if request.remote_addr.startswith(("192", "172", "127.0.0")) is False:
+        if user_ip.startswith(("192", "172", "127.0.0")) is False:
             return redirect(app.url_for("site.login"))
 
         with Session(engine) as session:
             usage = AccountingService(session)
-            username = usage.ip_to_username(request.remote_addr)
+            username = usage.ip_to_username(user_ip)
             if username is None:
-                logger.info(
-                    "there is no login session with %s", request.remote_addr
-                )
+                logger.info("there is no login session with %s", user_ip)
                 return redirect(app.url_for("site.login"))
 
             report = usage.user_usage(username)
@@ -206,9 +205,7 @@ class StatusHandler:
             current_session = None
             for ie_session in report.sessions:
                 sessions.append(
-                    StatusHandler.to_frontend_session(
-                        ie_session, request.remote_addr
-                    )
+                    StatusHandler.to_frontend_session(ie_session, user_ip)
                 )
                 if ie_session.is_current is True:
                     current_session = sessions[-1]
@@ -228,7 +225,7 @@ class StatusHandler:
                 context={
                     "username": report.username,
                     "group": report.groupname.split("-", maxsplit=1)[0],
-                    "ip": request.remote_addr,
+                    "ip": user_ip,
                     "location": current_session["location"]
                     if current_session is not None
                     else "-",

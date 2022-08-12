@@ -24,7 +24,10 @@ class SiteHandler:
         """
         login page
         """
-        logger.info("request from %s", request.remote_addr)
+
+        user_ip = request.remote_addr or request.ip
+
+        logger.info("request from %s", user_ip)
 
         login_url = typing.cast(str, request.app.ctx.login_url)
         app = request.app
@@ -38,7 +41,7 @@ class SiteHandler:
 
         with Session(engine) as session:
             usage = AccountingService(session)
-            username = usage.ip_to_username(request.remote_addr)
+            username = usage.ip_to_username(user_ip)
             if username is not None:
                 return redirect(app.url_for("status.status"))
 
