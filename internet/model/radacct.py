@@ -11,7 +11,7 @@ class RadiusAccount(Base):
     account_session_id = Column("acctsessionid", String)
     account_unique_id = Column("acctuniqueid", String)
     username = Column(String)
-    group_name = Column("groupname", String)
+    # group_name = Column("groupname", String)
     realm = Column(String)
     nas_ip_address = Column("nasipaddress", String)
     nas_port_id = Column("nasportid", String)

@@ -1,8 +1,8 @@
-'''
+"""
 accouting servier source file.
 this service used for accessing free-radius database
 to manage account and usage.
-'''
+"""
 from datetime import datetime, timedelta
 
 from sqlalchemy import select
