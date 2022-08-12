@@ -28,6 +28,7 @@ class SiteHandler:
         app = request.app
         engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
         dst: str = request.args.get("dst", "")
+        error: str = request.args.get("error", "")
         lang: str = request.args.get("lang", "fa")
 
         if lang not in LANGS:
@@ -45,6 +46,7 @@ class SiteHandler:
                 "messages": {
                     key: val[lang] for (key, val) in MESSAGES.items()
                 },
+                "error": error,
                 "login_url": login_url,
                 "dst": dst,
             },
