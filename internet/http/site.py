@@ -60,7 +60,7 @@ class SiteHandler:
         logout_url = typing.cast(str, request.app.ctx.logout_url)
         logger.info("logout request for %s", sid)
 
-        response = requests.get("%s/%s", (logout_url, sid))
+        response = requests.get(f"{logout_url}/{sid}")
         if not response:
             logger.error("logout request for %s failed", sid)
 
