@@ -31,4 +31,4 @@ if __name__ == "__main__":
     )
 
     app = internet.http.main.app(cfg.login_url, cfg.logout_url, engine)
-    app.run(host="0.0.0.0", port=8080, debug=False)
+    app.run(host=cfg.listen.host, port=cfg.listen.port, debug=False)
