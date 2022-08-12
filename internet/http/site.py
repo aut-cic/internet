@@ -66,7 +66,7 @@ class SiteHandler:
         if not response:
             logger.error("logout request for %s failed", sid)
 
-        return redirect(app.url_for('site.login'))
+        return redirect(app.url_for("site.login"))
 
     def register(self) -> sanic.Blueprint:
         """
