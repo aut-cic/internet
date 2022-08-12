@@ -30,5 +30,7 @@ if __name__ == "__main__":
         pool_pre_ping=True,
     )
 
-    app = internet.http.main.app(cfg.login_url, cfg.logout_url, engine)
+    app = internet.http.main.app(
+        cfg.login_url, cfg.logout_url, cfg.listen.behind_proxy, engine
+    )
     app.run(host=cfg.listen.host, port=cfg.listen.port, debug=False)

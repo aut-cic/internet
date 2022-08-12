@@ -29,6 +29,7 @@ class Listen:
 
     host: str = "0.0.0.0"
     port: int = 8080
+    behind_proxy: bool = True
 
 
 @dataclasses.dataclass()
@@ -65,6 +66,7 @@ def load() -> Config:
             ),
             Validator("listen.port", is_type_of=(int), default=8080),
             Validator("listen.host", is_type_of=(str), default="0.0.0.0"),
+            Validator("listen.behind_proxy", is_type_of=(bool), default=True),
             Validator(
                 "login_url",
                 is_type_of=(str),
@@ -86,6 +88,7 @@ def load() -> Config:
     cfg.database.password = settings["database.password"]
     cfg.listen.port = settings["listen.port"]
     cfg.listen.host = settings["listen.host"]
+    cfg.listen.behind_proxy = settings["listen.behind_proxy"]
     cfg.login_url = settings["login_url"]
     cfg.logout_url = settings["logout_url"]
 

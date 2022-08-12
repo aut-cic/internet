@@ -1,1 +1,3 @@
-login_url="https://httpbin.org/post"
+login_url = "https://httpbin.org/post"
+[listen]
+behind_proxy = false
