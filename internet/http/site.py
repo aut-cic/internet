@@ -24,6 +24,8 @@ class SiteHandler:
         """
         login page
         """
+        logger.info("request from %s", request.remote_addr)
+
         login_url = typing.cast(str, request.app.ctx.login_url)
         app = request.app
         engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
