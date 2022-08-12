@@ -178,17 +178,19 @@ class StatusHandler:
         app = request.app
         engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
 
-        logger.info("request from %s", request.ip)
+        logger.info("request from %s", request.remote_addr)
 
         # please note that "127.0.0.*" is only for testing purposes.
-        if request.ip.startswith(("192", "172", "127.0.0")) is False:
+        if request.remote_addr.startswith(("192", "172", "127.0.0")) is False:
             return redirect(app.url_for("site.login"))
 
         with Session(engine) as session:
             usage = AccountingService(session)
-            username = usage.ip_to_username(request.ip)
+            username = usage.ip_to_username(request.remote_addr)
             if username is None:
-                logger.info("there is no login session with %s", request.ip)
+                logger.info(
+                    "there is no login session with %s", request.remote_addr
+                )
                 return redirect(app.url_for("site.login"))
 
             report = usage.user_usage(username)
@@ -204,7 +206,9 @@ class StatusHandler:
             current_session = None
             for ie_session in report.sessions:
                 sessions.append(
-                    StatusHandler.to_frontend_session(ie_session, request.ip)
+                    StatusHandler.to_frontend_session(
+                        ie_session, request.remote_addr
+                    )
                 )
                 if ie_session.is_current is True:
                     current_session = sessions[-1]
@@ -224,7 +228,7 @@ class StatusHandler:
                 context={
                     "username": report.username,
                     "group": report.groupname.split("-", maxsplit=1)[0],
-                    "ip": request.ip,
+                    "ip": request.remote_addr,
                     "location": current_session["location"]
                     if current_session is not None
                     else "-",

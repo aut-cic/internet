@@ -35,7 +35,7 @@ class SiteHandler:
 
         with Session(engine) as session:
             usage = AccountingService(session)
-            username = usage.ip_to_username(request.ip)
+            username = usage.ip_to_username(request.remote_addr)
             if username is not None:
                 return redirect(app.url_for("status.status"))
 
