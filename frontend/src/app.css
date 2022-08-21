@@ -228,7 +228,7 @@ input:-webkit-autofill:active {
 }
 
 .package.active > .triangle > .bi {
-  color: #ffa500;
+  color: #eee;
   position: absolute;
   left: -3px;
   top: -72px;
@@ -273,31 +273,4 @@ input:-webkit-autofill:active {
 
 .input-group-addon:first-child {
   border: none;
-}
-
-.gauge-container {
-  width: 100%;
-  height: 100%;
-  display: block;
-  padding: 10px;
-}
-
-.gauge-container > .gauge .dial {
-  stroke: #eee;
-  stroke-width: 2;
-  fill: rgba(0, 0, 0, 0);
-}
-
-.gauge-container > .gauge .value {
-  stroke: rgb(47, 227, 255);
-  stroke-width: 2;
-  fill: rgba(0, 0, 0, 0);
-}
-
-.gauge-container > .gauge .value-text {
-  fill: #ffa500;
-  font-family: "Vazirmatn FD";
-  font-weight: bold;
-  font-size: 10px;
-  direction: ltr;
 }

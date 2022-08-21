@@ -57,7 +57,8 @@
                                 </div>
                             {% endif %}
                             <div class="card-block text-center">
-                                <div id="package-{{ package.type }}" class="gauge-container"></div>
+                                <div id="package-{{ package.type }}"
+                                     class="gauge-container {{ package.cardColor }}"></div>
                             </div>
                             <div class="card-footer text-center text-bg-{{ package.cardColor }}">
                                 <h5>{{ package.speed }}</h5>

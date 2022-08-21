@@ -1,0 +1,49 @@
+.gauge-container {
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 10px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.gauge-container > .gauge .dial {
+  stroke: #eee;
+  stroke-width: 2;
+  fill: rgba(0, 0, 0, 0);
+}
+
+.gauge-container > .gauge .value {
+  stroke: rgb(47, 227, 255);
+  stroke-width: 4;
+  fill: rgba(0, 0, 0, 0);
+}
+
+.gauge-container > .gauge .value-text {
+  fill: #eee;
+  font-family: "Vazirmatn FD";
+  font-weight: bold;
+  font-size: 10px;
+  direction: ltr;
+}
+
+.gauge {
+  width: 100%;
+}
+
+.gauge-container.success>.gauge>.value {
+  stroke: #4CAF50;
+}
+
+.gauge-container.warning>.gauge>.value {
+  stroke: #ff9800;
+}
+
+.gauge-container.danger>.gauge>.value {
+  stroke: #9C27B0;
+}
