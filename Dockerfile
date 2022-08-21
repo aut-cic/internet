@@ -6,15 +6,18 @@ COPY frontend .
 
 RUN npm install && npm run build
 
-FROM python:3-alpine
+FROM python:3.11-rc-slim
 
-RUN apk add build-base
+RUN apt-get -y update \
+  && apt-get --no-install-recommends -y install \
+  build-essential \
+  && rm -Rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 COPY --from=frontend /app/dist /app/frontend/dist
 COPY . .
-RUn pip install --upgrade pipenv
+RUN pip install --upgrade pipenv
 RUN pipenv install --system
 
 # cleanup the apk cache
