@@ -1,14 +1,22 @@
 {
   "group": {
     "default": {
-      "targets": ["internet"]
+      "targets": [
+        "internet"
+      ]
     }
   },
-
+  "variable": {
+    "TAG": {
+      "default": "latest"
+    }
+  },
   "target": {
     "internet": {
       "dockerfile": "Dockerfile",
-      "tags": ["ghcr.io/aut-cic/internet"]
+      "tags": [
+        "ghcr.io/aut-cic/internet:${TAG}"
+      ]
     }
   }
 }
