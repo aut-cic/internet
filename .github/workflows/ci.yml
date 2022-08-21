@@ -44,14 +44,14 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/bake-action@v2
-        if: github.event_name == 'tag'
+        if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         env:
           TAG: ${{ github.ref_name }}
         with:
           push: true
           files: 'docker-bake.json'
       - uses: docker/bake-action@v2
-        if: github.event_name != 'tag'
+        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
         with:
           push: true
           files: 'docker-bake.json'
