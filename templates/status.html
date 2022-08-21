@@ -42,7 +42,9 @@
             {% endif %}
             {# Announcements #}
             {% for accouncement in announcements %}
-                <div class="alert alert-{{ accouncement.type }}">{{ accouncement.message | safe }}</div>
+                <div class="alert alert-{{ accouncement.type }} text-bg-{{ accouncement.type }}">
+                    {{ accouncement.message | safe }}
+                </div>
             {% endfor %}
             {# Packages #}
             <div class="row">
@@ -169,13 +171,13 @@
                 datasets: [{
                       label: 'میزان مصرف ثبت شده',
                       data: {{ history.usage | safe }},
-                      backgroundColor: "rgba(252,25,72,0.8)",
+                      backgroundColor: "rgba(31,119,180,0.8)",
                     },
-                      {
-                            label: 'میزان مصرف تخفیف خورده',
-                            data: {{ history.discount | safe }},
-                            backgroundColor:"rgba(54,162,235,0.8)",
-                          }]
+                    {
+                      label: 'میزان مصرف تخفیف خورده',
+                      data: {{ history.discount | safe }},
+                      backgroundColor:"rgba(254,127,14,0.8)",
+                    }]
               },
           options: {
                 responsive: true,

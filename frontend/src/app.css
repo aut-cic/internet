@@ -206,6 +206,9 @@ input:-webkit-autofill:active {
   color: white;
 }
 
+.alert {
+  color: white !important;
+}
 
 .package:not(.active) .card-footer {
   box-shadow: inset 0px 0px 400px 210px rgba(255, 255, 255, 0.1);
