@@ -278,3 +278,7 @@ input:-webkit-autofill:active {
 .input-group-addon:first-child {
   border: none;
 }
+
+.card-header {
+  color: white !important;
+}
