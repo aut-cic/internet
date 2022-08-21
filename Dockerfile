@@ -6,16 +6,16 @@ COPY frontend .
 
 RUN npm install && npm run build
 
-FROM python:3-alpine
+FROM python:3.11-rc-alpine
 
-RUN apk add build-base
+RUN apk --no-cache add build-base
 
 WORKDIR /app
 
 COPY --from=frontend /app/dist /app/frontend/dist
 COPY . .
-RUn pip install --upgrade pipenv
-RUN pipenv install --system
+RUN pip install --no-cache-dir --upgrade pipenv \
+  && pipenv install --system
 
 # cleanup the apk cache
 RUN rm -rf /var/cache/apk/*
