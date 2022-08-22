@@ -18,9 +18,7 @@ async def not_found_handler(request: sanic.Request, _):
     """
     logger.info("redirect from %s", request.path)
 
-    return redirect(
-        request.app.url_for("site.login")
-    )
+    return redirect(request.app.url_for("site.login"))
 
 
 def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
