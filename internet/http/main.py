@@ -16,10 +16,10 @@ async def not_found_handler(request: sanic.Request, _):
     GET http://localhost:8080/d/msdownload/update/software/defu/2022/07/
     am_delta_patch_1.371.578.0_f39d3c3b511eefc28a41de387e41647c47e7aa42.exe
     """
-    logger.info("redirect from %s/%s", request.host, request.path)
+    logger.info("redirect from %s", request.path)
 
     return redirect(
-        request.app.url_for("site.login", dst=f"{request.host}/{request.path}")
+        request.app.url_for("site.login")
     )
 
 
