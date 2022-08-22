@@ -182,6 +182,7 @@ class StatusHandler:
         logger.info("request from %s", user_ip)
 
         # please note that "127.0.0.*" is only for testing purposes.
+        # other domains are the valid aut domains.
         if user_ip.startswith(("192", "172", "127.0.0")) is False:
             return redirect(app.url_for("site.login"))
 
@@ -191,6 +192,8 @@ class StatusHandler:
             if username is None:
                 logger.info("there is no login session with %s", user_ip)
                 return redirect(app.url_for("site.login"))
+
+            logger.info("request from %s", username)
 
             report = usage.user_usage(username)
 
