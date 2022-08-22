@@ -24,11 +24,13 @@ class Database:
 @dataclasses.dataclass
 class Listen:
     """
-    listen port and host for the http
+    listen port and host for the http and workers configuration of sanic.
     """
 
     host: str = "0.0.0.0"
     port: int = 8080
+    fast: bool = False
+    workers: int = 1
 
 
 @dataclasses.dataclass()
@@ -65,6 +67,8 @@ def load() -> Config:
             ),
             Validator("listen.port", is_type_of=(int), default=8080),
             Validator("listen.host", is_type_of=(str), default="0.0.0.0"),
+            Validator("listen.fast", is_type_of=(bool), default=False),
+            Validator("listen.workers", is_type_of=(int), default=1),
             Validator(
                 "login_url",
                 is_type_of=(str),
@@ -86,6 +90,8 @@ def load() -> Config:
     cfg.database.password = settings["database.password"]
     cfg.listen.port = settings["listen.port"]
     cfg.listen.host = settings["listen.host"]
+    cfg.listen.workers = settings["listen.workers"]
+    cfg.listen.fast = settings["listen.fast"]
     cfg.login_url = settings["login_url"]
     cfg.logout_url = settings["logout_url"]
 
