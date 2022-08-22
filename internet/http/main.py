@@ -5,7 +5,10 @@ from .site import SiteHandler
 from .status import StatusHandler
 
 
-def app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
+def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
+    """
+    create sanic application and inject dependencies into context
+    """
     app = sanic.Sanic("internet")
     app.ctx.login_url = login_url
     app.ctx.logout_url = logout_url

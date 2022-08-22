@@ -30,5 +30,5 @@ if __name__ == "__main__":
         pool_pre_ping=True,
     )
 
-    app = internet.http.main.app(cfg.login_url, cfg.logout_url, engine)
+    app = internet.http.main.create_app(cfg.login_url, cfg.logout_url, engine)
     app.run(host=cfg.listen.host, port=cfg.listen.port, debug=False)
