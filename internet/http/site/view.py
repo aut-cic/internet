@@ -20,6 +20,7 @@ from internet.message.message import MESSAGES, LANGS
 bp = sanic.Blueprint("site", url_prefix="/")
 
 
+# pyre-ignore[56]
 @bp.route("/", methods=["GET"], name="login")
 async def index(request: sanic.Request) -> sanic.HTTPResponse:
     """
@@ -31,7 +32,6 @@ async def index(request: sanic.Request) -> sanic.HTTPResponse:
     logger.info("request from %s", user_ip)
 
     login_url = typing.cast(str, request.app.ctx.login_url)
-    app = request.app
     engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
     dst: str = request.args.get("dst", "")
     error: str = request.args.get("error", "")
@@ -44,7 +44,7 @@ async def index(request: sanic.Request) -> sanic.HTTPResponse:
         usage = AccountingService(session)
         username = usage.ip_to_username(user_ip)
         if username is not None:
-            return redirect(app.url_for("status.status"))
+            return redirect(request.url_for("status.status"))
 
     return await render(
         "index.html",
@@ -58,12 +58,12 @@ async def index(request: sanic.Request) -> sanic.HTTPResponse:
     )
 
 
+# pyre-ignore[56]
 @bp.route("/logout/<sid:str>", methods=["GET"], name="logout")
 async def logout(request: sanic.Request, sid: str) -> sanic.HTTPResponse:
     """
     logout with sending a request into free-radius
     """
-    app = request.app
     logout_url = typing.cast(str, request.app.ctx.logout_url)
     logger.info("logout request for %s", sid)
 
@@ -71,4 +71,4 @@ async def logout(request: sanic.Request, sid: str) -> sanic.HTTPResponse:
     if not response:
         logger.error("logout request for %s failed", sid)
 
-    return redirect(app.url_for("site.login"))
+    return redirect(request.url_for("site.login"))

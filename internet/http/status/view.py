@@ -167,6 +167,7 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
     }
 
 
+# pyre-ignore[56]
 @bp.route("/status", methods=["GET"], name="status")
 async def status(request: sanic.Request) -> sanic.HTTPResponse:
     """
@@ -174,7 +175,6 @@ async def status(request: sanic.Request) -> sanic.HTTPResponse:
     way to serve /status page.
     """
     user_ip = request.remote_addr or request.ip
-    app = request.app
     engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
 
     logger.info("request from %s", user_ip)
@@ -182,14 +182,14 @@ async def status(request: sanic.Request) -> sanic.HTTPResponse:
     # please note that "127.0.0.*" is only for testing purposes.
     # other domains are the valid aut domains.
     if user_ip.startswith(("192", "172", "127.0.0")) is False:
-        return redirect(app.url_for("site.login"))
+        return redirect(request.url_for("site.login"))
 
     with Session(engine) as session:
         usage = AccountingService(session)
         username = usage.ip_to_username(user_ip)
         if username is None:
             logger.info("there is no login session with %s", user_ip)
-            return redirect(app.url_for("site.login"))
+            return redirect(request.url_for("site.login"))
 
         logger.info("request from %s", username)
 
