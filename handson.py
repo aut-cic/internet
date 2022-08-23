@@ -5,13 +5,12 @@ database connection etc. for you.
 """
 
 from rich import pretty
-from rich.console import Console
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 from internet.accounting.acct import AccountingService
 from internet.accounting.usage import Report, UsageType
-from internet.http.status import StatusHandler
+from internet.http.status.view import to_frontend_package, to_frontend_session
 
 
 def ip_to_username_with_taheri():
@@ -48,16 +47,13 @@ def account_usage():
         pretty.pprint(report)
 
     for usage_type in UsageType:
-        pretty.pprint(StatusHandler.to_frontend_package(report, usage_type))
+        pretty.pprint(to_frontend_package(report, usage_type))
 
     for session in report.sessions:
-        pretty.pprint(
-            StatusHandler.to_frontend_session(session, "172.25.125.2")
-        )
+        pretty.pprint(to_frontend_session(session, "172.25.125.2"))
 
 
 if __name__ == "__main__":
-    console = Console()
     pretty.install()
 
     ip_to_username_with_taheri()
