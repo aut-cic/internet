@@ -5,40 +5,40 @@ import math
 
 # http://stackoverflow.com/questions/10420352
 __units = [
-    ["کیلوبایت", 'KB'],
-    ["مگابایت", 'MB'],
-    ["گیگابایت", 'GB'],
-    ["ترابایت", 'TB'],
-    ["پتا بایت", 'ZB'],
+    ["کیلوبایت", "KB"],
+    ["مگابایت", "MB"],
+    ["گیگابایت", "GB"],
+    ["ترابایت", "TB"],
+    ["پتا بایت", "ZB"],
     #    "EiB",
     #    "ZiB",
     #    "YiB",
 ]
 
 
-def bytes_to_str(bytes: float, lang: str = 'fa') -> str:
+def bytes_to_str(bytes_: float, lang: str = "fa") -> str:
     """
     convert bytes into human readable format with unit.
     """
-    assert lang in ('fa', 'en')
+    assert lang in {"fa", "en"}
     threshold = 1024
 
-    if math.isnan(bytes):
+    if math.isnan(bytes_):
         return "∞"
 
-    if math.fabs(bytes) < threshold:
+    if math.fabs(bytes_) < threshold:
         return "-"
 
     units_index = -1
 
-    while math.fabs(bytes) >= threshold and units_index < len(__units):
-        bytes /= threshold
+    while math.fabs(bytes_) >= threshold and units_index < len(__units):
+        bytes_ /= threshold
         units_index += 1
 
-    if units_index < 2 or ((bytes * 10) % 10) == 0:
-        return f"{bytes:.0f} {__units[units_index][0 if lang == 'fa' else 1]}"
+    if units_index < 2 or not (bytes_ * 10) % 10:
+        return f"{bytes_:.0f} {__units[units_index][0 if lang == 'fa' else 1]}"
 
-    return f"{bytes:.1f} {__units[units_index][0 if lang == 'fa' else 1]}"
+    return f"{bytes_:.1f} {__units[units_index][0 if lang == 'fa' else 1]}"
 
 
 class UsageType(enum.Enum):
