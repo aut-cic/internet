@@ -1,11 +1,11 @@
 import sanic
 from sanic.response import redirect
 from sanic.exceptions import NotFound
-from sqlalchemy.future import Engine
 from sanic.log import logger
+from sqlalchemy.future import Engine
 
-from .site import SiteHandler
-from .status import StatusHandler
+from internet.http.site.view import bp as site_bp
+from internet.http.status.view import bp as status_bp
 
 
 async def not_found_handler(request: sanic.Request, _):
@@ -36,8 +36,8 @@ def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
     app.config.PROXIES_COUNT = 1
     app.config.REAL_IP_HEADER = "x-real-ip"
 
-    app.blueprint(SiteHandler().register())
-    app.blueprint(StatusHandler().register())
+    app.blueprint(site_bp)
+    app.blueprint(status_bp)
 
     app.static("/static", "./frontend/dist", name="static")
     app.static("/public", "./public", name="public")
