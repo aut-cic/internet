@@ -3,7 +3,6 @@ runs internet server
 """
 
 from rich import pretty
-from rich.console import Console
 from sqlalchemy import create_engine
 
 import internet.conf
@@ -11,8 +10,8 @@ import internet.http.main
 import internet.subnets
 import internet.announcements
 
-if __name__ == "__main__":
-    console = Console()
+
+def main():
     pretty.install()
 
     cfg = internet.conf.load()
@@ -38,3 +37,7 @@ if __name__ == "__main__":
         fast=cfg.listen.fast,
         workers=cfg.listen.workers,
     )
+
+
+if __name__ == "__main__":
+    main()
