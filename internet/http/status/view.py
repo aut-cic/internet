@@ -158,10 +158,10 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
         "total": total,
         "percent": percent,
         "degree": math.floor(percent / (100.0 / 180)),
-        "title": StatusHandler.titles[usage_type],
-        "speed": StatusHandler.speeds[usage_type],
+        "title": titles[usage_type],
+        "speed": speeds[usage_type],
         "color": color,
-        "cardColor": StatusHandler.colors[usage_type],
+        "cardColor": colors[usage_type],
         "type": str(usage_type),
         "active": usage_type is report.get_active_type(),
     }
