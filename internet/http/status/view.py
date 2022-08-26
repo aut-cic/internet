@@ -63,7 +63,7 @@ def to_frontend_usage_history(
                 "discount": record.discount,
             }
         )
-    result.sort(key=lambda record: record["date"], reverse=True)
+    result.sort(key=lambda record: record["date"], reverse=False)
     return result
 
 
