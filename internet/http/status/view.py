@@ -181,13 +181,12 @@ async def status(request: sanic.Request) -> sanic.HTTPResponse:
 
     # please note that "127.0.0.*" is only for testing purposes.
     # other domains are the valid aut domains.
-    if user_ip.startswith(("192", "172", "127.0.0")) is False:
+    if not user_ip.startswith(("192", "172", "127.0.0")):
         return redirect(request.url_for("site.login"))
 
     with Session(engine) as session:
         usage = AccountingService(session)
-        username = usage.ip_to_username(user_ip)
-        if username is None:
+        if (username := usage.ip_to_username(user_ip)) is None:
             logger.info("there is no login session with %s", user_ip)
             return redirect(request.url_for("site.login"))
 

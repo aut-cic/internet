@@ -5,7 +5,7 @@ from the file.
 
 import dataclasses
 import json
-import typing
+import collections.abc
 
 
 @dataclasses.dataclass()
@@ -32,7 +32,7 @@ if len(__announcements) == 0:
             )
 
 
-def announcements() -> typing.Iterator[Announcement]:
+def announcements() -> collections.abc.Iterator[Announcement]:
     """
     list returns an iterator for all the announcements
     """

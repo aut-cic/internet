@@ -5,7 +5,7 @@ this module handle these networks.
 import dataclasses
 import ipaddress
 import json
-import typing
+import collections.abc
 
 
 @dataclasses.dataclass()
@@ -26,16 +26,16 @@ if len(__subnets) == 0:
             )
 
 
-def subnets() -> typing.Iterator[Subnet]:
+def subnets() -> collections.abc.Iterator[Subnet]:
     return iter(__subnets)
 
 
 def lookup(ip: str) -> str | None:
     try:
         ip_addr = ipaddress.ip_address(ip)
-        for subnet in __subnets:
-            if ip_addr in subnet.network:
-                return subnet.description
-        return None
     except ValueError:
         return None
+    for subnet in __subnets:
+        if ip_addr in subnet.network:
+            return subnet.description
+    return None

@@ -35,15 +35,13 @@ async def index(request: sanic.Request) -> sanic.HTTPResponse:
     engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
     dst: str = request.args.get("dst", "")
     error: str = request.args.get("error", "")
-    lang: str = request.args.get("lang", "fa")
 
-    if lang not in LANGS:
+    if (lang := request.args.get("lang", "fa")) not in LANGS:
         lang = "fa"
 
     with Session(engine) as session:
         usage = AccountingService(session)
-        username = usage.ip_to_username(user_ip)
-        if username is not None:
+        if usage.ip_to_username(user_ip) is not None:
             return redirect(request.url_for("status.status"))
 
     return await render(
@@ -67,8 +65,7 @@ async def logout(request: sanic.Request, sid: str) -> sanic.HTTPResponse:
     logout_url = typing.cast(str, request.app.ctx.logout_url)
     logger.info("logout request for %s", sid)
 
-    response = requests.get(f"{logout_url}/{sid}")
-    if not response:
+    if not requests.get(f"{logout_url}/{sid}"):
         logger.error("logout request for %s failed", sid)
 
     return redirect(request.url_for("site.login"))
