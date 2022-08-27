@@ -51,7 +51,9 @@ def to_frontend_usage_history(
     which contains the required information for status html page.
     """
     result = []
-    for record in usage_history:
+    for record in sorted(
+        usage_history, key=lambda record: record.created_date, reverse=True
+    ):
         result.append(
             {
                 "date": jdatetime.date.fromgregorian(
@@ -63,7 +65,6 @@ def to_frontend_usage_history(
                 "discount": record.discount,
             }
         )
-    result.sort(key=lambda record: record["date"], reverse=False)
     return result
 
 
