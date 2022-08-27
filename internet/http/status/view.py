@@ -52,7 +52,8 @@ def to_frontend_usage_history(
     """
     result = []
     for record in sorted(
-        usage_history, key=lambda record: record.created_date, reverse=True
+        usage_history,
+        key=lambda record: record.created_date,
     ):
         result.append(
             {
