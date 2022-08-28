@@ -12,6 +12,7 @@ sqlalchemy = {extras = ["mypy"], version = "*"}
 pymysql = "*"
 jdatetime = "*"
 requests = "*"
+cryptography = "*"
 
 [dev-packages]
 pytest = "*"
