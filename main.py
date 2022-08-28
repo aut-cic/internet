@@ -26,6 +26,7 @@ def main():
         f"{cfg.database.host}:{cfg.database.port}/{cfg.database.database}",
         echo=False,
         future=True,
+        pool_size=5,
         pool_pre_ping=True,
     )
 
