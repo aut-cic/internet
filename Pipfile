@@ -4,21 +4,20 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-sanic = {extras = ["ext"], version = "*"}
+sanic = { extras = ["ext"], version = "*" }
 rich = "*"
 dynaconf = "*"
 jinja2 = "*"
-sqlalchemy = {extras = ["mypy"], version = "*"}
+sqlalchemy = { extras = ["mypy"], version = "*" }
 pymysql = "*"
 jdatetime = "*"
-requests = "*"
+httpx = "*"
 cryptography = "*"
 
 [dev-packages]
 pytest = "*"
 mypy = "*"
 djlint = "*"
-types-requests = "*"
 pyre-check = "*"
 pylint = "*"
 
