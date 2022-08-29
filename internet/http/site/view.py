@@ -5,13 +5,14 @@ a route without any html/css.
 """
 import typing
 
-import requests
+import httpx
 import sanic
 import sqlalchemy.future
+from sqlalchemy.orm import Session
+from sanic.exceptions import NotFound
 from sanic.log import logger
 from sanic.response import redirect
 from sanic_ext import render
-from sqlalchemy.orm import Session
 
 from internet.accounting.acct import AccountingService
 from internet.message.message import MESSAGES, LANGS
@@ -22,7 +23,7 @@ bp = sanic.Blueprint("site", url_prefix="/")
 
 # pyre-ignore[56]
 @bp.route("/", methods=["GET"], name="login")
-async def index(request: sanic.Request) -> sanic.HTTPResponse:
+async def index(request: sanic.Request, _=None) -> sanic.HTTPResponse:
     """
     login page that must be shown on every requests.
     because we need to show login page for all not found routes.
@@ -72,7 +73,11 @@ async def logout(request: sanic.Request, sid: str) -> sanic.HTTPResponse:
     logout_url = typing.cast(str, request.app.ctx.logout_url)
     logger.info("logout request for %s", sid)
 
-    if not requests.get(f"{logout_url}/{sid}"):
-        logger.error("logout request for %s failed", sid)
+    try:
+        async with httpx.AsyncClient() as client:
+            if not await client.get(f"{logout_url}/{sid}"):
+                logger.error("logout request for %s failed", sid)
+    except (httpx.ConnectTimeout, httpx.ConnectError) as exception:
+        logger.error("logout request for %s failed (%s)", sid, repr(exception))
 
     return redirect(request.url_for("site.login"))
