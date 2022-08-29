@@ -1,7 +1,6 @@
 import sanic
 from sanic.response import redirect
 from sanic.exceptions import NotFound
-from sanic.log import logger
 from sqlalchemy.future import Engine
 
 from internet.http.site.view import bp as site_bp
@@ -16,8 +15,6 @@ async def not_found_handler(request: sanic.Request, _):
     GET http://localhost:8080/d/msdownload/update/software/defu/2022/07/
     am_delta_patch_1.371.578.0_f39d3c3b511eefc28a41de387e41647c47e7aa42.exe
     """
-    logger.info("redirect from %s", request.path)
-
     return redirect(request.app.url_for("site.login"))
 
 

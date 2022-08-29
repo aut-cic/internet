@@ -37,6 +37,7 @@ def main():
         debug=False,
         fast=cfg.listen.fast,
         workers=cfg.listen.workers,
+        access_log=False,
     )
 
 

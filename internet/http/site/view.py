@@ -21,15 +21,22 @@ bp = sanic.Blueprint("site", url_prefix="/")
 
 
 # pyre-ignore[56]
-@bp.route("/", methods=["GET"], name="login")
-async def index(request: sanic.Request) -> sanic.HTTPResponse:
+@bp.route("/<path:path>", methods=["GET"], name="login")
+async def index(request: sanic.Request, path: str) -> sanic.HTTPResponse:
     """
-    login page
-    """
+    login page that must be shown on every requests.
+    because we need to show login page for all not found routes.
+    Mircotik sends
+    all requests from not logged-in users to us like follows:
 
+    GET http://localhost:8080/d/msdownload/update/software/defu/2022/07/
+    am_delta_patch_1.371.578.0_f39d3c3b511eefc28a41de387e41647c47e7aa42.exe
+
+    and devices like ios needs to get 200 response.
+    """
     user_ip = request.remote_addr or request.ip
 
-    logger.info("request from %s", user_ip)
+    logger.info("login request from %s with /%s", user_ip, path)
 
     login_url = typing.cast(str, request.app.ctx.login_url)
     engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)

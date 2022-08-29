@@ -179,7 +179,7 @@ async def status(request: sanic.Request) -> sanic.HTTPResponse:
     user_ip = request.remote_addr or request.ip
     engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
 
-    logger.info("request from %s", user_ip)
+    logger.info("status request from %s", user_ip)
 
     # please note that "127.0.0.*" is only for testing purposes.
     # other domains are the valid aut domains.
@@ -192,7 +192,7 @@ async def status(request: sanic.Request) -> sanic.HTTPResponse:
             logger.info("there is no login session with %s", user_ip)
             return redirect(request.url_for("site.login"))
 
-        logger.info("request from %s", username)
+        logger.info("status request from %s with %s", username, user_ip)
 
         report = usage.user_usage(username)
 
