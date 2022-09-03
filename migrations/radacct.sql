@@ -6,7 +6,7 @@ DROP TABLE
 
 CREATE TABLE
   `radacct` (
-    `radacctid` bigint(21) NOT NULL AUTO_INCREMENT,
+    `radacctid` bigint (21) NOT NULL AUTO_INCREMENT,
     `acctsessionid` varchar(64) NOT NULL DEFAULT '',
     `acctuniqueid` varchar(32) NOT NULL DEFAULT '',
     `username` varchar(64) NOT NULL DEFAULT '',
@@ -18,13 +18,13 @@ CREATE TABLE
     `acctstarttime` datetime DEFAULT NULL,
     `acctupdatetime` datetime DEFAULT NULL,
     `acctstoptime` datetime DEFAULT NULL,
-    `acctinterval` int(12) DEFAULT NULL,
-    `acctsessiontime` int(12) unsigned DEFAULT NULL,
+    `acctinterval` int (12) DEFAULT NULL,
+    `acctsessiontime` int (12) unsigned DEFAULT NULL,
     `acctauthentic` varchar(32) DEFAULT NULL,
     `connectinfo_start` varchar(50) DEFAULT NULL,
     `connectinfo_stop` varchar(50) DEFAULT NULL,
-    `acctinputoctets` bigint(20) DEFAULT NULL,
-    `acctoutputoctets` bigint(20) DEFAULT NULL,
+    `acctinputoctets` bigint (20) DEFAULT NULL,
+    `acctoutputoctets` bigint (20) DEFAULT NULL,
     `calledstationid` varchar(50) NOT NULL DEFAULT '',
     `callingstationid` varchar(50) NOT NULL DEFAULT '',
     `acctterminatecause` varchar(32) NOT NULL DEFAULT '',
