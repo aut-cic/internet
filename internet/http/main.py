@@ -24,7 +24,9 @@ def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
 
     app.error_handler.add(NotFound, index)
 
-    app.static("/static", "./frontend/dist", name="static")
+    app.static(
+        "/static", "./frontend/dist", name="static", stream_large_files=True
+    )
     app.static("/public", "./public", name="public")
 
     return app
