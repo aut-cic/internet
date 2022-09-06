@@ -9,7 +9,6 @@ import httpx
 import sanic
 import sqlalchemy.future
 from sqlalchemy.orm import Session
-from sanic.exceptions import NotFound
 from sanic.log import logger
 from sanic.response import redirect
 from sanic_ext import render
@@ -79,5 +78,11 @@ async def logout(request: sanic.Request, sid: str) -> sanic.HTTPResponse:
                 logger.error("logout request for %s failed", sid)
     except (httpx.ConnectTimeout, httpx.ConnectError) as exception:
         logger.error("logout request for %s failed (%s)", sid, repr(exception))
+    except (httpx.ReadTimeout, httpx.ReadError) as exception:
+        logger.error(
+            "logout request success but there is an issue for reading %s (%s)",
+            sid,
+            repr(exception),
+        )
 
     return redirect(request.url_for("site.login"))
