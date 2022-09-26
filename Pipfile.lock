@@ -150,11 +150,11 @@
         },
         "dynaconf": {
             "hashes": [
-                "sha256:9eaaa6e64a4a64225f80cdad14379a37656b8f2dc607ab0fd949b75d479674cc",
-                "sha256:f435c9e5b0b4b1dddf5e17e60a1e4c91ae0e6275aa51522456e671a7be3380eb"
+                "sha256:87e0b3b12b5db9e8fb465e1f8c7fdb926cd2ec5b6d88aa7f821f316df93fb165",
+                "sha256:d9cfb50fd4a71a543fd23845d4f585b620b6ff6d9d3cc1825c614f7b2097cb39"
             ],
             "index": "pypi",
-            "version": "==3.1.9"
+            "version": "==3.1.11"
         },
         "greenlet": {
             "hashes": [
