@@ -10,7 +10,7 @@
   "author": "Parham Alvani",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "bootstrap": "^5.2.1",
+    "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
     "chart.js": "^3.9.1",
     "css-loader": "^6.7.1",
