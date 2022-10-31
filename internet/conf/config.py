@@ -40,8 +40,8 @@ class Config:
     configuration.
     """
 
-    listen: Listen = Listen()
-    database: Database = Database()
+    listen: Listen = dataclasses.field(default_factory=Listen)
+    database: Database = dataclasses.field(default_factory=Database)
     login_url: str = "https://login.aut.ac.ir/login"
     logout_url: str = "http://172.16.4.5:9090/logout"
 
