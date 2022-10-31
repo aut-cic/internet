@@ -10,7 +10,7 @@
 ## Introduction
 
 This service with the help of a MicroTik switch and Radius server meters students internet connections.
-login page which is served by this server fowards credentials to the microtik server and then uses
+login page which is served by this server, fowards credentials to the MicroTik server and then uses
 Radius information based on request's IP address to find out about internet usage status.
 
 ## How to run locally
