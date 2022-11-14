@@ -1179,12 +1179,12 @@
         },
         "pyre-check": {
             "hashes": [
-                "sha256:aa4674d06f41c73b543671b7e2b52a907af739587dce9cc8bd2ee50636de895a",
-                "sha256:ca626b3a0cd1c740190da950399506ccbb9dca7326f6762c3ee8be39685ec4e5",
-                "sha256:d49a5e453f386a454fbceddfef1c674515ae8de1a1461a9d6a3f5848a34c1028"
+                "sha256:0219bedb594470c271221a750116f7a0d2705f8e3bed1274c2d7574835fa6281",
+                "sha256:533ea8035f1ac519db429a2eee665f5b416dfae27dcf0589a7922ca8c3d1c8fe",
+                "sha256:bd370c44041610d861bbc117e9caafd3fe267b057b7c0450af15b01037c204cb"
             ],
             "index": "pypi",
-            "version": "==0.9.16"
+            "version": "==0.9.17"
         },
         "pyre-extensions": {
             "hashes": [
