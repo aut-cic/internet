@@ -5,7 +5,7 @@ import "./bootstrap.scss";
 import "vazirmatn/Vazirmatn-font-face.css";
 import "vazirmatn/misc/Farsi-Digits/Vazirmatn-FD-font-face.css";
 
-import "chart.js/dist/chart.umd.js";
+import "chart.js/dist/chart.js";
 
 import "./app.css";
 import "./gauge.css";
