@@ -24,7 +24,7 @@ We have [`nix`]() for installing the required packages, so you:
 
 ```bash
 nix flake check
-nix develop
+nix develop -c zsh
 ```
 
 ```bash
