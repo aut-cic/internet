@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "05ae9b928f8615a61db3fcd3f679a5ace79f55489c214ad83f3994d9553e6e44"
+            "sha256": "eb695dbf64c14b0ccf1520c043e56abd5827e138a10a5f717c3c883dbcebc534"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.10"
+            "python_version": "3.11"
         },
         "sources": [
             {
@@ -566,6 +566,7 @@
                 "sha256:d8905ee1c72759c7b37b1638c3b2b6656573d38156a82a85fd020532749029c1"
             ],
             "index": "pypi",
+            "markers": null,
             "version": "==22.9.1"
         },
         "sanic-ext": {
@@ -638,6 +639,7 @@
                 "sha256:f8e5443295b218b08bef8eb85d31b214d184b3690d99a33b7bd8e5591e2b0aa1"
             ],
             "index": "pypi",
+            "markers": null,
             "version": "==1.4.44"
         },
         "sqlalchemy2-stubs": {
