@@ -6,6 +6,7 @@ let
 in
 mkShell {
   buildInputs = [
+    nodejs-19_x
     python-with-package-managers
     pipenv
   ];
