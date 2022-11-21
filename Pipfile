@@ -20,6 +20,7 @@ mypy = "*"
 djlint = "*"
 pyre-check = "*"
 pylint = "*"
+wrapt = "*"
 
 [requires]
 python_version = "3.11"
