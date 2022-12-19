@@ -20,6 +20,9 @@ window.onload = () => {
     let w = new bootstrap.Modal(modal);
     w.show();
     window.console.log("Hello, We have modal");
-    setTimeout(() => w.dispose(), 1500);
+    setTimeout(() => {
+      w.hide();
+      w.dispose();
+    }, 1500);
   }
 };
