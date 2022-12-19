@@ -11,12 +11,9 @@
                         <div class="modal-body">
                             <p>
                                 بسته
-                                <i>{{ package.title }}</i> با <strong>{{ package.speed }}</strong>
+                                <i>{{ package.title }}</i> با <strong class="badge text-bg-danger">{{ package.speed }}</strong>
                                 برای شما فعال است.
                             </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">متوجه شدم</button>
                         </div>
                     </div>
                 </div>
@@ -112,9 +109,7 @@
                                 {% for session in status.sessions %}
                                     <tr>
                                         <td>{{ session.ip }}</td>
-                                        <td>
-                                            {{ session.location }}
-                                        </td>
+                                        <td>{{ session.location }}</td>
                                         <td>
                                             {{ session.usage }}
                                         </td>
