@@ -17,7 +17,9 @@ window.console.log("AUT internet controller frontend and backend");
 window.onload = () => {
   let modal = window.document.getElementById("packageModal");
   if (modal != null) {
-    new bootstrap.Modal(modal).show();
+    let w = new bootstrap.Modal(modal);
+    w.show();
     window.console.log("Hello, We have modal");
+    setTimeout(() => w.dispose(), 3000);
   }
 };
