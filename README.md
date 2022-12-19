@@ -20,13 +20,6 @@ that contains the database migrations and automatically runs by the `docker-comp
 base on his/her record in `radacct` table which is editable from the `migrations` folder. A record contains an IP
 address and a logged-out date and when this logged-out time is `NULL` user consider as logged-in.
 
-We have [`nix`](https://nixos.org/) for installing the required packages, so you:
-
-```bash
-nix flake check
-nix develop -c zsh
-```
-
 ```bash
 # database up and running based on /migrations
 docker-compose up -d
