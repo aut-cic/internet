@@ -20,6 +20,7 @@ jdatetime.set_locale("fa_IR")
 
 bp = sanic.Blueprint("status", url_prefix="/")
 
+danger_packages: set[UsageType] = {UsageType.MONTHLY, UsageType.FREE}
 
 titles: dict[UsageType, str] = {
     UsageType.DAILY: "امروز",
@@ -166,6 +167,7 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
         "cardColor": colors[usage_type],
         "type": str(usage_type),
         "active": usage_type is report.get_active_type(),
+        "danger": usage_type in danger_packages,
     }
 
 
