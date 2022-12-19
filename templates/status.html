@@ -1,28 +1,28 @@
 {% extends "includes/layout.html" %}
 {% block content %}
-    <div class="modal fade" tabindex="-1" id="packageModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">بسته‌ی کنونی شما</h5>
-                </div>
-                <div class="modal-body">
-                    {% for package in status.packages %}
-                        {% if(package.active) %}
+    {% for package in status.packages %}
+        {% if(package.danger and package.active) %}
+            <div class="modal fade" tabindex="-1" id="packageModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">بسته‌ی کنونی شما</h5>
+                        </div>
+                        <div class="modal-body">
                             <p>
                                 بسته
                                 <i>{{ package.title }}</i> با <strong>{{ package.speed }}</strong>
                                 برای شما فعال است.
                             </p>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">متوجه شدم</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">متوجه شدم</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        {% endif %}
+    {% endfor %}
     <div class="pt-4 row">
         <div class="col-md-3 col-sm-12 mb-3">
             <div class="list-group">
