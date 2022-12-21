@@ -19,10 +19,8 @@ window.onload = () => {
   if (modal != null) {
     let w = new bootstrap.Modal(modal);
     w.show();
-    window.console.log("Hello, We have modal");
     setTimeout(() => {
       w.hide();
-      w.dispose();
-    }, 1500);
+    }, 3000);
   }
 };
