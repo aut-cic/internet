@@ -2,8 +2,11 @@
 runs internet server
 """
 
+from functools import partial
 from rich import pretty
 from sqlalchemy import create_engine
+from sanic.worker.loader import AppLoader
+from sanic import Sanic
 
 import internet.conf
 import internet.http.main
@@ -30,8 +33,16 @@ def main():
         pool_pre_ping=True,
     )
 
-    app = internet.http.main.create_app(cfg.login_url, cfg.logout_url, engine)
-    app.run(
+    loader = AppLoader(
+        factory=partial(
+            internet.http.main.create_app,
+            cfg.login_url,
+            cfg.logout_url,
+            engine,
+        )
+    )
+    app = loader.load()
+    app.prepare(
         host=cfg.listen.host,
         port=cfg.listen.port,
         debug=False,
@@ -39,6 +50,7 @@ def main():
         workers=cfg.listen.workers,
         access_log=False,
     )
+    Sanic.serve(primary=app, app_loader=loader)
 
 
 if __name__ == "__main__":
