@@ -21,6 +21,7 @@ djlint = "*"
 pyre-check = "*"
 pylint = "*"
 wrapt = "*"
+dill = "*"
 
 [requires]
 python_version = "3.11"
