@@ -99,16 +99,16 @@ class AccountingService:
         statement_3 = select(RadiusUserGroup).where(
             RadiusUserGroup.username == username
         )
-        row_3 = self.session.scalars(statement_3).first()
-        if row_3 is not None:
+        if (row_3 := self.session.scalars(statement_3).first()) is not None:
             group_name = row_3.group_name
             # gather packages for the group
             statement_4 = select(RadiusPackages).where(
                 RadiusPackages.group_name
                 == group_name.split("-", maxsplit=1)[0]
             )
-            row_4 = self.session.scalars(statement_4).first()
-            if row_4 is not None:
+            if (
+                row_4 := self.session.scalars(statement_4).first()
+            ) is not None:
                 package = Package(
                     daily_volume=row_4.daily_volume,
                     weekly_volume=row_4.weekly_volume,
@@ -140,7 +140,6 @@ class AccountingService:
             .where(RadiusAccount.framedipaddress == ip_address)
             .where(RadiusAccount.account_stop_time == None)
         )
-        row = self.session.scalars(statement).first()
-        if row is None:
+        if (row := self.session.scalars(statement).first()) is None:
             return None
         return row.username
