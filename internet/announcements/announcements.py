@@ -19,8 +19,7 @@ class Announcement:
     message: str
 
 
-__announcements: list[Announcement] = []
-if not __announcements:
+if not (__announcements := list[Announcement]()):
     with open("announcements/announcements.json", encoding="utf-8") as fp:
         for announcement in json.load(fp):
             __announcements.append(

@@ -14,8 +14,7 @@ class Subnet:
     description: str
 
 
-__subnets: list[Subnet] = []
-if not (__subnets):
+if not (__subnets := list[Subnet]()):
     with open("subnets/subnets.json", encoding="utf-8") as fp:
         for subnet in json.load(fp):
             __subnets.append(
@@ -27,10 +26,17 @@ if not (__subnets):
 
 
 def subnets() -> collections.abc.Iterator[Subnet]:
+    """
+    return an iterators for subnets
+    """
     return iter(__subnets)
 
 
 def lookup(ip: str) -> str | None:
+    """
+    check an ip address to finds its parent subject.
+    it returns none in case of no-match.
+    """
     try:
         ip_addr = ipaddress.ip_address(ip)
     except ValueError:
