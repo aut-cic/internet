@@ -28,7 +28,7 @@ class Listen:
     """
 
     host: str = "0.0.0.0"
-    port: int = 8080
+    port: int = 1378
     fast: bool = False
     workers: int = 1
 
@@ -65,7 +65,7 @@ def load() -> Config:
             Validator(
                 "database.password", is_type_of=(str), default="opnsense%40123"
             ),
-            Validator("listen.port", is_type_of=(int), default=8080),
+            Validator("listen.port", is_type_of=(int), default=1378),
             Validator("listen.host", is_type_of=(str), default="0.0.0.0"),
             Validator("listen.fast", is_type_of=(bool), default=False),
             Validator("listen.workers", is_type_of=(int), default=1),
