@@ -11,26 +11,27 @@ import internet.subnets
 import internet.announcements
 
 
-def main():
-    pretty.install()
+pretty.install()
 
-    cfg = internet.conf.load()
-    pretty.pprint(cfg)
+cfg = internet.conf.load()
+pretty.pprint(cfg)
 
-    pretty.pprint(list(internet.subnets.subnets()))
+pretty.pprint(list(internet.subnets.subnets()))
 
-    pretty.pprint(list(internet.announcements.announcements()))
+pretty.pprint(list(internet.announcements.announcements()))
 
-    engine = create_engine(
-        f"mysql+pymysql://{cfg.database.username}:{cfg.database.password}@"
-        f"{cfg.database.host}:{cfg.database.port}/{cfg.database.database}",
-        echo=False,
-        future=True,
-        pool_size=5,
-        pool_pre_ping=True,
-    )
+engine = create_engine(
+    f"mysql+pymysql://{cfg.database.username}:{cfg.database.password}@"
+    f"{cfg.database.host}:{cfg.database.port}/{cfg.database.database}",
+    echo=False,
+    future=True,
+    pool_size=5,
+    pool_pre_ping=True,
+)
 
-    app = internet.http.main.create_app(cfg.login_url, cfg.logout_url, engine)
+app = internet.http.main.create_app(cfg.login_url, cfg.logout_url, engine)
+
+if __name__ == "__main__":
     app.run(
         host=cfg.listen.host,
         port=cfg.listen.port,
@@ -39,7 +40,3 @@ def main():
         workers=cfg.listen.workers,
         access_log=False,
     )
-
-
-if __name__ == "__main__":
-    main()
