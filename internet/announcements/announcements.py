@@ -20,7 +20,7 @@ class Announcement:
 
 
 __announcements: list[Announcement] = []
-if len(__announcements) == 0:
+if not len(__announcements):
     with open("announcements/announcements.json", encoding="utf-8") as fp:
         for announcement in json.load(fp):
             __announcements.append(

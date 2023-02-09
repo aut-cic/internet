@@ -15,7 +15,7 @@ class Subnet:
 
 
 __subnets: list[Subnet] = []
-if len(__subnets) == 0:
+if not len(__subnets):
     with open("subnets/subnets.json", encoding="utf-8") as fp:
         for subnet in json.load(fp):
             __subnets.append(
