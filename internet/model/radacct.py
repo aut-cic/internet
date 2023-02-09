@@ -1,4 +1,5 @@
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy.orm import Mapped, mapped_column
+from datetime import datetime
 
 from . import Base
 
@@ -7,28 +8,30 @@ from . import Base
 class RadiusAccount(Base):
     __tablename__ = "radacct"
 
-    radius_account_id = Column("radacctid", Integer, primary_key=True)
-    account_session_id = Column("acctsessionid", String)
-    account_unique_id = Column("acctuniqueid", String)
-    username = Column(String)
-    # group_name = Column("groupname", String)
-    realm = Column(String)
-    nas_ip_address = Column("nasipaddress", String)
-    nas_port_id = Column("nasportid", String)
-    nas_port_type = Column("nasporttype", String)
-    account_start_time = Column("acctstarttime", DateTime)
-    account_update_time = Column("acctupdatetime", DateTime)
-    account_stop_time = Column("acctstoptime", DateTime)
-    account_interval = Column("acctinterval", Integer)
-    account_session_time = Column("acctsessiontime", Integer)
-    account_authentic = Column("acctauthentic", String)
-    connectinfo_start = Column(String)
-    connectinfo_stop = Column(String)
-    account_input_octets = Column("acctinputoctets", Integer)
-    account_output_octets = Column("acctoutputoctets", Integer)
-    called_station_id = Column("calledstationid", String)
-    calling_station_id = Column("callingstationid", String)
-    account_terminate_cause = Column("acctterminatecause", String)
-    service_type = Column("servicetype", String)
-    framedprotocol = Column(String)
-    framedipaddress = Column(String)
+    radius_account_id: Mapped[int] = mapped_column(
+        "radacctid", primary_key=True
+    )
+    account_session_id: Mapped[str] = mapped_column("acctsessionid")
+    account_unique_id: Mapped[str] = mapped_column("acctuniqueid")
+    username: Mapped[str]
+    # group_name = mapped_column("groupname", String)
+    realm: Mapped[str]
+    nas_ip_address: Mapped[str] = mapped_column("nasipaddress")
+    nas_port_id: Mapped[str] = mapped_column("nasportid")
+    nas_port_type: Mapped[str] = mapped_column("nasporttype")
+    account_start_time: Mapped[datetime] = mapped_column("acctstarttime")
+    account_update_time: Mapped[datetime] = mapped_column("acctupdatetime")
+    account_stop_time: Mapped[datetime] = mapped_column("acctstoptime")
+    account_interval: Mapped[int] = mapped_column("acctinterval")
+    account_session_time: Mapped[int] = mapped_column("acctsessiontime")
+    account_authentic: Mapped[str] = mapped_column("acctauthentic")
+    connectinfo_start: Mapped[str]
+    connectinfo_stop: Mapped[str]
+    account_input_octets: Mapped[int] = mapped_column("acctinputoctets")
+    account_output_octets: Mapped[int] = mapped_column("acctoutputoctets")
+    called_station_id: Mapped[str] = mapped_column("calledstationid")
+    calling_station_id: Mapped[str] = mapped_column("callingstationid")
+    account_terminate_cause: Mapped[str] = mapped_column("acctterminatecause")
+    service_type: Mapped[str] = mapped_column("servicetype")
+    framedprotocol: Mapped[str]
+    framedipaddress: Mapped[str]

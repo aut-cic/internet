@@ -35,7 +35,7 @@ class AccountingService:
         # usage and usage_history from radius daily table
         usage_history: list[UsageRecord] = []
         usage: Usage = Usage()
-        statement = (
+        statement_1 = (
             select(RadiusDaily)
             .where(RadiusDaily.username == username)
             .where(
@@ -43,50 +43,51 @@ class AccountingService:
                 > (datetime.now() + timedelta(days=-30)).date()
             )
         )
-        for row in self.session.scalars(statement):
+        for row_1 in self.session.scalars(statement_1):
             usage_history.append(
                 UsageRecord(
-                    discount=row.usage_original - row.usage_discount,
-                    usage=row.usage_discount,
-                    created_date=row.create_date,
+                    discount=row_1.usage_original - row_1.usage_discount,
+                    usage=row_1.usage_discount,
+                    created_date=row_1.create_date,
                 )
             )
 
             usage.daily += (
-                row.usage_discount
-                if row.create_date
+                row_1.usage_discount
+                if row_1.create_date
                 > (datetime.now() + timedelta(days=-1)).date()
                 else 0
             )
             usage.weekly += (
-                row.usage_discount
-                if row.create_date
+                row_1.usage_discount
+                if row_1.create_date
                 > (datetime.now() + timedelta(days=-7)).date()
                 else 0
             )
-            usage.monthly += row.usage_discount
+            usage.monthly += row_1.usage_discount
 
         usage.free = usage.monthly
         usage_history.reverse()
 
         # sessions from radius account table
         sessions: list[IESession] = []
-        statement = (
+        statement_2 = (
             select(RadiusAccount)
             .where(RadiusAccount.username == username)
             .where(RadiusAccount.account_stop_time == None)
         )
-        for row in self.session.scalars(statement):
+        for row_2 in self.session.scalars(statement_2):
             sessions.append(
                 IESession(
-                    ip=row.framedipaddress,
-                    id=row.account_unique_id,
-                    time=row.account_start_time,
-                    usage=row.account_input_octets + row.account_output_octets,
+                    ip=row_2.framedipaddress,
+                    id=row_2.account_unique_id,
+                    time=row_2.account_start_time,
+                    usage=row_2.account_input_octets
+                    + row_2.account_output_octets,
                     # location information must calculate
                     # based on ip address.
                     location=location
-                    if (location := lookup(row.framedipaddress)) is not None
+                    if (location := lookup(row_2.framedipaddress)) is not None
                     else "-",
                     is_current=False,
                 )
@@ -95,24 +96,24 @@ class AccountingService:
         # user's groupname
         group_name = ""
         package: Package = Package()
-        statement = select(RadiusUserGroup).where(
+        statement_3 = select(RadiusUserGroup).where(
             RadiusUserGroup.username == username
         )
-        row = self.session.scalars(statement).first()
-        if row is not None:
-            group_name = row.group_name
+        row_3 = self.session.scalars(statement_3).first()
+        if row_3 is not None:
+            group_name = row_3.group_name
             # gather packages for the group
-            statement = select(RadiusPackages).where(
+            statement_4 = select(RadiusPackages).where(
                 RadiusPackages.group_name
                 == group_name.split("-", maxsplit=1)[0]
             )
-            row = self.session.scalars(statement).first()
-            if row is not None:
+            row_4 = self.session.scalars(statement_4).first()
+            if row_4 is not None:
                 package = Package(
-                    daily_volume=row.daily_volume,
-                    weekly_volume=row.weekly_volume,
-                    monthly_volume=row.monthly_volume,
-                    free_volume=4 * row.monthly_volume,
+                    daily_volume=row_4.daily_volume,
+                    weekly_volume=row_4.weekly_volume,
+                    monthly_volume=row_4.monthly_volume,
+                    free_volume=4 * row_4.monthly_volume,
                 )
 
         return Report(

@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Date, Integer, String
+from sqlalchemy.orm import Mapped, mapped_column
+from datetime import date
 
 from . import Base
 
@@ -7,8 +8,8 @@ from . import Base
 class RadiusDaily(Base):
     __tablename__ = "raddaily"
 
-    id = Column(Integer, primary_key=True)
-    username = Column(String)
-    usage_original = Column("usageorig", Integer)
-    usage_discount = Column("usagediscount", Integer)
-    create_date = Column("createddate", Date)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str]
+    usage_original: Mapped[int] = mapped_column("usageorig")
+    usage_discount: Mapped[int] = mapped_column("usagediscount")
+    create_date: Mapped[date] = mapped_column("createddate")

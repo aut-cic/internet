@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy.orm import Mapped, mapped_column
 
 from . import Base
 
@@ -7,8 +7,8 @@ from . import Base
 class RadiusUserGroup(Base):
     __tablename__ = "radusergroup"
 
-    id = Column(Integer, primary_key=True)
-    username = Column(String)
-    group_name = Column("groupname", String)
-    priority = Column(Integer)
-    # update_time = Column(DateTime)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str]
+    group_name: Mapped[str] = mapped_column("groupname")
+    priority: Mapped[int]
+    # update_time: Mapped[datetime]
