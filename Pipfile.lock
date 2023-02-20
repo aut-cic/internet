@@ -1183,12 +1183,12 @@
         },
         "pyre-check": {
             "hashes": [
-                "sha256:0219bedb594470c271221a750116f7a0d2705f8e3bed1274c2d7574835fa6281",
-                "sha256:533ea8035f1ac519db429a2eee665f5b416dfae27dcf0589a7922ca8c3d1c8fe",
-                "sha256:bd370c44041610d861bbc117e9caafd3fe267b057b7c0450af15b01037c204cb"
+                "sha256:22633f5af3b986d266451a9e386a32414f8868de0a94226c7766f81eb080c59d",
+                "sha256:5659d4dbd6d1dd3052359861d828419f07d1ced1dad4ce4ca79071d252699c26",
+                "sha256:d5eb6db9011a7207189ecd0eaf32951e46cb0769c0f96a78fd0b90e633c9df2c"
             ],
             "index": "pypi",
-            "version": "==0.9.17"
+            "version": "==0.9.18"
         },
         "pyre-extensions": {
             "hashes": [
