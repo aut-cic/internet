@@ -13,6 +13,8 @@ This service with the help of a MicroTik switch and Radius server meters student
 login page which is served by this server, fowards credentials to the MicroTik server and then uses
 Radius information based on request's IP address to find out about internet usage status.
 
+![internet.drawio](./.github/assests/internet.drawio.png)
+
 ## How to run locally
 
 For testing and development this server needs a free-radius database but here I created a `migrations` folder
