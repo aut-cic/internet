@@ -217,11 +217,14 @@
                       family: "'Vazirmatn FD'",
                     },
                     callbacks: {
+                      // Returns text to render for an individual item in the tooltip.
                       label: function(context) {
                         return humanFileSize(context.raw);
                       },
+                      // Returns text to render as the footer of the tooltip.
+                      // Footer is the same for all of the datasets.
                       footer: function(context) {
-                        return humanFileSize(context.raw);
+                        return humanFileSize(context[0].raw + context[1].raw);
                       }
                     },
                   },
