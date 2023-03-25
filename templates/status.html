@@ -192,21 +192,39 @@
     new Chart(document.getElementById("usageChart"), {
           type: 'bar',
           data: {
-                labels: {{ history.labels | safe }},
-                datasets: [{
-                      label: 'میزان مصرف ثبت شده',
-                      data: {{ history.usage | safe }},
-                      backgroundColor: "rgba(31,119,180,0.8)",
-                    },
-                    {
-                      label: 'میزان مصرف تخفیف خورده',
-                      data: {{ history.discount | safe }},
-                      backgroundColor:"rgba(254,127,14,0.8)",
-                    }]
-              },
+            labels: {{ history.labels | safe }},
+            datasets: [{
+              label: 'میزان مصرف ثبت شده',
+              data: {{ history.usage | safe }},
+              backgroundColor: "rgba(31,119,180,0.8)",
+            },
+            {
+              label: 'میزان مصرف تخفیف خورده',
+              data: {{ history.discount | safe }},
+              backgroundColor:"rgba(254,127,14,0.8)",
+            }]
+          },
           options: {
                 responsive: true,
                 plugins: {
+                  tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    bodyFont: {
+                      family: "'Vazirmatn FD'",
+                    },
+                    footerFont: {
+                      family: "'Vazirmatn FD'",
+                    },
+                    callbacks: {
+                      label: function(context) {
+                        return humanFileSize(context.raw);
+                      },
+                      footer: function(context) {
+                        return humanFileSize(context.raw);
+                      }
+                    },
+                  },
                   legend: {
                     labels: {
                       font: {
@@ -216,44 +234,26 @@
                   },
                 },
                 scales: {
-                      y: {
-                            stacked: true,
-                            ticks: {
-                              callback: function (label, index, labels) {
-                                return humanFileSize(label)
-                              },
-                              font: {
-                                family: "'Vazirmatn FD'"
-                              },
-                            },
-                          },
-                      x: {
-                            stacked: true,
-                            ticks: {
-                              font: {
-                                family: "'Vazirmatn FD'"
-                              },
-                            },
-                          }
-                    },
-                tooltips: {
-                      mode: 'index',
-                      intersect: false,
-                      bodyFont: {
-                        family: "'Vazirmatn FD'",
+                  y: {
+                    stacked: true,
+                    ticks: {
+                      callback: function (label, index, labels) {
+                        return humanFileSize(label)
                       },
-                      footerFont: {
-                        family: "'Vazirmatn FD'",
+                      font: {
+                        family: "'Vazirmatn FD'"
                       },
-                      callbacks: {
-                            label: function(tooltipItem, data) {
-                                  return humanFileSize(tooltipItem.yLabel);
-                                },
-                            footer: function(tooltipItems, data) {
-                                  return humanFileSize(tooltipItems[0].yLabel+tooltipItems[1].yLabel);
-                                },
-                          },
                     },
+                  },
+                  x: {
+                    stacked: true,
+                    ticks: {
+                      font: {
+                        family: "'Vazirmatn FD'"
+                      },
+                    },
+                  }
+                }
               }
         });
     </script>
