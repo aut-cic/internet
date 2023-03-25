@@ -1,8 +1,7 @@
 --
 -- Table structure for table `raddaily`
 --
-DROP TABLE
-  IF EXISTS `raddaily`;
+DROP TABLE IF EXISTS `raddaily`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
@@ -31,29 +30,35 @@ LOCK TABLES `raddaily` WRITE;
 INSERT INTO
   `raddaily`
 VALUES
-  (399, 'parham.alvani', 51465, 51465, '2020-11-02'),
+  (399, 'parham.alvani', 51465, 51465, CURDATE()),
   (
     16355,
     'parham.alvani',
     88199357,
     88168952,
-    '2020-11-11'
+    DATE_SUB(CURDATE(), INTERVAL 1 DAY)
   ),
   (
     1897,
     'parham.alvani',
     68497715,
     68408799,
-    '2020-11-03'
+    DATE_SUB(CURDATE(), INTERVAL 2 DAY)
   ),
   (
     3012,
     'parham.alvani',
     3664185241,
     1772631461,
-    '2020-11-04'
+    DATE_SUB(CURDATE(), INTERVAL 5 DAY)
   ),
-  (4679, 'bbakhshi', 38549530, 16896149, '2020-11-05'),
+  (
+    4679,
+    'bbakhshi',
+    38549530,
+    16896149,
+    '2020-11-05'
+  ),
   (
     4569,
     'parham.alvani',
