@@ -1,7 +1,8 @@
+{% if username %}
 <div class="d-flex" style="height: 200px;">
   <div class="vr"></div>
 </div>
-<nav class="navbar position-absolute end-0 bottom-0 bg-body-tertiary">
+<nav class="navbar bg-body-tertiary">
   <div class="d-flex justify-content-center w-100 text-white">
     <div>
       <p class="text-center mb-1">
@@ -10,9 +11,11 @@
       دانشگاه صنعتی امیرکبیر
       </p>
       <p class="text-center mb-0">
-      <a href="https://github.com/aut-cic/internet">
-        <i class="fs-6 bi bi-github"></i>
-      </a>
+        <a href="https://github.com/aut-cic/internet">
+          <i class="fs-6 bi bi-github"></i>
+        </a>
+      </p>
     </div>
   </div>
 </nav>
+{% endif %}
