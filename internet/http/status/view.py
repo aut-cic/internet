@@ -61,9 +61,7 @@ def to_frontend_usage_history(
                 "date": jdatetime.date.fromgregorian(
                     date=record.created_date,
                 ).strftime("%d/%m/%Y"),
-                "usageHuman": bytes_to_str(record.usage),
                 "usage": record.usage,
-                "discountHuman": bytes_to_str(record.discount),
                 "discount": record.discount,
             }
         )
