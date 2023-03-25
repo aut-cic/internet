@@ -2,13 +2,7 @@ body,
 html {
   background-color: #f3eff5;
 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: cover;
-
-  image-rendering: crisp-edges;
-  -webkit-font-smoothing: antialiased;
 
   margin: 0;
   width: 100vw;
@@ -22,12 +16,12 @@ body {
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
+  min-height: 100%;
 }
 
 .app-container {
   width: 100%;
+  min-height: 100%;
 }
 
 .app-top,
