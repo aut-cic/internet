@@ -5,6 +5,11 @@ from sqlalchemy.future import Engine
 from internet.http.site.view import index, bp as site_bp
 from internet.http.status.view import bp as status_bp
 
+from prometheus_client import start_http_server
+
+# Start the Prometheus metrics server
+start_http_server(1373)
+
 
 def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
     """
