@@ -4,7 +4,7 @@ runs internet server
 
 from rich import pretty
 from sqlalchemy import create_engine
-from prometheus_client import start_http_server
+import prometheus_client
 
 import internet.conf
 import internet.http.main
@@ -34,7 +34,7 @@ app = internet.http.main.create_app(cfg.login_url, cfg.logout_url, engine)
 
 if __name__ == "__main__":
     # start the Prometheus metrics server
-    start_http_server(1373)
+    prometheus_client.start_http_server(1373)
 
     app.run(
         host=cfg.listen.host,

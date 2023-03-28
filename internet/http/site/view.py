@@ -22,7 +22,11 @@ from prometheus_client import Counter
 bp = sanic.Blueprint("site", url_prefix="/")
 
 # Define a counter metric
-REQUEST_COUNTER = Counter('requests_total', 'Total number of requests received')
+REQUEST_COUNTER = Counter(
+    "requests_total",
+    "Total number of requests received",
+    ["action"],
+)
 
 
 # pyre-ignore[56]

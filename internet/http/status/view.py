@@ -9,12 +9,17 @@ from sanic.log import logger
 from sanic.response import redirect
 from sanic_ext import render
 from sqlalchemy.orm import Session
+from prometheus_client import Histogram
 
 from internet.accounting.acct import AccountingService
 from internet.accounting.usage import Report
 from internet.accounting.usage import Session as IESession
 from internet.accounting.usage import UsageRecord, UsageType, bytes_to_str
 from internet.announcements import announcements
+
+REQUEST_LATENCY = Histogram(
+    "request_latency_seconds", "Description of histogram"
+)
 
 jdatetime.set_locale("fa_IR")
 
@@ -171,6 +176,7 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
 
 # pyre-ignore[56]
 @bp.route("/status", methods=["GET"], name="status")
+@REQUEST_LATENCY.time()
 async def status(request: sanic.Request) -> sanic.HTTPResponse:
     """
     status gather all the information into a frontend-compatible
