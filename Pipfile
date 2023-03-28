@@ -13,6 +13,7 @@ pymysql = "*"
 jdatetime = "*"
 httpx = "*"
 cryptography = "*"
+prometheus-client = "*"
 
 [dev-packages]
 pytest = "*"
