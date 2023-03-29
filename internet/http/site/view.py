@@ -15,18 +15,10 @@ from sanic_ext import render
 
 from internet.accounting.acct import AccountingService
 from internet.message.message import MESSAGES, LANGS
-
-from prometheus_client import Counter
+from internet.metrics import REQUEST_COUNTER
 
 
 bp = sanic.Blueprint("site", url_prefix="/")
-
-# Define a counter metric
-REQUEST_COUNTER = Counter(
-    "requests_total",
-    "Total number of requests received",
-    ["action"],
-)
 
 
 # pyre-ignore[56]
@@ -61,7 +53,7 @@ async def index(request: sanic.Request, _=None) -> sanic.HTTPResponse:
             return redirect(request.url_for("status.status"))
 
     # Increment the request counter
-    REQUEST_COUNTER.inc()
+    REQUEST_COUNTER.labels("site", "login").inc()
     return await render(
         "index.html",
         context={

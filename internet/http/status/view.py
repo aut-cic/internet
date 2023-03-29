@@ -1,4 +1,5 @@
 import math
+import time
 import random
 import typing
 
@@ -9,17 +10,13 @@ from sanic.log import logger
 from sanic.response import redirect
 from sanic_ext import render
 from sqlalchemy.orm import Session
-from prometheus_client import Histogram
 
 from internet.accounting.acct import AccountingService
 from internet.accounting.usage import Report
 from internet.accounting.usage import Session as IESession
 from internet.accounting.usage import UsageRecord, UsageType, bytes_to_str
+from internet.metrics import REQUEST_LATENCY, REQUEST_COUNTER
 from internet.announcements import announcements
-
-REQUEST_LATENCY = Histogram(
-    "request_latency_seconds", "Description of histogram"
-)
 
 jdatetime.set_locale("fa_IR")
 
@@ -176,12 +173,13 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
 
 # pyre-ignore[56]
 @bp.route("/status", methods=["GET"], name="status")
-@REQUEST_LATENCY.time()
 async def status(request: sanic.Request) -> sanic.HTTPResponse:
     """
     status gather all the information into a frontend-compatible
     way to serve /status page.
     """
+    start = time.time()
+
     user_ip = request.remote_addr or request.ip
     engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
 
@@ -221,6 +219,9 @@ async def status(request: sanic.Request) -> sanic.HTTPResponse:
             history["labels"].append(record["date"])
             history["discount"].append(record["discount"])
             history["usage"].append(record["usage"])
+
+        REQUEST_COUNTER.labels("status", "status").inc()
+        REQUEST_LATENCY.labels("status", "status").observe(time.time() - start)
 
         return await render(
             "status.html",
