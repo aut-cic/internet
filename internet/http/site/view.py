@@ -4,6 +4,7 @@ that sends request into free-radius server and logout
 a route without any html/css.
 """
 import typing
+import time
 
 import httpx
 import sanic
@@ -15,7 +16,7 @@ from sanic_ext import render
 
 from internet.accounting.acct import AccountingService
 from internet.message.message import MESSAGES, LANGS
-from internet.metrics import REQUEST_COUNTER
+from internet.metrics import REQUEST_COUNTER, REQUEST_LATENCY
 
 
 bp = sanic.Blueprint("site", url_prefix="/")
@@ -35,6 +36,7 @@ async def index(request: sanic.Request, _=None) -> sanic.HTTPResponse:
 
     and devices like ios needs to get 200 response.
     """
+    start = time.time()
     user_ip = request.remote_addr or request.ip
 
     logger.info("login request from %s", user_ip)
@@ -50,10 +52,16 @@ async def index(request: sanic.Request, _=None) -> sanic.HTTPResponse:
     with Session(engine) as session:
         usage = AccountingService(session)
         if usage.ip_to_username(user_ip) is not None:
+            REQUEST_COUNTER.labels("site", "login").inc()
+            REQUEST_LATENCY.labels("site", "login").observe(
+                time.time() - start
+            )
+
             return redirect(request.url_for("status.status"))
 
-    # Increment the request counter
     REQUEST_COUNTER.labels("site", "login").inc()
+    REQUEST_LATENCY.labels("site", "login").observe(time.time() - start)
+
     return await render(
         "index.html",
         context={
@@ -75,6 +83,8 @@ async def logout(request: sanic.Request, sid: str) -> sanic.HTTPResponse:
     logout_url = typing.cast(str, request.app.ctx.logout_url)
     logger.info("logout request for %s", sid)
 
+    start = time.time()
+
     try:
         async with httpx.AsyncClient() as client:
             if not await client.get(f"{logout_url}/{sid}"):
@@ -87,5 +97,8 @@ async def logout(request: sanic.Request, sid: str) -> sanic.HTTPResponse:
             sid,
             repr(exception),
         )
+
+    REQUEST_COUNTER.labels("site", "logout").inc()
+    REQUEST_LATENCY.labels("site", "logout").observe(time.time() - start)
 
     return redirect(request.url_for("site.login"))
