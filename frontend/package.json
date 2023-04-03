@@ -16,7 +16,7 @@
     "chart.js": "^4.2.1",
     "css-loader": "^6.7.3",
     "sass": "^1.59.3",
-    "sass-loader": "^13.2.1",
+    "sass-loader": "^13.2.2",
     "style-loader": "^3.3.2",
     "svg-gauge": "^1.0.7",
     "vazirmatn": "^33.0.3",
