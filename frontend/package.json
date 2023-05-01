@@ -13,7 +13,7 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
-    "chart.js": "^4.2.1",
+    "chart.js": "^4.3.0",
     "css-loader": "^6.7.3",
     "sass": "^1.62.1",
     "sass-loader": "^13.2.2",
