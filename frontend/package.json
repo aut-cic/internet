@@ -21,7 +21,7 @@
     "svg-gauge": "^1.0.7",
     "vazirmatn": "^33.0.3",
     "webpack": "^5.82.0",
-    "webpack-cli": "^5.1.0"
+    "webpack-cli": "^5.1.1"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.6",
