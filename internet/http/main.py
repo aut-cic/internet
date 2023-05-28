@@ -1,9 +1,18 @@
 import sanic
 from sanic.exceptions import NotFound
-from sqlalchemy.future import Engine
+from sanic.response import redirect
+from sqlalchemy.engine import Engine
 
-from internet.http.site.view import index, bp as site_bp
+from internet.http.site.view import bp as site_bp
 from internet.http.status.view import bp as status_bp
+from internet.model.urls import URLs
+
+
+async def ignore_404s(request: sanic.Request, _: sanic.SanicException):
+    '''
+    redirects all not founds into the login page.
+    '''
+    return redirect(request.url_for("site.login"))
 
 
 def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
@@ -11,9 +20,8 @@ def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
     create sanic application and inject dependencies into context
     """
     app = sanic.Sanic("internet")
-    app.ctx.login_url = login_url
-    app.ctx.logout_url = logout_url
-    app.ctx.engine = engine
+    app.ext.dependency(engine)
+    app.ext.dependency(URLs(login_url, logout_url))
 
     # configuration for using internet service behind nginx
     app.config.PROXIES_COUNT = 1
@@ -22,7 +30,7 @@ def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
     app.blueprint(site_bp)
     app.blueprint(status_bp)
 
-    app.error_handler.add(NotFound, index)
+    app.error_handler.add(NotFound, ignore_404s)
 
     app.static(
         "/static", "./frontend/dist", name="static", stream_large_files=True

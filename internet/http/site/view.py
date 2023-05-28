@@ -3,7 +3,6 @@ login and logout routes. login route returns a page
 that sends request into free-radius server and logout
 a route without any html/css.
 """
-import typing
 import time
 
 import httpx
@@ -17,6 +16,7 @@ from sanic_ext import render
 from internet.accounting.acct import AccountingService
 from internet.message.message import MESSAGES, LANGS
 from internet.metrics import REQUEST_COUNTER, REQUEST_LATENCY
+from internet.model.urls import URLs
 
 
 bp = sanic.Blueprint("site", url_prefix="/")
@@ -24,7 +24,7 @@ bp = sanic.Blueprint("site", url_prefix="/")
 
 # pyre-ignore[56]
 @bp.route("/", methods=["GET"], name="login")
-async def index(request: sanic.Request, _=None) -> sanic.HTTPResponse:
+async def index(request: sanic.Request, engine: sqlalchemy.engine.Engine, urls: URLs) -> sanic.HTTPResponse:
     """
     login page that must be shown on every requests.
     because we need to show login page for all not found routes.
@@ -41,8 +41,6 @@ async def index(request: sanic.Request, _=None) -> sanic.HTTPResponse:
 
     logger.info("login request from %s", user_ip)
 
-    login_url = typing.cast(str, request.app.ctx.login_url)
-    engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
     dst: str = request.args.get("dst", "")
     error: str = request.args.get("error", "")
 
@@ -67,7 +65,7 @@ async def index(request: sanic.Request, _=None) -> sanic.HTTPResponse:
         context={
             "messages": {key: val[lang] for (key, val) in MESSAGES.items()},
             "error": error,
-            "login_url": login_url,
+            "login_url": urls.login_url,
             "dst": dst,
         },
         status=200,
@@ -76,18 +74,17 @@ async def index(request: sanic.Request, _=None) -> sanic.HTTPResponse:
 
 # pyre-ignore[56]
 @bp.route("/logout/<sid:str>", methods=["GET"], name="logout")
-async def logout(request: sanic.Request, sid: str) -> sanic.HTTPResponse:
+async def logout(request: sanic.Request, sid: str, urls: URLs) -> sanic.HTTPResponse:
     """
     logout with sending a request into free-radius
     """
-    logout_url = typing.cast(str, request.app.ctx.logout_url)
     logger.info("logout request for %s", sid)
 
     start = time.time()
 
     try:
         async with httpx.AsyncClient() as client:
-            if not await client.get(f"{logout_url}/{sid}"):
+            if not await client.get(f"{urls.logout_url}/{sid}"):
                 logger.error("logout request for %s failed", sid)
     except (httpx.ConnectTimeout, httpx.ConnectError) as exception:
         logger.error("logout request for %s failed (%s)", sid, repr(exception))

@@ -173,7 +173,7 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
 
 # pyre-ignore[56]
 @bp.route("/status", methods=["GET"], name="status")
-async def status(request: sanic.Request) -> sanic.HTTPResponse:
+async def status(request: sanic.Request, engine: sqlalchemy.engine.Engine) -> sanic.HTTPResponse:
     """
     status gather all the information into a frontend-compatible
     way to serve /status page.
@@ -181,7 +181,6 @@ async def status(request: sanic.Request) -> sanic.HTTPResponse:
     start = time.time()
 
     user_ip = request.remote_addr or request.ip
-    engine = typing.cast(sqlalchemy.future.Engine, request.app.ctx.engine)
 
     logger.info("status request from %s", user_ip)
 
