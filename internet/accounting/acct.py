@@ -39,8 +39,7 @@ class AccountingService:
             select(RadiusDaily)
             .where(RadiusDaily.username == username)
             .where(
-                RadiusDaily.create_date
-                > (datetime.now() + timedelta(days=-30)).date()
+                RadiusDaily.create_date > (datetime.now() + timedelta(days=-30)).date()
             )
         )
         for row_1 in self.session.scalars(statement_1):
@@ -54,14 +53,12 @@ class AccountingService:
 
             usage.daily += (
                 row_1.usage_discount
-                if row_1.create_date
-                > (datetime.now() + timedelta(days=-1)).date()
+                if row_1.create_date > (datetime.now() + timedelta(days=-1)).date()
                 else 0
             )
             usage.weekly += (
                 row_1.usage_discount
-                if row_1.create_date
-                > (datetime.now() + timedelta(days=-7)).date()
+                if row_1.create_date > (datetime.now() + timedelta(days=-7)).date()
                 else 0
             )
             usage.monthly += row_1.usage_discount
@@ -82,8 +79,7 @@ class AccountingService:
                     ip=row_2.framedipaddress,
                     id=row_2.account_unique_id,
                     time=row_2.account_start_time,
-                    usage=row_2.account_input_octets
-                    + row_2.account_output_octets,
+                    usage=row_2.account_input_octets + row_2.account_output_octets,
                     # location information must calculate
                     # based on ip address.
                     location=location
@@ -103,12 +99,9 @@ class AccountingService:
             group_name = row_3.group_name
             # gather packages for the group
             statement_4 = select(RadiusPackages).where(
-                RadiusPackages.group_name
-                == group_name.split("-", maxsplit=1)[0]
+                RadiusPackages.group_name == group_name.split("-", maxsplit=1)[0]
             )
-            if (
-                row_4 := self.session.scalars(statement_4).first()
-            ) is not None:
+            if (row_4 := self.session.scalars(statement_4).first()) is not None:
                 package = Package(
                     daily_volume=row_4.daily_volume,
                     weekly_volume=row_4.weekly_volume,

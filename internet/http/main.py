@@ -9,9 +9,9 @@ from internet.model.urls import URLs
 
 
 async def ignore_404s(request: sanic.Request, _: sanic.SanicException):
-    '''
+    """
     redirects all not founds into the login page.
-    '''
+    """
     return redirect(request.url_for("site.login"))
 
 
@@ -32,9 +32,7 @@ def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
 
     app.error_handler.add(NotFound, ignore_404s)
 
-    app.static(
-        "/static", "./frontend/dist", name="static", stream_large_files=True
-    )
+    app.static("/static", "./frontend/dist", name="static", stream_large_files=True)
     app.static("/public", "./public", name="public")
 
     return app

@@ -8,9 +8,7 @@ from . import Base
 class RadiusAccount(Base):
     __tablename__ = "radacct"
 
-    radius_account_id: Mapped[int] = mapped_column(
-        "radacctid", primary_key=True
-    )
+    radius_account_id: Mapped[int] = mapped_column("radacctid", primary_key=True)
     account_session_id: Mapped[str] = mapped_column("acctsessionid")
     account_unique_id: Mapped[str] = mapped_column("acctuniqueid")
     username: Mapped[str]

@@ -24,7 +24,9 @@ bp = sanic.Blueprint("site", url_prefix="/")
 
 # pyre-ignore[56]
 @bp.route("/", methods=["GET"], name="login")
-async def index(request: sanic.Request, engine: sqlalchemy.engine.Engine, urls: URLs) -> sanic.HTTPResponse:
+async def index(
+    request: sanic.Request, engine: sqlalchemy.engine.Engine, urls: URLs
+) -> sanic.HTTPResponse:
     """
     login page that must be shown on every requests.
     because we need to show login page for all not found routes.
@@ -51,9 +53,7 @@ async def index(request: sanic.Request, engine: sqlalchemy.engine.Engine, urls: 
         usage = AccountingService(session)
         if usage.ip_to_username(user_ip) is not None:
             REQUEST_COUNTER.labels("site", "login").inc()
-            REQUEST_LATENCY.labels("site", "login").observe(
-                time.time() - start
-            )
+            REQUEST_LATENCY.labels("site", "login").observe(time.time() - start)
 
             return redirect(request.url_for("status.status"))
 

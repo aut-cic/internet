@@ -105,8 +105,7 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
         match usage_type:
             case UsageType.DAILY:
                 percent = (
-                    report.usage.daily
-                    / (report.package.daily_volume * (1024**3))
+                    report.usage.daily / (report.package.daily_volume * (1024**3))
                 ) * 100
                 usage = bytes_to_str(report.usage.daily, "en")
                 usage_number = report.usage.daily
@@ -116,34 +115,25 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
                 )
             case UsageType.WEEKLY:
                 percent = (
-                    report.usage.weekly
-                    / (report.package.weekly_volume * (1024**3))
+                    report.usage.weekly / (report.package.weekly_volume * (1024**3))
                 ) * 100
                 usage = bytes_to_str(report.usage.weekly, "en")
                 usage_number = report.usage.weekly
-                total = bytes_to_str(
-                    report.package.weekly_volume * (1024**3), "en"
-                )
+                total = bytes_to_str(report.package.weekly_volume * (1024**3), "en")
             case UsageType.MONTHLY:
                 percent = (
-                    report.usage.monthly
-                    / (report.package.monthly_volume * (1024**3))
+                    report.usage.monthly / (report.package.monthly_volume * (1024**3))
                 ) * 100
                 usage = bytes_to_str(report.usage.monthly, "en")
                 usage_number = report.usage.monthly
-                total = bytes_to_str(
-                    report.package.monthly_volume * (1024**3), "en"
-                )
+                total = bytes_to_str(report.package.monthly_volume * (1024**3), "en")
             case UsageType.FREE:
                 percent = (
-                    report.usage.free
-                    / (report.package.free_volume * (1024**3))
+                    report.usage.free / (report.package.free_volume * (1024**3))
                 ) * 100
                 usage = bytes_to_str(report.usage.free, "en")
                 usage_number = report.usage.free
-                total = bytes_to_str(
-                    report.package.free_volume * (1024**3), "en"
-                )
+                total = bytes_to_str(report.package.free_volume * (1024**3), "en")
     except ZeroDivisionError:
         percent = 100
 
@@ -173,7 +163,9 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
 
 # pyre-ignore[56]
 @bp.route("/status", methods=["GET"], name="status")
-async def status(request: sanic.Request, engine: sqlalchemy.engine.Engine) -> sanic.HTTPResponse:
+async def status(
+    request: sanic.Request, engine: sqlalchemy.engine.Engine
+) -> sanic.HTTPResponse:
     """
     status gather all the information into a frontend-compatible
     way to serve /status page.

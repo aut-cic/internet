@@ -59,12 +59,8 @@ def load() -> Config:
             Validator("database.host", is_type_of=(str), default="127.0.0.1"),
             Validator("database.port", is_type_of=(int), default=3306),
             Validator("database.database", is_type_of=(str), default="radius"),
-            Validator(
-                "database.username", is_type_of=(str), default="opnsense"
-            ),
-            Validator(
-                "database.password", is_type_of=(str), default="opnsense%40123"
-            ),
+            Validator("database.username", is_type_of=(str), default="opnsense"),
+            Validator("database.password", is_type_of=(str), default="opnsense%40123"),
             Validator("listen.port", is_type_of=(int), default=1378),
             Validator("listen.host", is_type_of=(str), default="0.0.0.0"),
             Validator("listen.fast", is_type_of=(bool), default=False),
