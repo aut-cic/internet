@@ -13,7 +13,7 @@ from internet.accounting.usage import Report, UsageType
 from internet.http.status.view import to_frontend_package, to_frontend_session
 
 
-def ip_to_username_with_taheri():
+def ip_to_username_with_taheri() -> None:
     """
     convert mr.taheri machine ip address into username
     """
@@ -29,7 +29,7 @@ def ip_to_username_with_taheri():
         pretty.pprint(username)
 
 
-def account_usage():
+def account_usage() -> None:
     """
     for hands-on testing on production environment with radius database.
     replace engine url with the production url before any testing.
@@ -49,8 +49,8 @@ def account_usage():
     for usage_type in UsageType:
         pretty.pprint(to_frontend_package(report, usage_type))
 
-    for session in report.sessions:
-        pretty.pprint(to_frontend_session(session, "172.25.125.2"))
+    for internet_session in report.sessions:
+        pretty.pprint(to_frontend_session(internet_session, "172.25.125.2"))
 
 
 if __name__ == "__main__":
