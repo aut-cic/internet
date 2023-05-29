@@ -10,7 +10,7 @@
   "author": "Parham Alvani",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@popperjs/core": "^2.11.6",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "chart.js": "^4.3.0",
