@@ -12,7 +12,7 @@ async def ignore_404s(request: sanic.Request, _: sanic.SanicException):
     """
     redirects all not founds into the login page.
     """
-    return redirect(request.url_for("site.login"))
+    return redirect(request.url_for("site.login", path=""))
 
 
 def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
