@@ -47,7 +47,7 @@ async def logout(request: sanic.Request, sid: str, urls: URLs) -> sanic.HTTPResp
     REQUEST_COUNTER.labels("site", "logout").inc()
     REQUEST_LATENCY.labels("site", "logout").observe(time.time() - start)
 
-    return redirect(request.url_for("site.login"))
+    return redirect(request.url_for("site.login", path=""))
 
 # pyre-ignore[56]
 @bp.route("/<path:path>", methods=["GET"], name="login")
