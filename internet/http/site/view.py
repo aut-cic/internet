@@ -21,6 +21,33 @@ from internet.model.urls import URLs
 
 bp = sanic.Blueprint("site", url_prefix="/")
 
+# pyre-ignore[56]
+@bp.route("/logout/<sid:str>", methods=["GET"], name="logout")
+async def logout(request: sanic.Request, sid: str, urls: URLs) -> sanic.HTTPResponse:
+    """
+    logout with sending a request into free-radius
+    """
+    logger.info("logout request for %s", sid)
+
+    start = time.time()
+
+    try:
+        async with httpx.AsyncClient() as client:
+            if not await client.get(f"{urls.logout_url}/{sid}"):
+                logger.error("logout request for %s failed", sid)
+    except (httpx.ConnectTimeout, httpx.ConnectError) as exception:
+        logger.error("logout request for %s failed (%s)", sid, repr(exception))
+    except (httpx.ReadTimeout, httpx.ReadError) as exception:
+        logger.error(
+            "logout request success but there is an issue for reading %s (%s)",
+            sid,
+            repr(exception),
+        )
+
+    REQUEST_COUNTER.labels("site", "logout").inc()
+    REQUEST_LATENCY.labels("site", "logout").observe(time.time() - start)
+
+    return redirect(request.url_for("site.login"))
 
 # pyre-ignore[56]
 @bp.route("/<path:path>", methods=["GET"], name="login")
@@ -71,32 +98,3 @@ async def index(
         },
         status=200,
     )
-
-
-# pyre-ignore[56]
-@bp.route("/logout/<sid:str>", methods=["GET"], name="logout")
-async def logout(request: sanic.Request, sid: str, urls: URLs) -> sanic.HTTPResponse:
-    """
-    logout with sending a request into free-radius
-    """
-    logger.info("logout request for %s", sid)
-
-    start = time.time()
-
-    try:
-        async with httpx.AsyncClient() as client:
-            if not await client.get(f"{urls.logout_url}/{sid}"):
-                logger.error("logout request for %s failed", sid)
-    except (httpx.ConnectTimeout, httpx.ConnectError) as exception:
-        logger.error("logout request for %s failed (%s)", sid, repr(exception))
-    except (httpx.ReadTimeout, httpx.ReadError) as exception:
-        logger.error(
-            "logout request success but there is an issue for reading %s (%s)",
-            sid,
-            repr(exception),
-        )
-
-    REQUEST_COUNTER.labels("site", "logout").inc()
-    REQUEST_LATENCY.labels("site", "logout").observe(time.time() - start)
-
-    return redirect(request.url_for("site.login"))
