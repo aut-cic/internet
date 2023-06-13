@@ -21,9 +21,12 @@ from internet.model.urls import URLs
 
 bp = sanic.Blueprint("site", url_prefix="/")
 
+
 # pyre-ignore[56]
 @bp.route("/logout/<sid:str>", methods=["GET"], name="logout")
-async def logout(request: sanic.Request, sid: str, urls: URLs) -> sanic.HTTPResponse:
+async def logout(
+    request: sanic.Request, sid: str, urls: URLs
+) -> sanic.HTTPResponse:
     """
     logout with sending a request into free-radius
     """
@@ -47,13 +50,35 @@ async def logout(request: sanic.Request, sid: str, urls: URLs) -> sanic.HTTPResp
     REQUEST_COUNTER.labels("site", "logout").inc()
     REQUEST_LATENCY.labels("site", "logout").observe(time.time() - start)
 
-    return redirect(request.url_for("site.login", path=""))
+    return redirect(request.url_for("site.login"))
+
+
+async def ignore_404s(
+    request: sanic.Request,
+    _: sanic.SanicException,
+):
+    logger.info("redirect 404 users from %s", request.path)
+
+    return await render(
+        "redirect.html",
+        status=200,
+    )
+
 
 # pyre-ignore[56]
-@bp.route("/<path:path>", methods=["GET"], name="login")
+@bp.route("/", methods=["GET"], name="login")
 async def index(
-    request: sanic.Request, path: str,
-    engine: sqlalchemy.engine.Engine, urls: URLs
+    request: sanic.Request,
+    engine: sqlalchemy.engine.Engine,
+    urls: URLs,
+) -> sanic.HTTPResponse:
+    return await login(request, engine, urls)
+
+
+async def login(
+    request: sanic.Request,
+    engine: sqlalchemy.engine.Engine,
+    urls: URLs,
 ) -> sanic.HTTPResponse:
     """
     login page that must be shown on every requests.
@@ -69,7 +94,7 @@ async def index(
     start = time.time()
     user_ip = request.remote_addr or request.ip
 
-    logger.info("login request from %s (path: %s)", user_ip, path)
+    logger.info("login request from %s", user_ip)
 
     dst: str = request.args.get("dst", "")
     error: str = request.args.get("error", "")
@@ -81,7 +106,9 @@ async def index(
         usage = AccountingService(session)
         if usage.ip_to_username(user_ip) is not None:
             REQUEST_COUNTER.labels("site", "login").inc()
-            REQUEST_LATENCY.labels("site", "login").observe(time.time() - start)
+            REQUEST_LATENCY.labels("site", "login").observe(
+                time.time() - start
+            )
 
             return redirect(request.url_for("status.status"))
 
