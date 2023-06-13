@@ -1,8 +1,7 @@
 import sanic
-from sanic.exceptions import NotFound
 from sqlalchemy.engine import Engine
 
-from internet.http.site.view import bp as site_bp, ignore_404s
+from internet.http.site.view import bp as site_bp
 from internet.http.status.view import bp as status_bp
 from internet.model.urls import URLs
 
@@ -21,8 +20,6 @@ def create_app(login_url: str, logout_url: str, engine: Engine) -> sanic.Sanic:
 
     app.blueprint(site_bp)
     app.blueprint(status_bp)
-
-    app.error_handler.add(NotFound, ignore_404s)
 
     app.static(
         "/static", "./frontend/dist", name="static", stream_large_files=True

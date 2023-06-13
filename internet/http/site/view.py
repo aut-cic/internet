@@ -53,27 +53,13 @@ async def logout(
     return redirect(request.url_for("site.login"))
 
 
-async def ignore_404s(
-    request: sanic.Request,
-    _: sanic.SanicException,
-):
-    """
-    ignore not found pages by using redirect based on html.
-    """
-    logger.info("redirect 404 users from %s", request.path)
-
-    return await render(
-        "redirect.html",
-        status=200,
-    )
-
-
 # pyre-ignore[56]
-@bp.route("/", methods=["GET"], name="login")
+@bp.route("/<path:path>", methods=["GET", "POST"], name="login")
 async def index(
     request: sanic.Request,
     engine: sqlalchemy.engine.Engine,
     urls: URLs,
+    path: str = "",
 ) -> sanic.HTTPResponse:
     """
     login page that must be shown on every requests.
@@ -89,7 +75,7 @@ async def index(
     start = time.time()
     user_ip = request.remote_addr or request.ip
 
-    logger.info("login request from %s", user_ip)
+    logger.info("login request from %s (path: %s)", user_ip, path)
 
     dst: str = request.args.get("dst", "")
     error: str = request.args.get("error", "")
