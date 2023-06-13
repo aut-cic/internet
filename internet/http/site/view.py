@@ -57,6 +57,9 @@ async def ignore_404s(
     request: sanic.Request,
     _: sanic.SanicException,
 ):
+    """
+    ignore not found pages by using redirect based on html.
+    """
     logger.info("redirect 404 users from %s", request.path)
 
     return await render(
@@ -68,14 +71,6 @@ async def ignore_404s(
 # pyre-ignore[56]
 @bp.route("/", methods=["GET"], name="login")
 async def index(
-    request: sanic.Request,
-    engine: sqlalchemy.engine.Engine,
-    urls: URLs,
-) -> sanic.HTTPResponse:
-    return await login(request, engine, urls)
-
-
-async def login(
     request: sanic.Request,
     engine: sqlalchemy.engine.Engine,
     urls: URLs,
