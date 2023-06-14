@@ -50,11 +50,15 @@ async def logout(
     REQUEST_COUNTER.labels("site", "logout").inc()
     REQUEST_LATENCY.labels("site", "logout").observe(time.time() - start)
 
-    return redirect(request.url_for("site.login"))
+    return redirect(request.url_for("site.login", path=""))
 
 
 # pyre-ignore[56]
-@bp.route("/<path:path>", methods=["GET", "POST"], name="login")
+@bp.route(
+    "/<path:path>",
+    methods=["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"],
+    name="login",
+)
 async def index(
     request: sanic.Request,
     engine: sqlalchemy.engine.Engine,
