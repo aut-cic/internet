@@ -26,7 +26,7 @@ dev cmd *flags:
     set -euxo pipefail
     if [ {{ cmd }} = 'down' ]; then
       docker compose -f ./docker-compose.yml down
-      docker compose -f ./deployments/docker-compose.yml rm
+      docker compose -f ./docker-compose.yml rm
     elif [ {{ cmd }} = 'up' ]; then
       docker compose -f ./docker-compose.yml up -d {{ flags }}
     else
