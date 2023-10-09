@@ -15,7 +15,7 @@
     "bootstrap-icons": "^1.11.1",
     "chart.js": "^4.4.0",
     "css-loader": "^6.7.4",
-    "sass": "^1.68.0",
+    "sass": "^1.69.0",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
     "svg-gauge": "^1.0.7",
