@@ -24,7 +24,7 @@
     "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
-    "@types/bootstrap": "^5.2.7",
+    "@types/bootstrap": "^5.2.8",
     "ts-loader": "^9.5.0",
     "typescript": "^5.2.2"
   }
