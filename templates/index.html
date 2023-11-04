@@ -32,7 +32,12 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label>{{ messages.password }}</label>
+                                    <label>
+                                        {{ messages.password }}
+                                        <small>
+                                            <a href="https://register.aut.ac.ir/forgot-password/index">({{ messages.forgot_password }})</a>
+                                        </small>
+                                    </label>
                                     <input dir="ltr"
                                            type="password"
                                            name="password"
