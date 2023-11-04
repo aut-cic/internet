@@ -14,7 +14,7 @@
                                     <label>
                                         {{ messages.email }}
                                         <small>
-                                            <a href="https://id.aut.ac.ir/ChangePassword">({{ messages.no_id }})</a>
+                                            <a href="https://register.aut.ac.ir/">({{ messages.no_id }})</a>
                                         </small>
                                     </label>
                                     <div class="input-group mb-3">
@@ -32,12 +32,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label>
-                                        {{ messages.password }}
-                                        <small>
-                                            <a href="https://register.aut.ac.ir/forgot-password/index">({{ messages.forgot_password }})</a>
-                                        </small>
-                                    </label>
+                                    <label>{{ messages.password }}</label>
                                     <input dir="ltr"
                                            type="password"
                                            name="password"
@@ -57,7 +52,6 @@
                             </form>
                         </div>
                         <div class="card-footer text-muted text-center d-flex justify-content-between">
-                            <a href="https://id.aut.ac.ir/ChangePassword">{{ messages.change_password }}</a>
                             <a href="/?lang={{ messages.other_lang_key }}">{{ messages.switch_lang }}</a>
                         </div>
                     </div>
