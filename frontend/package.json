@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.9",
-    "ts-loader": "^9.5.0",
+    "ts-loader": "^9.5.1",
     "typescript": "^5.2.2"
   }
 }
