@@ -6,7 +6,7 @@ COPY frontend .
 
 RUN npm install && npm run build
 
-FROM python:3.11-alpine
+FROM python:3.12-alpine
 
 RUN apk --no-cache add build-base
 
