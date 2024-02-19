@@ -10,17 +10,17 @@
   "author": "Parham Alvani",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@popperjs/core": "^2.11.6",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.1",
     "css-loader": "^6.10.0",
     "sass": "^1.71.0",
-    "sass-loader": "^14.1.0",
+    "sass-loader": "^14.1.1",
     "style-loader": "^3.3.4",
     "svg-gauge": "^1.0.7",
     "vazirmatn": "^33.0.3",
-    "webpack": "^5.90.2",
+    "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
