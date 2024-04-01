@@ -293,14 +293,22 @@
             "markers": "python_version >= '3.5'",
             "version": "==3.6"
         },
+        "jalali-core": {
+            "hashes": [
+                "sha256:84e6f5090eadfb35234f24fad084be831d00da3c0b238ee001e8a1fd49bf7924",
+                "sha256:f4287c70c630323dcf0a3ab26df905ba4d451e230ac1f65b3bb2f77797894a2b"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==1.0.0"
+        },
         "jdatetime": {
             "hashes": [
-                "sha256:1dd0ee210160c7bd30002803c443e6260ac602ea65b065652a1d567d3bfdca7a",
-                "sha256:8b56c702406eaf84d2ad673c41180488f8c77f156c3ac0630ce0caabaf6af5b8"
+                "sha256:2cc603d913c0d8e328928454d3d295261cb037e9950227f67c9629ab4710fdf9",
+                "sha256:37e23c710d7e9bde7c37d0cc3ff9e273323889790e902a1ef3ad99148f094fb9"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.7'",
-            "version": "==4.1.1"
+            "markers": "python_version >= '3.8'",
+            "version": "==5.0.0"
         },
         "jinja2": {
             "hashes": [
