@@ -42,8 +42,12 @@ class Config:
 
     listen: Listen = dataclasses.field(default_factory=Listen)
     database: Database = dataclasses.field(default_factory=Database)
-    login_url: str = "https://login.aut.ac.ir/login"
-    logout_url: str = "http://172.16.4.5:9090/logout"
+    login_urls: dict[str, str] = {
+        "1": "https://login.aut.ac.ir/login",
+    }
+    logout_urls: dict[str, str] = {
+        "1": "http://172.16.4.5:9090/logout",
+    }
 
 
 def load() -> Config:
@@ -66,14 +70,14 @@ def load() -> Config:
             Validator("listen.fast", is_type_of=(bool), default=False),
             Validator("listen.workers", is_type_of=(int), default=1),
             Validator(
-                "login_url",
-                is_type_of=(str),
-                default="https://login.aut.ac.ir/login",
+                "login_urls",
+                is_type_of=(dict[str, str]),
+                default={"1": "https://login.aut.ac.ir/login"},
             ),
             Validator(
                 "logout_url",
-                is_type_of=(str),
-                default="http://172.16.4.5:9090/logout",
+                is_type_of=(dict[str, str]),
+                default={"1": "http://172.16.4.5:9090/logout"},
             ),
         ],
     )
@@ -88,7 +92,7 @@ def load() -> Config:
     cfg.listen.host = settings["listen.host"]
     cfg.listen.workers = settings["listen.workers"]
     cfg.listen.fast = settings["listen.fast"]
-    cfg.login_url = settings["login_url"]
-    cfg.logout_url = settings["logout_url"]
+    cfg.login_urls = settings["login_urls"]
+    cfg.logout_urls = settings["logout_urls"]
 
     return cfg
