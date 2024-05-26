@@ -3,30 +3,28 @@ login and logout routes. login route returns a page
 that sends request into free-radius server and logout
 a route without any html/css.
 """
+
 import time
 
 import httpx
 import sanic
 import sqlalchemy.future
-from sqlalchemy.orm import Session
 from sanic.log import logger
 from sanic.response import redirect
 from sanic_ext import render
+from sqlalchemy.orm import Session
 
 from internet.accounting.acct import AccountingService
-from internet.message.message import MESSAGES, LANGS
+from internet.message.message import LANGS, MESSAGES
 from internet.metrics import REQUEST_COUNTER, REQUEST_LATENCY
 from internet.model.urls import URLs
-
 
 bp = sanic.Blueprint("site", url_prefix="/")
 
 
 # pyre-ignore[56]
 @bp.route("/logout/<sid:str>", methods=["GET"], name="logout")
-async def logout(
-    request: sanic.Request, sid: str, urls: URLs
-) -> sanic.HTTPResponse:
+async def logout(request: sanic.Request, sid: str, urls: URLs) -> sanic.HTTPResponse:
     """
     logout with sending a request into free-radius
     """
@@ -34,9 +32,11 @@ async def logout(
 
     start = time.time()
 
+    logout_url = urls.logout_urls[request.query_args.get("site", "1")]
+
     try:
         async with httpx.AsyncClient() as client:
-            if not await client.get(f"{urls.logout_url}/{sid}"):
+            if not await client.get(f"{logout_url}/{sid}"):
                 logger.error("logout request for %s failed", sid)
     except (httpx.ConnectTimeout, httpx.ConnectError) as exception:
         logger.error("logout request for %s failed (%s)", sid, repr(exception))
@@ -91,21 +91,21 @@ async def index(
         usage = AccountingService(session)
         if usage.ip_to_username(user_ip) is not None:
             REQUEST_COUNTER.labels("site", "login").inc()
-            REQUEST_LATENCY.labels("site", "login").observe(
-                time.time() - start
-            )
+            REQUEST_LATENCY.labels("site", "login").observe(time.time() - start)
 
             return redirect(request.url_for("status.status"))
 
     REQUEST_COUNTER.labels("site", "login").inc()
     REQUEST_LATENCY.labels("site", "login").observe(time.time() - start)
 
+    login_url = urls.login_urls[request.query_args.get("site", "1")]
+
     return await render(
         "index.html",
         context={
             "messages": {key: val[lang] for (key, val) in MESSAGES.items()},
             "error": error,
-            "login_url": urls.login_url,
+            "login_url": login_url,
             "dst": dst,
         },
         status=200,

@@ -7,5 +7,5 @@ class URLs:
     login and logout urls for injecting into services.
     """
 
-    login_url: str
-    logout_url: str
+    login_urls: dict[str, str]
+    logout_urls: dict[str, str]
