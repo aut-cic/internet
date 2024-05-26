@@ -42,12 +42,16 @@ class Config:
 
     listen: Listen = dataclasses.field(default_factory=Listen)
     database: Database = dataclasses.field(default_factory=Database)
-    login_urls: dict[str, str] = {
-        "1": "https://login.aut.ac.ir/login",
-    }
-    logout_urls: dict[str, str] = {
-        "1": "http://172.16.4.5:9090/logout",
-    }
+    login_urls: dict[str, str] = dataclasses.field(
+        default_factory=lambda: {
+            "1": "https://login.aut.ac.ir/login",
+        }
+    )
+    logout_urls: dict[str, str] = dataclasses.field(
+        default_factory=lambda: {
+            "1": "http://172.16.4.5:9090/logout",
+        }
+    )
 
 
 def load() -> Config:
