@@ -3,16 +3,17 @@ runs internet server
 """
 
 import os
-from rich import pretty
-from sqlalchemy import create_engine
-from sanic import raw
+
 import prometheus_client
 import prometheus_client.multiprocess
+from rich import pretty
+from sanic import raw
+from sqlalchemy import create_engine
 
+import internet.announcements
 import internet.conf
 import internet.http.main
 import internet.subnets
-import internet.announcements
 
 pretty.install()
 
@@ -32,7 +33,7 @@ engine = create_engine(
     pool_pre_ping=True,
 )
 
-app = internet.http.main.create_app(cfg.login_url, cfg.logout_url, engine)
+app = internet.http.main.create_app(cfg.login_urls, cfg.logout_urls, engine)
 
 os.environ["PROMETHEUS_MULTIPROC_DIR"] = "./prom"
 
