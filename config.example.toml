@@ -1,1 +1,2 @@
-login_url = "https://httpbin.org/post"
+login_urls:
+  1 = "https://httpbin.org/post"
