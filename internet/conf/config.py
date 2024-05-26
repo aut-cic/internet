@@ -75,12 +75,12 @@ def load() -> Config:
             Validator("listen.workers", is_type_of=(int), default=1),
             Validator(
                 "login_urls",
-                is_type_of=(dict[str, str]),
+                is_type_of=(dict),
                 default={"1": "https://login.aut.ac.ir/login"},
             ),
             Validator(
                 "logout_url",
-                is_type_of=(dict[str, str]),
+                is_type_of=(dict),
                 default={"1": "http://172.16.4.5:9090/logout"},
             ),
         ],
