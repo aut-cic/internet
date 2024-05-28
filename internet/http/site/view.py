@@ -32,7 +32,7 @@ async def logout(request: sanic.Request, sid: str, urls: URLs) -> sanic.HTTPResp
 
     start = time.time()
 
-    logout_url = urls.logout_urls[request.query_args.get("site", "1")]
+    logout_url = urls.logout_urls[request.args.get("site", "1")]
 
     try:
         async with httpx.AsyncClient() as client:
@@ -98,7 +98,7 @@ async def index(
     REQUEST_COUNTER.labels("site", "login").inc()
     REQUEST_LATENCY.labels("site", "login").observe(time.time() - start)
 
-    login_url = urls.login_urls[request.query_args.get("site", "1")]
+    login_url = urls.login_urls[request.args.get("site", "1")]
 
     return await render(
         "index.html",
