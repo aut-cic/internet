@@ -612,11 +612,12 @@
                 "ext"
             ],
             "hashes": [
-                "sha256:2e0841e2c8c28e68a0e6fc570c42aafbbe3b385d7141b9f96997d9d6c17d7afb",
-                "sha256:e2c6b392e213d85d9843cf27c64e3f2dacb3ec5c31c8c7ade4c404cd3030e994"
+                "sha256:09c23aa917616c1e60e44c66dfd7582cb9fd6503f78298c309945909f5839836",
+                "sha256:3c2a01ec0b6c5926e3efe34eac1b497d31ed989038fe213eb25ad0c98687d388"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==24.6.0"
+            "version": "==24.12.0"
         },
         "sanic-ext": {
             "hashes": [
@@ -634,11 +635,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:8199222558df7c86216af4f84c30e9b34a61d8ba19366cc914424cdbd28252f6",
-                "sha256:ce74b49e8f7110f9bf04883b730f4765b774ef3ef28f722cce7c273d253aaf7d"
+                "sha256:84fb203f278ebcf5cd08f97d3fb96d3fbed4b629d500b29ad60d11e00769b183",
+                "sha256:886ff7b16cd342f1d1defc16fc98c9ce3fde69e087a4e1983d7ab634e5f41f4f"
             ],
             "markers": "python_version >= '3.9'",
-            "version": "==75.6.0"
+            "version": "==75.7.0"
         },
         "sniffio": {
             "hashes": [
@@ -810,7 +811,7 @@
                 "sha256:f8ccb77b3e40b151e20519c6ae6d89bfe3f4c14e8e210d910287f778368bb3d1",
                 "sha256:fbd8fd427f57a03cff3ad6574b5e299131585d9727c8c366da4624a9069ed746"
             ],
-            "markers": "python_version >= '3.8'",
+            "markers": "sys_platform != 'win32' and implementation_name == 'cpython'",
             "version": "==5.10.0"
         },
         "uvloop": {
@@ -853,7 +854,7 @@
                 "sha256:f3df876acd7ec037a3d005b3ab85a7e4110422e4d9c1571d4fc89b0fc41b6816",
                 "sha256:f7089d2dc73179ce5ac255bdf37c236a9f914b264825fdaacaded6990a7fb4c2"
             ],
-            "markers": "python_full_version >= '3.8.0'",
+            "markers": "sys_platform != 'win32' and implementation_name == 'cpython'",
             "version": "==0.21.0"
         },
         "websockets": {
