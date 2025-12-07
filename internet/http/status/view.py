@@ -162,9 +162,7 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
 
 # pyre-ignore[56]
 @bp.route("/status", methods=["GET"], name="status")
-async def status(
-    request: sanic.Request, engine: Engine
-) -> sanic.HTTPResponse:
+async def status(request: sanic.Request, engine: Engine) -> sanic.HTTPResponse:
     """
     status gather all the information into a frontend-compatible
     way to serve /status page.
