@@ -3,9 +3,13 @@ announcements package reads announcements
 from the file.
 """
 
-import collections.abc
 import dataclasses
 import json
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import collections.abc
 
 
 @dataclasses.dataclass()
@@ -20,7 +24,7 @@ class Announcement:
 
 
 if not (__announcements := list[Announcement]()):
-    with open("announcements/announcements.json", encoding="utf-8") as fp:
+    with Path("announcements/announcements.json").open(encoding="utf-8") as fp:
         for announcement in json.load(fp):
             __announcements.append(
                 Announcement(

@@ -2,14 +2,17 @@ import math
 import random
 import time
 import typing
+from typing import TYPE_CHECKING
 
 import jdatetime
 import sanic
-import sqlalchemy.future
 from sanic.log import logger
 from sanic.response import redirect
 from sanic_ext import render
 from sqlalchemy.orm import Session
+
+if TYPE_CHECKING:
+    import sqlalchemy.future
 
 from internet.accounting.acct import AccountingService
 from internet.accounting.usage import Report, UsageRecord, UsageType, bytes_to_str

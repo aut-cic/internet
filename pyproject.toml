@@ -50,6 +50,7 @@ select = [
 ]
 ignore = [
     "E501",   # line too long (handled by formatter)
+    "E711",   # comparison to None (sqlalchemy uses == None)
 ]
 
 [tool.ruff.lint.isort]

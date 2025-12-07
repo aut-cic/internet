@@ -1,7 +1,10 @@
 import dataclasses
-import datetime
 import enum
 import math
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import datetime
 
 # http://stackoverflow.com/questions/10420352
 __units = [

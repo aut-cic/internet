@@ -4,9 +4,12 @@ this service used for accessing free-radius database
 to manage account and usage.
 """
 from datetime import datetime, timedelta
+from typing import TYPE_CHECKING
 
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+
+if TYPE_CHECKING:
+    from sqlalchemy.orm import Session
 
 from internet.model.radacct import RadiusAccount
 from internet.model.raddaily import RadiusDaily

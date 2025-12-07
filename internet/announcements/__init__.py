@@ -1,1 +1,1 @@
-from .announcements import announcements
+from .announcements import announcements as announcements

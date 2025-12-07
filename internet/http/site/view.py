@@ -5,19 +5,23 @@ a route without any html/css.
 """
 
 import time
+from typing import TYPE_CHECKING
 
 import httpx
 import sanic
-import sqlalchemy.future
 from sanic.log import logger
 from sanic.response import redirect
 from sanic_ext import render
 from sqlalchemy.orm import Session
 
+if TYPE_CHECKING:
+    import sqlalchemy.future
+
+    from internet.model.urls import URLs
+
 from internet.accounting.acct import AccountingService
 from internet.message.message import LANGS, MESSAGES
 from internet.metrics import REQUEST_COUNTER, REQUEST_LATENCY
-from internet.model.urls import URLs
 
 bp = sanic.Blueprint("site", url_prefix="/")
 

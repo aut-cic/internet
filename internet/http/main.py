@@ -1,5 +1,9 @@
+from typing import TYPE_CHECKING
+
 import sanic
-from sqlalchemy.engine import Engine
+
+if TYPE_CHECKING:
+    from sqlalchemy.engine import Engine
 
 from internet.http.site.view import bp as site_bp
 from internet.http.status.view import bp as status_bp

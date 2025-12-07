@@ -2,10 +2,14 @@
 each section of the university has its own network.
 this module handle these networks.
 """
-import collections.abc
 import dataclasses
 import ipaddress
 import json
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import collections.abc
 
 
 @dataclasses.dataclass()
@@ -15,7 +19,7 @@ class Subnet:
 
 
 if not (__subnets := list[Subnet]()):
-    with open("subnets/subnets.json", encoding="utf-8") as fp:
+    with Path("subnets/subnets.json").open(encoding="utf-8") as fp:
         for subnet in json.load(fp):
             __subnets.append(
                 Subnet(
