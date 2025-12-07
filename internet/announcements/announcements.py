@@ -3,9 +3,9 @@ announcements package reads announcements
 from the file.
 """
 
+import collections.abc
 import dataclasses
 import json
-import collections.abc
 
 
 @dataclasses.dataclass()

@@ -2,10 +2,10 @@
 each section of the university has its own network.
 this module handle these networks.
 """
+import collections.abc
 import dataclasses
 import ipaddress
 import json
-import collections.abc
 
 
 @dataclasses.dataclass()
