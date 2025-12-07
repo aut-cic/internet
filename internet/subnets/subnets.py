@@ -2,6 +2,7 @@
 each section of the university has its own network.
 this module handle these networks.
 """
+
 import dataclasses
 import ipaddress
 import json
