@@ -5,23 +5,19 @@ a route without any html/css.
 """
 
 import time
-from typing import TYPE_CHECKING
 
 import httpx
 import sanic
 from sanic.log import logger
 from sanic.response import redirect
 from sanic_ext import render
+from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
-
-if TYPE_CHECKING:
-    import sqlalchemy.future
-
-    from internet.model.urls import URLs
 
 from internet.accounting.acct import AccountingService
 from internet.message.message import LANGS, MESSAGES
 from internet.metrics import REQUEST_COUNTER, REQUEST_LATENCY
+from internet.model.urls import URLs
 
 bp = sanic.Blueprint("site", url_prefix="/")
 
@@ -65,7 +61,7 @@ async def logout(request: sanic.Request, sid: str, urls: URLs) -> sanic.HTTPResp
 )
 async def index(
     request: sanic.Request,
-    engine: sqlalchemy.engine.Engine,
+    engine: Engine,
     urls: URLs,
     path: str = "",
 ) -> sanic.HTTPResponse:

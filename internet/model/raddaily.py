@@ -1,9 +1,6 @@
-from typing import TYPE_CHECKING
+from datetime import date
 
 from sqlalchemy.orm import Mapped, mapped_column
-
-if TYPE_CHECKING:
-    from datetime import date
 
 from . import Base
 

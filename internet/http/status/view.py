@@ -2,17 +2,14 @@ import math
 import random
 import time
 import typing
-from typing import TYPE_CHECKING
 
 import jdatetime
 import sanic
 from sanic.log import logger
 from sanic.response import redirect
 from sanic_ext import render
+from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
-
-if TYPE_CHECKING:
-    import sqlalchemy.future
 
 from internet.accounting.acct import AccountingService
 from internet.accounting.usage import Report, UsageRecord, UsageType, bytes_to_str
@@ -166,7 +163,7 @@ def to_frontend_package(report: Report, usage_type: UsageType) -> typing.Any:
 # pyre-ignore[56]
 @bp.route("/status", methods=["GET"], name="status")
 async def status(
-    request: sanic.Request, engine: sqlalchemy.engine.Engine
+    request: sanic.Request, engine: Engine
 ) -> sanic.HTTPResponse:
     """
     status gather all the information into a frontend-compatible

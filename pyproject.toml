@@ -44,7 +44,6 @@ select = [
     "C4",     # flake8-comprehensions
     "UP",     # pyupgrade
     "SIM",    # flake8-simplify
-    "TCH",    # flake8-type-checking
     "PTH",    # flake8-use-pathlib
     "RUF",    # ruff-specific rules
 ]
