@@ -8,29 +8,33 @@ build: install
 # install python and nodejs packages
 install:
     cd frontend && npm install
-    pipenv install --dev -v
+    uv sync
 
 # update python and nodejs packages
 update:
     cd frontend && npm update
-    pipenv update
+    uv lock --upgrade
 
 lint:
-    pipenv run mypy .
-    pipenv run djlint --profile jinja templates -i 'H021,H031,H006,J018'
-    pipenv run pylint --enable-all-extensions --fail-under 8 internet
+    uv run ruff check
+    uv run ruff format
+    uv run djlint --profile jinja templates -i 'H021,H031,H006,J018'
+
+# build frontend and run the server
+run: build
+    uv run python main.py
 
 # set up the dev environment with docker-compose
 dev cmd *flags:
     #!/usr/bin/env bash
     set -euxo pipefail
     if [ {{ cmd }} = 'down' ]; then
-      docker compose -f ./docker-compose.yml down
-      docker compose -f ./docker-compose.yml rm
+      docker compose ./docker-compose.yml down --volumes
+      docker compose ./docker-compose.yml rm
     elif [ {{ cmd }} = 'up' ]; then
-      docker compose -f ./docker-compose.yml up -d {{ flags }}
+      docker compose up -d {{ flags }}
     else
-      docker compose -f ./docker-compose.yml {{ cmd }} {{ flags }}
+      docker compose {{ cmd }} {{ flags }}
     fi
 
 # connect into the dev environment database
