@@ -11,8 +11,8 @@ FROM python:3.14-alpine
 # Install build dependencies
 RUN apk --no-cache add build-base
 
-# Copy uv binary from official image (pinned version for reproducibility)
-COPY --from=ghcr.io/astral-sh/uv:0.5 /uv /uvx /bin/
+# Copy uv binary from official image
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ COPY pyproject.toml uv.lock ./
 
 # Install dependencies (without the project itself for caching)
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev --no-install-project
+  uv sync --frozen --no-dev --no-install-project
 
 # Copy frontend build output
 COPY --from=frontend /app/dist /app/frontend/dist
@@ -31,8 +31,12 @@ COPY . .
 
 # Install the project (compile bytecode for faster startup)
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev --compile-bytecode
+  uv sync --frozen --no-dev --compile-bytecode
 
 EXPOSE 8080
+
+# Health check for container orchestration
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
 
 ENTRYPOINT ["uv", "run", "python3", "/app/main.py"]

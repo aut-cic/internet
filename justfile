@@ -24,6 +24,10 @@ lint:
 run: build
     uv run python main.py
 
+# build and run the app in a container with database
+run-container:
+    docker compose --profile app up --build
+
 # set up the dev environment with docker-compose
 dev cmd *flags:
     #!/usr/bin/env bash

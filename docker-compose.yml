@@ -14,3 +14,18 @@ services:
       MYSQL_USER: opnsense
       MYSQL_PASSWORD: opnsense@123
       MYSQL_DATABASE: radius
+
+  app:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - radius-db
+    environment:
+      INTERNET__DATABASE__HOST: radius-db
+      INTERNET__DATABASE__PORT: 3306
+      INTERNET__DATABASE__USERNAME: opnsense
+      INTERNET__DATABASE__PASSWORD: opnsense@123
+      INTERNET__DATABASE__DATABASE: radius
+    profiles:
+      - app

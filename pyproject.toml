@@ -8,14 +8,15 @@ license = { text = "MIT" }
 dependencies = [
     "cryptography",
     "dynaconf",
+    "fastapi",
     "httpx",
     "jdatetime",
     "jinja2",
     "prometheus-client",
     "pymysql",
     "rich",
-    "sanic[ext]",
     "sqlalchemy",
+    "uvicorn[standard]",
 ]
 
 [dependency-groups]

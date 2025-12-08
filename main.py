@@ -1,13 +1,15 @@
 """
-runs internet server
+Runs internet server.
 """
 
 import os
 
 import prometheus_client
 import prometheus_client.multiprocess
+import uvicorn
+from fastapi import Request
+from fastapi.responses import Response
 from rich import pretty
-from sanic import raw
 from sqlalchemy import create_engine
 
 import internet.announcements
@@ -38,21 +40,25 @@ app = internet.http.main.create_app(cfg.login_urls, cfg.logout_urls, engine)
 os.environ["PROMETHEUS_MULTIPROC_DIR"] = "./prom"
 
 
-@app.route("/metrics", methods=["GET"])
-async def expose_metrics(_):
+@app.get("/health")
+async def health_check() -> dict[str, str]:
+    return {"status": "healthy"}
+
+
+@app.get("/metrics")
+async def expose_metrics(request: Request) -> Response:
     registry = prometheus_client.CollectorRegistry()
     prometheus_client.multiprocess.MultiProcessCollector(registry)
     data = prometheus_client.generate_latest(registry)
-    return raw(data, content_type=prometheus_client.CONTENT_TYPE_LATEST)
+    return Response(content=data, media_type=prometheus_client.CONTENT_TYPE_LATEST)
 
 
 if __name__ == "__main__":
-    # start the Prometheus metrics server
-    app.run(
+    uvicorn.run(
+        "main:app",
         host=cfg.listen.host,
         port=cfg.listen.port,
-        debug=False,
-        fast=cfg.listen.fast,
         workers=cfg.listen.workers,
-        access_log=False,
+        log_level="info",
+        access_log=True,
     )

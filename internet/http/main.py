@@ -1,33 +1,37 @@
-from typing import TYPE_CHECKING
+"""
+FastAPI application factory and configuration.
+"""
 
-import sanic
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from sqlalchemy.engine import Engine
 
-if TYPE_CHECKING:
-    from sqlalchemy.engine import Engine
-
-from internet.http.site.view import bp as site_bp
-from internet.http.status.view import bp as status_bp
+from internet.http.dependencies import set_engine, set_urls
+from internet.http.site.view import router as site_router
+from internet.http.status.view import router as status_router
 from internet.model.urls import URLs
 
 
 def create_app(
     login_urls: dict[str, str], logout_urls: dict[str, str], engine: Engine
-) -> sanic.Sanic:
+) -> FastAPI:
     """
-    create sanic application and inject dependencies into context
+    Create FastAPI application and configure dependencies.
     """
-    app = sanic.Sanic("internet")
-    app.ext.dependency(engine)
-    app.ext.dependency(URLs(login_urls, logout_urls))
+    app = FastAPI(title="Internet Usage System")
 
-    # configuration for using internet service behind nginx
-    app.config.PROXIES_COUNT = 1
-    app.config.REAL_IP_HEADER = "x-real-ip"
+    # Set up dependency injection (replaces Sanic's app.ext.dependency)
+    set_engine(engine)
+    set_urls(URLs(login_urls, logout_urls))
 
-    app.blueprint(site_bp)
-    app.blueprint(status_bp)
+    # Mount static files BEFORE routers to prevent catch-all route from intercepting
+    app.mount("/static", StaticFiles(directory="frontend/dist"), name="static")
+    app.mount("/public", StaticFiles(directory="public"), name="public")
 
-    app.static("/static", "./frontend/dist", name="static", stream_large_files=True)
-    app.static("/public", "./public", name="public")
+    # Include routers (replaces Sanic's app.blueprint)
+    # Note: status_router must come before site_router because site_router
+    # has a catch-all route /{path:path} that would otherwise intercept /status
+    app.include_router(status_router)
+    app.include_router(site_router)
 
     return app
