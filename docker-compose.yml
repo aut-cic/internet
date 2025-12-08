@@ -18,7 +18,7 @@ services:
   app:
     build: .
     ports:
-      - 8080:8080
+      - 8080:1378
     depends_on:
       - radius-db
     environment:

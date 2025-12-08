@@ -33,10 +33,10 @@ COPY . .
 RUN --mount=type=cache,target=/root/.cache/uv \
   uv sync --frozen --no-dev --compile-bytecode
 
-EXPOSE 8080
+EXPOSE 1378
 
 # Health check for container orchestration
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:1378/health || exit 1
 
-ENTRYPOINT ["uv", "run", "python3", "/app/main.py"]
+ENTRYPOINT ["uv", "run", "python", "/app/main.py"]
