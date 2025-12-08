@@ -60,5 +60,7 @@ if __name__ == "__main__":
         port=cfg.listen.port,
         workers=cfg.listen.workers,
         log_level="info",
+        proxy_headers=True,
+        forwarded_allow_ips="*",
         access_log=True,
     )

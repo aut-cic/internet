@@ -56,14 +56,19 @@ def get_db_session(
 
 def get_client_ip(request: Request) -> str:
     """
-    Get client IP address, respecting X-Real-IP header for proxy setups.
-    Equivalent to Sanic's request.remote_addr or request.ip
+    Get client IP address, preferring proxy headers when present.
     """
+    if request.client and request.client.host:
+        return request.client.host
+
     x_real_ip = request.headers.get("x-real-ip")
     if x_real_ip:
         return x_real_ip
-    if request.client:
-        return request.client.host
+
+    cf_connecting_ip = request.headers.get("cf-connecting-ip")
+    if cf_connecting_ip:
+        return cf_connecting_ip
+
     return "127.0.0.1"
 
 
