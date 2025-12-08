@@ -7,16 +7,15 @@ DROP TABLE IF EXISTS `raddaily`;
 
 /*!40101 SET character_set_client = utf8 */;
 
-CREATE TABLE
-  `raddaily` (
-    `id` int (11) NOT NULL AUTO_INCREMENT,
-    `username` varchar(64) NOT NULL,
-    `usageorig` bigint (20) NOT NULL,
-    `usagediscount` bigint (20) NOT NULL,
-    `createddate` date NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `username` (`username`, `createddate`)
-  ) ENGINE = InnoDB AUTO_INCREMENT = 1606824 DEFAULT CHARSET = latin1;
+CREATE TABLE `raddaily` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) NOT NULL,
+  `usageorig` bigint(20) NOT NULL,
+  `usagediscount` bigint(20) NOT NULL,
+  `createddate` date NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`, `createddate`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1606824 DEFAULT CHARSET = latin1;
 
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -30,27 +29,27 @@ LOCK TABLES `raddaily` WRITE;
 INSERT INTO
   `raddaily`
 VALUES
-  (399, 'parham.alvani', 51465, 51465, CURDATE()),
+  (399, 'parham.alvani', 51465, 51465, CURDATE ()),
   (
     16355,
     'parham.alvani',
     88199357,
     88168952,
-    DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+    DATE_SUB (CURDATE (), INTERVAL 1 DAY)
   ),
   (
     1897,
     'parham.alvani',
     68497715,
     68408799,
-    DATE_SUB(CURDATE(), INTERVAL 2 DAY)
+    DATE_SUB (CURDATE (), INTERVAL 2 DAY)
   ),
   (
     3012,
     'parham.alvani',
     3664185241,
     1772631461,
-    DATE_SUB(CURDATE(), INTERVAL 5 DAY)
+    DATE_SUB (CURDATE (), INTERVAL 5 DAY)
   ),
   (
     4679,

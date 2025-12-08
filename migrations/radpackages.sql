@@ -1,26 +1,24 @@
 --
 -- Table structure for table `radpackages`
 --
-DROP TABLE
-  IF EXISTS `radpackages`;
+DROP TABLE IF EXISTS `radpackages`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 
 /*!40101 SET character_set_client = utf8 */;
 
-CREATE TABLE
-  `radpackages` (
-    `id` int (11) NOT NULL AUTO_INCREMENT,
-    `groupname` varchar(64) NOT NULL,
-    `daily_volume` int (12) NOT NULL,
-    `weekly_volume` int (12) NOT NULL,
-    `monthly_volume` int (12) NOT NULL,
-    `priority` int (12) NOT NULL,
-    `session` int (11) NOT NULL DEFAULT '3',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `groupname` (`groupname`),
-    UNIQUE KEY `groupname_2` (`groupname`)
-  ) ENGINE = InnoDB AUTO_INCREMENT = 45 DEFAULT CHARSET = latin1;
+CREATE TABLE `radpackages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `groupname` varchar(64) NOT NULL,
+  `daily_volume` int(12) NOT NULL,
+  `weekly_volume` int(12) NOT NULL,
+  `monthly_volume` int(12) NOT NULL,
+  `priority` int(12) NOT NULL,
+  `session` int(11) NOT NULL DEFAULT '3',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `groupname` (`groupname`),
+  UNIQUE KEY `groupname_2` (`groupname`)
+) ENGINE = InnoDB AUTO_INCREMENT = 45 DEFAULT CHARSET = latin1;
 
 /*!40101 SET character_set_client = @saved_cs_client */;
 
