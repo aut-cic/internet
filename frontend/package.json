@@ -11,21 +11,21 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3",
-    "chart.js": "^4.4.7",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "chart.js": "^4.5.1",
     "css-loader": "^7.1.2",
     "sass": "^1.94.2",
-    "sass-loader": "^16.0.4",
+    "sass-loader": "^16.0.6",
     "style-loader": "^4.0.0",
     "svg-gauge": "^1.0.7",
     "vazirmatn": "^33.0.3",
-    "webpack": "^5.97.1",
+    "webpack": "^5.103.0",
     "webpack-cli": "^6.0.1"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",
     "ts-loader": "^9.5.4",
-    "typescript": "^5.7.3"
+    "typescript": "^5.9.3"
   }
 }
