@@ -18,23 +18,19 @@ Radius information based on request's IP address to find out about internet usag
 ## How to run locally
 
 For testing and development this server needs a free-radius database but here I created a `migrations` folder
-that contains the database migrations and automatically runs by the `docker-compose`. A user considers logged-in or out
-base on his/her record in `radacct` table which is editable from the `migrations` folder. A record contains an IP
+that contains the database migrations and automatically runs by the `docker compose`. A user considers logged-in or out
+based on his/her record in `radacct` table which is editable from the `migrations` folder. A record contains an IP
 address and a logged-out date and when this logged-out time is `NULL` user consider as logged-in.
 
 ```bash
 # database up and running based on /migrations
-docker-compose up -d
+docker compose up -d
 
-# frontend javascript and css
 cd frontend && npm run build
-pipenv install
+uv sync
 
-# python pipenv shell
-pipenv shell
-python main.py
+uv run python main.py
 
-# k6 load testing
 k6 run -u 1000 -i 1000 script.js
 ```
 
