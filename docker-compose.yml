@@ -1,7 +1,7 @@
 ---
 services:
   radius-db:
-    image: mysql
+    image: docker.io/library/mysql
     ports:
       - 3306:3306
     volumes:
