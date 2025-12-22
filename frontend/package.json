@@ -15,12 +15,12 @@
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.1",
     "css-loader": "^7.1.2",
-    "sass": "^1.96.0",
+    "sass": "^1.97.1",
     "sass-loader": "^16.0.6",
     "style-loader": "^4.0.0",
     "svg-gauge": "^1.0.7",
     "vazirmatn": "^33.0.3",
-    "webpack": "^5.103.0",
+    "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
   },
   "devDependencies": {
