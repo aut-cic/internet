@@ -13,7 +13,40 @@ This service with the help of a MicroTik switch and Radius server meters student
 login page which is served by this server, fowards credentials to the MicroTik server and then uses
 Radius information based on request's IP address to find out about internet usage status.
 
-![internet.drawio](./.github/assests/internet.drawio.png)
+```mermaid
+flowchart LR
+    student["🧑‍🎓 Student device<br/>(browser)"]
+
+    subgraph net["AUT network"]
+        mikrotik["MikroTik switch/router<br/>(intercepts unauthenticated traffic)"]
+        radius["FreeRADIUS server"]
+        db[("FreeRADIUS DB<br/>radacct table")]
+    end
+
+    subgraph svc["This service (FastAPI)"]
+        login["Login page<br/>GET /* → index.html"]
+        status["Status page<br/>GET /status"]
+        logout["Logout<br/>GET /logout/{sid}"]
+        metrics["Metrics<br/>GET /metrics"]
+    end
+
+    %% Captive-portal redirect for users that are not logged in
+    student -->|"1 - HTTP request"| mikrotik
+    mikrotik -.->|"2 - redirect not-logged-in traffic"| login
+
+    %% Authentication goes straight to MikroTik / RADIUS
+    student -->|"3 - submit credentials"| mikrotik
+    mikrotik -->|"4 - authenticate"| radius
+    radius --> db
+
+    %% This service identifies the user by client IP and reports usage
+    login -->|"5 - IP → username"| db
+    status -->|"usage by username"| db
+    logout -->|"end session"| mikrotik
+
+    %% Observability
+    metrics -.->|Prometheus scrape| prom([Prometheus])
+```
 
 ## How to run locally
 
