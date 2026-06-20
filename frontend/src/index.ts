@@ -9,7 +9,7 @@ import "vazirmatn/misc/Farsi-Digits/Vazirmatn-FD-font-face.css";
 import "./app.css";
 import "./gauge.css";
 import "./index.js";
-import "./login.ts";
+import "./login";
 
 window.console.log("https://github.com/aut-cic/internet");
 window.console.log("AUT internet controller frontend and backend");

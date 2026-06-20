@@ -1,7 +1,7 @@
 ---
 services:
   radius-db:
-    image: docker.io/library/mysql
+    image: docker.io/library/mysql:8.4
     ports:
       - 3306:3306
     volumes:
@@ -14,13 +14,19 @@ services:
       MYSQL_USER: opnsense
       MYSQL_PASSWORD: opnsense@123
       MYSQL_DATABASE: radius
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build: .
     ports:
       - 8080:1378
     depends_on:
-      - radius-db
+      radius-db:
+        condition: service_healthy
     environment:
       INTERNET_DATABASE__HOST: radius-db
       INTERNET_DATABASE__PORT: 3306
