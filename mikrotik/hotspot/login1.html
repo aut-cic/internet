@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+	<meta name="author" content="Ali Modaresi">
+    <title>دانشگاه صنعتی امیرکبیر</title>
+    
+  </head>
+
+  <body>
+<button type="button" style="width:100%;height:100%;position:absolute;" class="btn green" onclick="guestLogin()">ورود مهمان (سرعت پایین)</button>
+        <div class="top-content">
+			
+            <div class="inner-bg">
+                <div class="container">
+				
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+						<img src="http://www.aut.ac.ir/aut/fa/images/title-fa.png"/>
+                <!--            <h1>به وب سایت   <strong>دانشگاه صنعتی امیرکبیر</strong> خوش آمدید</h1>
+                            <div class="description">
+                              
+                                <p>در صورتی که اکانت ندارید می توانید از ایمیل test و گذرواژه test استفاده کنید.</p>
+                              
+                            </div>-->
+                        </div>
+                    </div>
+					
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                          <div class="form-top">
+                            
+                            
+							<div class="form-top-left">
+                              <h3>ورود</h3>
+                                <p>لطفا ایمیل و گذرواژه خود را وارد کنید</p>
+								$(if error)<div class='error'>$(error)</div>$(endif)
+								
+                            </div>
+                          </div>
+                          <div class="form-bottom">
+                            <form method="post" action="$(link-login-only)" class='login-form' name="login">
+                              
+							  
+                              <div class="form-group" >
+                                <label class="sr-only" for="form-username">نام کاربری</label>
+                                  <input type="text" class="form-username form-control" name='username' id="auth_user" placeholder="Email..." >
+                                </div>
+                                <div class="form-group">
+                                  <label class="sr-only" for="form-password">گذرواژه</label>
+                                  <input type="password" class="form-password form-control" name='password' id="auth_pass" placeholder="Password..." >
+
+                                </div>
+								<input type="hidden" name="dst" value="$(link-orig)" />
+							  <input type="hidden" name="popup" value="false" />
+                                <button name='accept' type="submit" class="btn" style>ورود</button>
+								
+                            </form>
+                          </div>
+                          <div class='text-muted single-line'>
+                            در صورتی که ایمیل ندارید حتما در اولین فرصت به انفورماتیک مراجعه فرمایید.
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+<script type="text/javascript">
+<!--
+  document.login.username.focus();
+//-->
+function guestLogin(){
+document.login.username.value="test";
+document.login.password.value="test";
+document.login.submit();
+}
+
+guestLogin();
+
+
+
+</script>
+
+  </body>
+</html>

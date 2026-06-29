@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	$(if refresh-timeout)
+<meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+$(endif)
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Ali Modaresi">
+    <title>دانشگاه صنعتی امیرکبیر</title>
+    <link rel="stylesheet" href="https://slogin.aut.ac.ir/files/mystyle.css">
+	<script type="text/javascript">
+
+<!--
+$(if advert-pending == 'yes')
+    var popup = '';
+    function focusAdvert() {
+	if (window.focus) popup.focus();
+    }
+    function openAdvert() {
+	popup = open('$(link-advert)', 'hotspot_advert', '');
+	setTimeout("focusAdvert()", 1000);
+    }
+$(endif)
+    function openLogout() {
+	if (window.name != 'hotspot_status') return true;
+        open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+	window.close();
+	return false;
+    }
+//-->
+</script>
+
+  </head>
+
+  <body 
+  $(if advert-pending == 'yes')
+	onLoad="openAdvert()"
+$(endif)>
+
+        <div class="top-content">
+			
+            <div class="inner-bg">
+                <div class="container">
+				
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+						<img src="https://slogin.aut.ac.ir/img/title-fa.png"/>
+                <!--            <h1>به وب سایت   <strong>دانشگاه صنعتی امیرکبیر</strong> خوش آمدید</h1>
+                            <div class="description">
+                              
+                                <p>در صورتی که اکانت ندارید می توانید از ایمیل test و گذرواژه test استفاده کنید.</p>
+                              
+                            </div>-->
+                        </div>
+                    </div>
+					
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                          <div class="form-top">
+                            
+                            <div class="form-top-right">
+                              <img src="https://slogin.aut.ac.ir/img/lock.png" >
+                            </div>
+							<div class="form-top-left">
+							<img src="https://slogin.aut.ac.ir/img/online2.png" />
+							<span >شما به اینترنت متصل هستید.</span>
+                              <h3>$(username) خوش آمدید </h3>
+                                
+								
+                            </div>
+                          </div>
+                          <div class="form-bottom">
+                            <form method="post" action="$(link-logout)" name="logout" class='login-form' onSubmit="return openLogout()">
+                              <div class="form-group">
+                                <label for="form-username">نام کاربری</label>
+                                  <label type="text" class="form-username form-control no-back" name='username' id="auth_user" placeholder="Email..." >$(username)</label>
+                                </div>
+                                <div class="form-group">
+                                  <label  for="form-password">آی پی</label>
+                                  <label class="form-password form-control no-back"  >$(ip)</label>
+                                </div>
+								<div class="form-group">
+                                  <label  for="form-password">حجم مصرفی</label>
+                                  <label class="form-password form-control no-back"  >$(bytes-out-nice)</label>
+                                </div>
+								<div class="form-group">
+                                  <label  for="form-password">مدت اتصال</label>
+                                  <label class="form-password form-control no-back"  >$(uptime)</label>
+                                </div>
+								<input type="hidden" id="cookie" name="erase-cookie" value="false" />
+                                <button name='accept' type="submit" class="btn">خروج</button>
+								<button name='accept' type="button" class="btn green" onclick="document.getElementById('cookie').value='true';document.logout.submit();">خروج دائم</button>
+								
+                            </form>
+                          </div>
+                          <div class='text-muted single-line'>
+                            در صورتی که ایمیل ندارید حتما در اولین فرصت به انفورماتیک مراجعه فرمایید.
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+
+  </body>
+</html>

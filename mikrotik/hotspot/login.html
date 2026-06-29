@@ -1,0 +1,12 @@
+$(if http-status == 302)Hotspot login required$(endif)
+$(if http-header == "Location")https://internet.aut.ac.ir/?dst=$(link-orig)&error=$(error)$(endif)
+<html>
+<head>
+<title>...</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta http-equiv="refresh" content="0; url=https://internet.aut.ac.ir/?dst=$(link-orig)&error=$(error)">
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# Never commit TLS private keys for the hotspot HTTPS certificate.
+*.key
+**/private*.txt
+*.zip
