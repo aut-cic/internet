@@ -20,7 +20,7 @@
     "style-loader": "^4.0.0",
     "svg-gauge": "^1.0.7",
     "vazirmatn": "^33.0.3",
-    "webpack": "^5.105.0",
+    "webpack": "^5.108.4",
     "webpack-cli": "^7.0.3"
   },
   "devDependencies": {
