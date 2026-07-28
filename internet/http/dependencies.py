@@ -1,5 +1,10 @@
 """
 FastAPI dependency injection for the application.
+
+Everything is resolved from ``request.app.state``, which is populated by
+:func:`internet.http.main.create_app`. Keeping it on the app instead of in
+module-level globals is what lets the factory build more than one independent
+app -- notably one per test.
 """
 
 from collections.abc import Generator
@@ -15,35 +20,15 @@ from internet.model.urls import URLs
 # Template configuration - accessible by route modules
 templates = Jinja2Templates(directory="templates")
 
-# Global state - set during app initialization
-_engine: Engine | None = None
-_urls: URLs | None = None
+
+def get_engine(request: Request) -> Engine:
+    """Dependency to get the SQLAlchemy engine."""
+    return request.app.state.engine
 
 
-def set_engine(engine: Engine) -> None:
-    """Set the SQLAlchemy engine for dependency injection."""
-    global _engine
-    _engine = engine
-
-
-def set_urls(urls: URLs) -> None:
-    """Set the URLs configuration for dependency injection."""
-    global _urls
-    _urls = urls
-
-
-def get_engine() -> Engine:
-    """Dependency to get SQLAlchemy engine."""
-    if _engine is None:
-        raise RuntimeError("Engine not initialized")
-    return _engine
-
-
-def get_urls() -> URLs:
-    """Dependency to get URLs configuration."""
-    if _urls is None:
-        raise RuntimeError("URLs not initialized")
-    return _urls
+def get_urls(request: Request) -> URLs:
+    """Dependency to get the URLs configuration."""
+    return request.app.state.urls
 
 
 def get_db_session(
@@ -56,7 +41,11 @@ def get_db_session(
 
 def get_client_ip(request: Request) -> str:
     """
-    Get client IP address, preferring proxy headers when present.
+    Get the client IP address.
+
+    ``request.client`` already reflects the forwarded address because uvicorn
+    runs with ``proxy_headers=True``; the header lookups below only matter for
+    proxies it does not understand.
     """
     if request.client and request.client.host:
         return request.client.host
