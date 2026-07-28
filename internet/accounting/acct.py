@@ -75,7 +75,7 @@ class AccountingService:
         statement_2 = (
             select(RadiusAccount)
             .where(RadiusAccount.username == username)
-            .where(RadiusAccount.account_stop_time == None)
+            .where(RadiusAccount.account_stop_time.is_(None))
         )
         for row_2 in self.session.scalars(statement_2):
             sessions.append(
@@ -83,7 +83,9 @@ class AccountingService:
                     ip=row_2.framedipaddress,
                     id=row_2.account_unique_id,
                     time=row_2.account_start_time,
-                    usage=row_2.account_input_octets + row_2.account_output_octets,
+                    # octet counters are nullable until the first interim update
+                    usage=(row_2.account_input_octets or 0)
+                    + (row_2.account_output_octets or 0),
                     # location information must calculate
                     # based on ip address.
                     location=location
@@ -135,7 +137,7 @@ class AccountingService:
         statement = (
             select(RadiusAccount)
             .where(RadiusAccount.framedipaddress == ip_address)
-            .where(RadiusAccount.account_stop_time == None)
+            .where(RadiusAccount.account_stop_time.is_(None))
         )
         if (row := self.session.scalars(statement).first()) is None:
             return None

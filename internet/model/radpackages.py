@@ -3,7 +3,6 @@ from sqlalchemy.orm import Mapped, mapped_column
 from . import Base
 
 
-# pyre-ignore[11]
 class RadiusPackages(Base):
     __tablename__ = "radpackages"
 
