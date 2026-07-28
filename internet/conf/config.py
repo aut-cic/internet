@@ -24,7 +24,7 @@ class Database:
 @dataclasses.dataclass
 class Listen:
     """
-    listen port and host for the http and workers configuration of sanic.
+    listen host/port and uvicorn worker count for the http server.
     """
 
     host: str = "0.0.0.0"

@@ -8,17 +8,25 @@ build: install
 # install python and nodejs packages
 install:
     cd frontend && npm install
-    uv sync
+    uv sync --all-groups
 
 # update python and nodejs packages
 update:
     cd frontend && npm update
     uv lock --upgrade
 
+# lint and format everything
 lint:
     uv run ruff check
     uv run ruff format
+    uv run ty check
     uv run djlint --profile jinja templates -i 'H021,H031,H006,J018'
+    cd frontend && npm run lint
+    cd frontend && npm run typecheck
+
+# run the python tests
+test:
+    uv run pytest
 
 # build frontend and run the server
 run: build
