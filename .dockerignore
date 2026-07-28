@@ -22,5 +22,17 @@ frontend/dist
 *.tar.gz
 prom/*.db
 
+# Not part of the running service: MikroTik hotspot assets (including TLS
+# certs), local dev seed data, tests and production debug helpers.
+mikrotik
+migrations
+tests
+scripts
+docker-compose.yml
+docker-bake.json
+justfile
+CLAUDE.md
+# README.md stays: pyproject.toml references it as the project readme.
+
 # Editor / OS noise
 .DS_Store
