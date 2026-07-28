@@ -54,7 +54,19 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.ts$/, use: "ts-loader" },
+      // esbuild-loader rather than ts-loader, because TypeScript 7 is the
+      // native Go port and no longer ships a JS compiler API -- require("typescript")
+      // exposes only { version, versionMajorMinor }, so ts-loader cannot work
+      // with it at all (it dies in findConfigFile before transpiling anything).
+      //
+      // This transpiles without type checking. `npm run typecheck` (tsc --noEmit,
+      // now the Go compiler) is what enforces types, and CI runs it before the
+      // build -- so type errors still fail the pipeline, just not this loader.
+      {
+        test: /\.ts$/,
+        loader: "esbuild-loader",
+        options: { target: "es2020", tsconfig: "./tsconfig.json" },
+      },
       // Plain CSS (app.css, gauge.css, fonts.css, bootstrap-icons) is authored
       // RTL-natively -- `direction: rtl`, `right:`, `text-align: right`. It must
       // NOT go through rtlcss, which would flip it back to LTR.
