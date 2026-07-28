@@ -1,6 +1,15 @@
+{# These paths are root-relative on purpose. `url_for` renders an *absolute*
+   URL built from the request's Host and scheme, and the nginx in front of us
+   proxies with `proxy_pass http://localhost:8080` without forwarding Host or
+   X-Forwarded-Proto — so every client was served
+   `http://localhost:8080/static/main.css` and rendered the page unstyled.
+   The app is mounted at the root, so `/static/...` is correct regardless of
+   what the edge does. See tests/test_http.py. #}
+{# djlint:off J004 #}
 {# Stylesheet first so the browser can paint without waiting on the bundle. #}
-<link rel="stylesheet" href="{{ url_for('static', path='main.css') }}" />
+<link rel="stylesheet" href="/static/main.css" />
 {# defer is load-bearing: login.ts and status.ts query the DOM at module scope,
    and this tag sits in <head>, before the markup they look for. Without defer
    the bundle runs during head parsing and both silently find nothing. #}
-<script src="{{ url_for('static', path='main.bundle.js') }}" defer></script>
+<script src="/static/main.bundle.js" defer></script>
+{# djlint:on #}

@@ -59,6 +59,18 @@ def test_login_page_is_served_for_unknown_paths(client: TestClient) -> None:
     assert "text/html" in response.headers["content-type"]
 
 
+def test_asset_urls_are_root_relative(client: TestClient) -> None:
+    # The nginx in front of us proxies to localhost:8080 without forwarding
+    # Host or X-Forwarded-Proto, so anything derived from the request URL (as
+    # url_for does) leaks `http://localhost:8080/...` into the page and every
+    # client resolves it against its own machine -- the page renders unstyled.
+    response = client.get("/", headers={"host": "localhost:8080"})
+
+    assert '<link rel="stylesheet" href="/static/main.css" />' in response.text
+    assert '<script src="/static/main.bundle.js" defer></script>' in response.text
+    assert "localhost:8080/static/" not in response.text
+
+
 def test_logged_in_client_is_redirected_to_status(
     client_from: Callable[[str], TestClient],
 ) -> None:
