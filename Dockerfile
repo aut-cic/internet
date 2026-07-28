@@ -26,6 +26,11 @@ ENV UV_COMPILE_BYTECODE=1 \
     UV_PYTHON_DOWNLOADS=never \
     PATH="/app/.venv/bin:$PATH"
 
+# Where prometheus_client keeps its per-worker counters. It has to be present
+# in the environment before the interpreter starts, because the library decides
+# between in-process and multiprocess metrics when it is first imported.
+ENV PROMETHEUS_MULTIPROC_DIR=/app/prom
+
 WORKDIR /app
 
 # Copy dependency files first for better layer caching
@@ -52,8 +57,16 @@ USER app
 
 EXPOSE 1378
 
-# Health check for container orchestration
+# Health check for container orchestration.
+#
+# 127.0.0.1 rather than localhost: the latter also resolves to ::1, busybox
+# wget tries that first, and uvicorn binds 0.0.0.0 (IPv4 only), so the probe
+# fails with "connection refused" while the app is perfectly healthy.
+#
+# --spider only asserts a 2xx, so it is deliberately paired with a /health
+# route registered ahead of the login catch-all -- otherwise the catch-all
+# would answer 200 for any path and the probe would mean nothing.
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:1378/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:1378/health || exit 1
 
 ENTRYPOINT ["python", "/app/main.py"]
