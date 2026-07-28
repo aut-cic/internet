@@ -67,6 +67,27 @@ uv run python main.py
 k6 run -u 1000 -i 1000 script.js
 ```
 
+Or with `just`:
+
+```bash
+just install   # npm install + uv sync
+just run       # build the frontend and start the server
+just test      # pytest
+just lint      # ruff + ty + djlint + biome + tsc
+```
+
+## Checks
+
+| Area            | Tool                            |
+| --------------- | ------------------------------- |
+| Python lint     | `ruff check` / `ruff format`    |
+| Python types    | `ty check`                      |
+| Python tests    | `pytest`                        |
+| Jinja templates | `djlint`                        |
+| Frontend        | `biome check` / `tsc --noEmit`  |
+
+All of them run in CI on every push.
+
 ## Screenshots
 
 ![s1](./.github/assests/s1.png)
