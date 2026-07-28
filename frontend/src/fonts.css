@@ -1,0 +1,52 @@
+/*
+ * Vazirmatn FD ("Farsi Digits") -- the only family the pages reference, via
+ * app.css and gauge.css.
+ *
+ * The upstream package ships font-face files declaring all nine weights of
+ * both Vazirmatn and Vazirmatn FD. Importing those pulled eighteen woff2 files
+ * into the build when the UI uses four:
+ *
+ *   400  body text (app.css)
+ *   500  Bootstrap headings ($headings-font-weight)
+ *   600  Bootstrap .fw-semibold and friends
+ *   700  bold text and the gauge labels (gauge.css)
+ *
+ * Declaring them here keeps the set explicit: adding a weight to the UI means
+ * adding it here, rather than silently shipping every weight forever.
+ */
+
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("../node_modules/vazirmatn/misc/Farsi-Digits/fonts/webfonts/Vazirmatn-FD-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("../node_modules/vazirmatn/misc/Farsi-Digits/fonts/webfonts/Vazirmatn-FD-Medium.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("../node_modules/vazirmatn/misc/Farsi-Digits/fonts/webfonts/Vazirmatn-FD-SemiBold.woff2")
+    format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("../node_modules/vazirmatn/misc/Farsi-Digits/fonts/webfonts/Vazirmatn-FD-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
