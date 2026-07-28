@@ -43,7 +43,17 @@ def create_app(urls: URLs, engine: Engine) -> FastAPI:
     app.state.urls = urls
 
     # Mount static files BEFORE routers to prevent catch-all route from intercepting
-    app.mount("/static", StaticFiles(directory="frontend/dist"), name="static")
+    #
+    # check_dir=False because frontend/dist is a build artifact: the Dockerfile
+    # copies it in, but it is absent in a checkout that has not run the webpack
+    # build, and StaticFiles otherwise raises at construction time. Refusing to
+    # build the app at all would couple every backend test to `npm run build`.
+    # A missing bundle now surfaces as a 404 on that asset instead.
+    app.mount(
+        "/static",
+        StaticFiles(directory="frontend/dist", check_dir=False),
+        name="static",
+    )
     app.mount("/public", StaticFiles(directory="public"), name="public")
 
     # Router order matters: site_router owns a /{path:path} catch-all that
