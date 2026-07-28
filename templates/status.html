@@ -147,117 +147,12 @@
     </div>
 {% endblock content %}
 {% block scripts %}
-    <script>
-    const units = [
-          "کیلوبایت",
-          "مگابایت",
-          "گیگابایت",
-          "ترابایت",
-          "PiB",
-          "EiB",
-          "ZiB",
-          "YiB",
-        ];
-    function humanFileSize(bytes) {
-          const thresh = 1024;
-          if (isNaN(bytes)) {
-                return "∞";
-              }
-          if (Math.abs(bytes) < thresh) {
-                return "0 مگابایت";
-              }
-          let u = -1;
-          do {
-                bytes /= thresh;
-                ++u;
-              } while (Math.abs(bytes) >= thresh && u < units.length - 1);
-          if (u < 2 || (bytes * 10) % 10 === 0)
-            return bytes.toFixed(0) + " " + units[u];
-          return bytes.toFixed(1) + " " + units[u];
-        }
-    </script>
-    <script>
-    {% for package in status.packages %}
-      let {{ package.type }} = Gauge(document.getElementById("package-{{ package.type }}"), {
-            max: 100,
-            label: function()  {
-                return '{{ package.usage}} / {{ package.total }}'
-            },
-            value: 0,
-          });
-      {{package.type}}.setValueAnimated({{ package.percent }}, 1);
-    {% endfor %}
-    </script>
-    <script>
-    new Chart(document.getElementById("usageChart"), {
-          type: 'bar',
-          data: {
-            labels: {{ history.labels | safe }},
-            datasets: [{
-              label: 'میزان مصرف ثبت شده',
-              data: {{ history.usage | safe }},
-              backgroundColor: "rgba(31,119,180,0.8)",
-            },
-            {
-              label: 'میزان مصرف تخفیف خورده',
-              data: {{ history.discount | safe }},
-              backgroundColor:"rgba(254,127,14,0.8)",
-            }]
-          },
-          options: {
-                responsive: true,
-                plugins: {
-                  tooltip: {
-                    mode: 'index',
-                    intersect: false,
-                    bodyFont: {
-                      family: "'Vazirmatn FD'",
-                    },
-                    footerFont: {
-                      family: "'Vazirmatn FD'",
-                    },
-                    callbacks: {
-                      // Returns text to render for an individual item in the tooltip.
-                      label: function(context) {
-                        return humanFileSize(context.raw);
-                      },
-                      // Returns text to render as the footer of the tooltip.
-                      // Footer is the same for all of the datasets.
-                      footer: function(context) {
-                        return humanFileSize(context[0].raw + context[1].raw);
-                      }
-                    },
-                  },
-                  legend: {
-                    labels: {
-                      font: {
-                        family: "'Vazirmatn FD'"
-                      },
-                    },
-                  },
-                },
-                scales: {
-                  y: {
-                    stacked: true,
-                    ticks: {
-                      callback: function (label, index, labels) {
-                        return humanFileSize(label)
-                      },
-                      font: {
-                        family: "'Vazirmatn FD'"
-                      },
-                    },
-                  },
-                  x: {
-                    stacked: true,
-                    ticks: {
-                      font: {
-                        family: "'Vazirmatn FD'"
-                      },
-                    },
-                  }
-                }
-              }
-        });
+    {# Data for src/status.ts, which draws the gauges and the usage chart.
+
+       type="application/json" is not executed by the browser, so the page
+       carries no inline script -- the formatter and the chart config live in
+       TypeScript where they are type-checked and linted. #}
+    <script type="application/json" id="status-data">
+        {{ {"packages": status.packages, "history": history} | tojson }}
     </script>
 {% endblock scripts %}

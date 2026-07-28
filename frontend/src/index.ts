@@ -1,23 +1,27 @@
-import "bootstrap/dist/css/bootstrap.rtl.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+// Compiled from source with our palette, then flipped to RTL by postcss/rtlcss.
+// Do not add the prebuilt bootstrap.rtl.min.css back alongside it: that ships
+// the whole framework a second time.
 import "./bootstrap.scss";
 import * as bootstrap from "bootstrap/dist/js/bootstrap.min.js";
 
-import "vazirmatn/Vazirmatn-font-face.css";
-import "vazirmatn/misc/Farsi-Digits/Vazirmatn-FD-font-face.css";
+import "./fonts.css";
 
 import "./app.css";
 import "./gauge.css";
-import "./index.js";
+// Both read the DOM at module scope, which is safe because the bundle is
+// loaded with `defer` (see templates/includes/scripts.html) and therefore runs
+// after the document is parsed. Dropping defer would silently break them.
 import "./login";
+import "./status";
 
 window.console.log("https://github.com/aut-cic/internet");
 window.console.log("AUT internet controller frontend and backend");
 
 window.onload = () => {
-  let modal = window.document.getElementById("packageModal");
+  const modal = window.document.getElementById("packageModal");
   if (modal != null) {
-    let w = new bootstrap.Modal(modal);
+    const w = new bootstrap.Modal(modal);
     w.show();
     setTimeout(() => {
       w.hide();
