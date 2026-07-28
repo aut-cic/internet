@@ -16,16 +16,36 @@ diagram and local-dev instructions.
 ## Common commands (see `justfile`)
 
 ```bash
-just install   # npm install + uv sync
+just install   # npm install + uv sync --all-groups
 just build     # build the frontend bundle
-just lint      # ruff check/format + djlint
+just lint      # ruff + ty + djlint + biome + tsc
+just test      # pytest
 just update    # npm update + uv lock --upgrade
 just run       # build frontend and run the server locally
-uv run pytest  # run the Python tests
 ```
 
-CI (`.github/workflows/ci.yml`) runs ruff, pytest, djlint, and the frontend build
-on every push, and builds/pushes the Docker image on tag pushes.
+CI (`.github/workflows/ci.yml`) runs ruff (check + format), `ty`, pytest and
+djlint for Python, and biome + `tsc --noEmit` + the webpack build for the
+frontend, on every push. It builds/pushes the Docker image on tag pushes.
+
+## Structural things worth knowing
+
+- **Route order is load-bearing.** `site_router` owns a `/{path:path}` catch-all
+  that answers *every* path with the login page (MikroTik forwards arbitrary
+  URLs to us, and iOS needs a 200). Any new router must be included *before* it
+  in `create_app`, or it will silently never be reached. `/health` and
+  `/metrics` used to be registered after it and were shadowed for exactly this
+  reason — `tests/test_http.py` guards against a regression.
+- **`internet.metrics` must be imported before `prometheus_client`.** The
+  library picks in-process vs. multiprocess value classes at import time, based
+  on `PROMETHEUS_MULTIPROC_DIR`. That module sets the variable and is the only
+  place allowed to import `prometheus_client`; everything else goes through
+  `render_latest()`. The Dockerfile also sets the variable as an `ENV`.
+- **No module-level app state.** The engine and URLs live on `app.state` and are
+  read via `request.app.state` in `internet/http/dependencies.py`, so
+  `create_app` is a real factory and tests can build independent apps.
+- **Model nullability mirrors `migrations/*.sql`.** In particular a NULL
+  `acctstoptime` is what marks a session as still active.
 
 ## Release process
 
@@ -94,12 +114,21 @@ so the tracked deploy config stays in sync.
 ```bash
 docker inspect --format '{{.State.Health.Status}}' aut-cic-internet-1   # -> healthy
 curl -s -o /dev/null -w '%{http_code}\n' http://localhost:8080/         # -> 200
-curl -s http://localhost:8080/metrics | head                            # prometheus output
+
+# /health must be JSON, not the login page
+curl -s http://localhost:8080/health                                    # -> {"status":"healthy"}
+
+# /metrics must contain the app's own counters, not just process defaults
+curl -s http://localhost:8080/metrics | grep requests_total
 ```
 
-Note: the app takes ~15–20s to start (it pretty-prints all subnets and
-announcements at import). App logs are not readable via `docker logs` because the
-production compose sets `logging: driver: none`.
+Check `/health` and `/metrics` by **content**, not just status code. Both sit
+behind the `/{path:path}` catch-all, so a shadowed route still answers 200 with
+the login page — which is how they went unnoticed as broken. `grep
+requests_total` is what actually proves multiprocess metrics are wired up.
+
+App logs are not readable via `docker logs` because the production compose sets
+`logging: driver: none`.
 
 ### 6. Create the GitHub release
 

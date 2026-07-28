@@ -1,1 +1,6 @@
-<script src="/static/main.bundle.js"></script>
+{# Stylesheet first so the browser can paint without waiting on the bundle. #}
+<link rel="stylesheet" href="{{ url_for('static', path='main.css') }}" />
+{# defer is load-bearing: login.ts and status.ts query the DOM at module scope,
+   and this tag sits in <head>, before the markup they look for. Without defer
+   the bundle runs during head parsing and both silently find nothing. #}
+<script src="{{ url_for('static', path='main.bundle.js') }}" defer></script>

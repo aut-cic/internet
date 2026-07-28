@@ -2,35 +2,63 @@
 FastAPI application factory and configuration.
 """
 
+import contextlib
+import logging
+from collections.abc import AsyncIterator
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.engine import Engine
 
-from internet.http.dependencies import set_engine, set_urls
+from internet.announcements import announcements
 from internet.http.site.view import router as site_router
 from internet.http.status.view import router as status_router
+from internet.http.system.view import router as system_router
 from internet.model.urls import URLs
+from internet.subnets import subnets
+
+logger = logging.getLogger(__name__)
 
 
-def create_app(
-    login_urls: dict[str, str], logout_urls: dict[str, str], engine: Engine
-) -> FastAPI:
+@contextlib.asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     """
-    Create FastAPI application and configure dependencies.
+    Report what the process loaded, then dispose of the pool on shutdown.
     """
-    app = FastAPI(title="Internet Usage System")
+    logger.info("loaded %d subnets", sum(1 for _ in subnets()))
+    logger.info("loaded %d announcements", sum(1 for _ in announcements()))
 
-    # Set up dependency injection (replaces Sanic's app.ext.dependency)
-    set_engine(engine)
-    set_urls(URLs(login_urls, logout_urls))
+    yield
+
+    app.state.engine.dispose()
+
+
+def create_app(urls: URLs, engine: Engine) -> FastAPI:
+    """
+    Create a FastAPI application and configure its dependencies.
+    """
+    app = FastAPI(title="Internet Usage System", lifespan=lifespan)
+
+    app.state.engine = engine
+    app.state.urls = urls
 
     # Mount static files BEFORE routers to prevent catch-all route from intercepting
-    app.mount("/static", StaticFiles(directory="frontend/dist"), name="static")
+    #
+    # check_dir=False because frontend/dist is a build artifact: the Dockerfile
+    # copies it in, but it is absent in a checkout that has not run the webpack
+    # build, and StaticFiles otherwise raises at construction time. Refusing to
+    # build the app at all would couple every backend test to `npm run build`.
+    # A missing bundle now surfaces as a 404 on that asset instead.
+    app.mount(
+        "/static",
+        StaticFiles(directory="frontend/dist", check_dir=False),
+        name="static",
+    )
     app.mount("/public", StaticFiles(directory="public"), name="public")
 
-    # Include routers (replaces Sanic's app.blueprint)
-    # Note: status_router must come before site_router because site_router
-    # has a catch-all route /{path:path} that would otherwise intercept /status
+    # Router order matters: site_router owns a /{path:path} catch-all that
+    # answers every path, so all other routers have to be included ahead of it.
+    app.include_router(system_router)
     app.include_router(status_router)
     app.include_router(site_router)
 

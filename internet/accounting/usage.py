@@ -79,7 +79,8 @@ class Session:
 
     ip: str
     id: str
-    time: datetime.datetime
+    # NULL until the NAS reports a start time, so it stays optional here.
+    time: datetime.datetime | None
     usage: int
     location: str
     is_current: bool

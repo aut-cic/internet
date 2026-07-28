@@ -84,7 +84,9 @@ def to_frontend_session(session: IESession, current_ip: str) -> typing.Any:
         "ip": session.ip,
         "time": jdatetime.datetime.fromgregorian(
             datetime=session.time,
-        ).strftime("%H:%M:%S - %d/%m/%Y"),
+        ).strftime("%H:%M:%S - %d/%m/%Y")
+        if session.time is not None
+        else "-",
         "usage": "-" if session.usage < 1000 else bytes_to_str(session.usage),
         "id": session.id,
         "location": session.location,

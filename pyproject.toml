@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "Internet usage accounting system"
 readme = "README.md"
 requires-python = ">=3.14"
-license = { text = "MIT" }
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
 dependencies = [
     "cryptography",
     "dynaconf",
@@ -25,6 +26,7 @@ dev = [
     "djlint",
     "pytest",
     "ruff",
+    "ty",
     "wrapt",
 ]
 
@@ -50,7 +52,6 @@ select = [
 ]
 ignore = [
     "E501",   # line too long (handled by formatter)
-    "E711",   # comparison to None (sqlalchemy uses == None)
 ]
 
 [tool.ruff.lint.isort]
@@ -58,3 +59,7 @@ known-first-party = ["internet"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ty.src]
+include = ["internet", "tests", "main.py", "scripts"]

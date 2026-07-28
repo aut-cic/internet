@@ -1,7 +1,25 @@
-$primary : #2196F3;
-$success : #4CAF50;
-$info: #5bc0de;
-$warning : #ff9800;
-$danger : #e51c23;
-
-@import "../node_modules/bootstrap/scss/bootstrap";
+// The single source of Bootstrap in the bundle.
+//
+// This used to sit alongside an `import "bootstrap/dist/css/bootstrap.rtl.min.css"`
+// in index.ts, which meant the whole framework was bundled twice (~230 KB of
+// duplicate CSS) -- once prebuilt-RTL without these colours, and once compiled
+// from source with them but in LTR. Both rule sets applied, because RTL and LTR
+// emit different properties rather than overriding each other.
+//
+// Bootstrap is imported by package name (resolved via loadPaths in
+// webpack.config.js) so Sass treats it as a dependency and quietDeps can
+// silence its internal deprecation warnings.
+//
+// Now only this file is built, and postcss/rtlcss flips the result to RTL (see
+// the .scss rule in webpack.config.js). Our own app.css and gauge.css are
+// authored RTL-natively and are deliberately NOT run through that flip.
+//
+// `@use ... with` replaces the older "set variables, then @import" pattern;
+// @import is deprecated and disappears in Dart Sass 3.0.
+@use "bootstrap/scss/bootstrap" with (
+  $primary: #2196f3,
+  $success: #4caf50,
+  $info: #5bc0de,
+  $warning: #ff9800,
+  $danger: #e51c23
+);

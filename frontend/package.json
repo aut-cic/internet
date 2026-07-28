@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "tsc --noEmit"
   },
   "author": "Parham Alvani",
   "license": "GPL-3.0-or-later",
@@ -24,7 +26,13 @@
     "webpack-cli": "^7.0.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.5",
     "@types/bootstrap": "^5.2.10",
+    "css-minimizer-webpack-plugin": "^8.0.0",
+    "mini-css-extract-plugin": "^2.10.2",
+    "postcss": "^8.5.23",
+    "postcss-loader": "^8.2.1",
+    "rtlcss": "^4.3.0",
     "ts-loader": "^9.5.4",
     "typescript": "^6.0.3"
   }

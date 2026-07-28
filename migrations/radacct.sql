@@ -321,3 +321,47 @@ VALUES
     '',
     '172.23.181.148'
   );
+
+--
+-- Active sessions for local development, so /status is reachable in a browser
+-- without hand-crafting an X-Forwarded-For header.
+--
+-- The status route identifies you purely by source IP, and which address the
+-- app actually sees depends on how you run it:
+--
+--   * `just run` (uvicorn on the host)  -> 127.0.0.1, covered above
+--   * `docker compose --profile app up` -> the bridge gateway, NOT 127.0.0.1
+--
+-- Compose picks its subnet from Docker's default pool (172.17.0.0/16 upwards,
+-- or 192.168.65.0/24 on Docker Desktop for Mac), so the gateway varies with
+-- what other networks already exist. All of the usual candidates are seeded
+-- below; only the one matching your network is ever matched.
+--
+-- NULL acctstoptime is what marks a session as still active. Run
+-- `docker network inspect <project>_default --format '{{range .IPAM.Config}}{{.Gateway}}{{end}}'`
+-- if your gateway is not in this list.
+--
+INSERT INTO
+  `radacct` (
+    `radacctid`,
+    `acctsessionid`,
+    `acctuniqueid`,
+    `username`,
+    `nasipaddress`,
+    `acctstarttime`,
+    `acctupdatetime`,
+    `acctstoptime`,
+    `acctinputoctets`,
+    `acctoutputoctets`,
+    `calledstationid`,
+    `callingstationid`,
+    `framedipaddress`
+  )
+VALUES
+  (90000017, 'devgw17', 'dev-gateway-172-17-0-1', 'parham.alvani', '172.16.0.5', NOW(), NOW(), NULL, 49390730, 311386231, 'hotspot1', '6C:3B:6B:F0:0A:17', '172.17.0.1'),
+  (90000018, 'devgw18', 'dev-gateway-172-18-0-1', 'parham.alvani', '172.16.0.5', NOW(), NOW(), NULL, 49390730, 311386231, 'hotspot1', '6C:3B:6B:F0:0A:17', '172.18.0.1'),
+  (90000019, 'devgw19', 'dev-gateway-172-19-0-1', 'parham.alvani', '172.16.0.5', NOW(), NOW(), NULL, 49390730, 311386231, 'hotspot1', '6C:3B:6B:F0:0A:17', '172.19.0.1'),
+  (90000020, 'devgw20', 'dev-gateway-172-20-0-1', 'parham.alvani', '172.16.0.5', NOW(), NOW(), NULL, 49390730, 311386231, 'hotspot1', '6C:3B:6B:F0:0A:17', '172.20.0.1'),
+  (90000021, 'devgw21', 'dev-gateway-172-21-0-1', 'parham.alvani', '172.16.0.5', NOW(), NOW(), NULL, 49390730, 311386231, 'hotspot1', '6C:3B:6B:F0:0A:17', '172.21.0.1'),
+  (90000022, 'devgw22', 'dev-gateway-172-22-0-1', 'parham.alvani', '172.16.0.5', NOW(), NOW(), NULL, 49390730, 311386231, 'hotspot1', '6C:3B:6B:F0:0A:17', '172.22.0.1'),
+  (90000065, 'devgw65', 'dev-gateway-192-168-65-1', 'parham.alvani', '172.16.0.5', NOW(), NOW(), NULL, 49390730, 311386231, 'hotspot1', '6C:3B:6B:F0:0A:17', '192.168.65.1');

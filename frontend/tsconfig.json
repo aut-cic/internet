@@ -2,16 +2,15 @@
 {
   "compilerOptions": {
     "paths": {
-      "bootstrap/dist/js/bootstrap.min.js": [
-        "./node_modules/@types/bootstrap"
-      ]
+      "bootstrap/dist/js/bootstrap.min.js": ["./node_modules/@types/bootstrap"]
     },
+    "rootDir": "./src",
     "outDir": "./dist/",
+    "strict": true,
     "noImplicitAny": true,
     "module": "esnext",
     "target": "es2020",
-    "jsx": "react",
-    "allowJs": true,
     "moduleResolution": "bundler"
-  }
+  },
+  "include": ["src/**/*"]
 }
