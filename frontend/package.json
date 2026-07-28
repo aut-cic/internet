@@ -29,11 +29,11 @@
     "@biomejs/biome": "^2.5.5",
     "@types/bootstrap": "^5.2.10",
     "css-minimizer-webpack-plugin": "^8.0.0",
+    "esbuild-loader": "^4.5.0",
     "mini-css-extract-plugin": "^2.10.2",
     "postcss": "^8.5.23",
     "postcss-loader": "^8.2.1",
     "rtlcss": "^4.3.0",
-    "ts-loader": "^9.5.4",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   }
 }
