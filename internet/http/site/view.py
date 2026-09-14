@@ -8,7 +8,7 @@ import logging
 import time
 from typing import Annotated
 
-import httpx
+import httpx2
 from fastapi import APIRouter, Query, Request
 from fastapi.responses import RedirectResponse
 
@@ -39,12 +39,12 @@ async def logout(
     logout_url = urls.logout_urls[site]
 
     try:
-        async with httpx.AsyncClient() as client:
+        async with httpx2.AsyncClient() as client:
             if not await client.get(f"{logout_url}/{sid}"):
                 logger.error("logout request for %s failed", sid)
-    except (httpx.ConnectTimeout, httpx.ConnectError) as exception:
+    except (httpx2.ConnectTimeout, httpx2.ConnectError) as exception:
         logger.error("logout request for %s failed (%s)", sid, repr(exception))
-    except (httpx.ReadTimeout, httpx.ReadError) as exception:
+    except (httpx2.ReadTimeout, httpx2.ReadError) as exception:
         logger.error(
             "logout request success but there is an issue for reading %s (%s)",
             sid,

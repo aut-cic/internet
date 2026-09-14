@@ -10,7 +10,7 @@ dependencies = [
     "cryptography",
     "dynaconf",
     "fastapi",
-    "httpx",
+    "httpx2",
     "jdatetime",
     "jinja2",
     "prometheus-client",
