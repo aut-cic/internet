@@ -18,7 +18,7 @@ FROM python:3.14-alpine
 RUN apk --no-cache add build-base
 
 # Copy uv binary from the official image (pinned for reproducibility)
-COPY --from=ghcr.io/astral-sh/uv:0.11.23 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.12.23 /uv /uvx /bin/
 
 # uv runtime configuration
 ENV UV_COMPILE_BYTECODE=1 \
