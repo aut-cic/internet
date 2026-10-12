@@ -4,7 +4,7 @@ FastAPI application factory and configuration.
 
 import contextlib
 import logging
-from collections.abc import AsyncIterator
+from collections.abc import AsyncGenerator
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 @contextlib.asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     """
     Report what the process loaded, then dispose of the pool on shutdown.
     """
