@@ -18,7 +18,7 @@
     "chart.js": "^4.6.1",
     "css-loader": "^7.1.5",
     "sass": "^1.108.2",
-    "sass-loader": "^17.1.0",
+    "sass-loader": "^17.1.1",
     "style-loader": "^4.0.0",
     "svg-gauge": "^1.0.7",
     "vazirmatn": "^33.0.3",
@@ -32,7 +32,7 @@
     "esbuild-loader": "^4.5.0",
     "mini-css-extract-plugin": "^2.10.2",
     "postcss": "^8.5.33",
-    "postcss-loader": "^8.2.1",
+    "postcss-loader": "^8.2.2",
     "rtlcss": "^4.3.0",
     "typescript": "^7.0.2"
   }
