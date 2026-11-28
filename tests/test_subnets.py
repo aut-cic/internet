@@ -55,3 +55,14 @@ def test_lookup_prefers_a_faculty_over_the_wireless_catch_all() -> None:
 def test_lookup_resolves_both_vpn_pools() -> None:
     assert lookup("172.25.220.90") == "VPN"
     assert lookup("172.25.221.10") == "VPN"
+
+
+def test_each_subnet_is_listed_once() -> None:
+    # A second entry for the same range can never match, so its description
+    # is silently lost.
+    networks = [subnet.network for subnet in subnets()]
+    assert len(networks) == len(set(networks))
+
+
+def test_lookup_resolves_the_management_faculty() -> None:
+    assert lookup("172.23.104.10") == "دانشکده مدیریت، علم و فناوری"
