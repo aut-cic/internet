@@ -52,8 +52,9 @@ frontend, on every push. It builds/pushes the Docker image on tag pushes.
 Releases follow SemVer (`vMAJOR.MINOR.PATCH`). Package-only updates are a patch;
 notable-but-compatible build/runtime changes are a minor.
 
-The production host (`internet-prod.aut.infra`) is **air-gapped — it has no
-internet access**, so the image is built in CI, pulled/saved on a machine that
+The production host (`internet.aut.infra`, 172.25.154.54 — the name is in no
+DNS, so use the address) is **air-gapped — it has no internet access**, so the
+image is built in CI, pulled/saved on a machine that
 *does* have internet, copied over with `scp`, and `docker load`ed on the box.
 The deploy tooling lives in the sibling repo `../ansible`.
 
@@ -91,7 +92,7 @@ steps directly:
 ```bash
 docker pull ghcr.io/aut-cic/internet:vX.Y.Z --platform linux/amd64
 docker save -o internet-vX.Y.Z.tar.gz ghcr.io/aut-cic/internet:vX.Y.Z
-scp -C internet-vX.Y.Z.tar.gz internet-prod.aut.infra:/home/parham/
+scp -C internet-vX.Y.Z.tar.gz parham@172.25.154.54:/home/parham/
 ```
 
 A local Docker daemon is required (e.g. `colima start`).
@@ -99,7 +100,7 @@ A local Docker daemon is required (e.g. `colima start`).
 ### 4. Load and restart on the production host
 
 ```bash
-ssh internet-prod.aut.infra
+ssh parham@172.25.154.54
 docker load -i ~/internet-vX.Y.Z.tar.gz
 # bump the running tag (compose lives at ~/aut-cic/docker-compose.yml)
 sed -i -E 's#(ghcr\.io/aut-cic/internet:)[^"]+#\1vX.Y.Z#' ~/aut-cic/docker-compose.yml
